@@ -57,6 +57,135 @@ const caseVisualProfiles = {
   'dom-dynamics': { family: 'DOM EVENTS', diagram: 'dom' }
 };
 
+const caseAssociationProfiles = {
+  'candle-language': [
+    ['周期与位置', '先确定父级结构、观察窗口和交易时段'],
+    ['OHLC 压缩', '实体与影线只记录这一根 K 线的结果'],
+    ['前后柱接受', '用收盘位置与后续延续检查形态含义'],
+    ['结构确认', '形态必须回到位置和结构中才可使用']
+  ],
+  'timeframe-layers': [
+    ['父级地图', '先固定高周期方向与关键边界'],
+    ['子级路径', '低周期只负责展示父级区间内部过程'],
+    ['周期一致性', '检查回撤、反转或噪声属于哪个层级'],
+    ['交易周期闸门', '只用事先声明的周期做入场与失效判断']
+  ],
+  'order-basics': [
+    ['委托类型', '限价、市场与止损单决定不同执行路径'],
+    ['队列与深度', '前方数量和各档流动性限制可成交量'],
+    ['主动成交', '市场单逐档消耗对手方挂单'],
+    ['成交回报', '用实际数量、均价与滑点重算风险']
+  ],
+  'data-provenance': [
+    ['交易场所', '先确认成交来自哪个市场与合约'],
+    ['数据链路', '交易所、供应商与平台可能进行聚合'],
+    ['字段能力', '逐笔、深度与 Tick Volume 能回答不同问题'],
+    ['证据边界', '数据缺失时降低结论强度而不是补故事']
+  ],
+  'risk-r': [
+    ['失效条件', '先定义哪一个价格事实证明判断错误'],
+    ['止损距离', '入场到失效点的距离定义 1R'],
+    ['仓位与成本', '按账户风险反推数量并加入费用滑点'],
+    ['期望值闸门', '胜率、平均盈亏与成本共同决定是否有优势']
+  ],
+  'session-context': [
+    ['交易日时钟', '先区分 ETH、RTH 与夏令时规则'],
+    ['时段流动性', '开盘、重叠与清淡期具有不同参与强度'],
+    ['关键事件', '观察扫取发生在哪个时段以及谁重新接受'],
+    ['时段确认', '时间错位或样本不完整时不强行套用模式']
+  ],
+  'martingale-grid': [
+    ['网格边界', '先定义价格区间、层数与退出条件'],
+    ['加仓规则', '固定数量与倍增数量产生不同敞口曲线'],
+    ['均价变化', '均价靠近现价不等于风险同步下降'],
+    ['尾部压力', '用最大仓位、保证金与止损损失审查策略']
+  ],
+  'smc-map': [
+    ['HTF Bias', '父级结构先限定方向与研究范围'],
+    ['Liquidity / POI', '标记价格可能寻找的流动性与反应区'],
+    ['Sweep → MSS', '等待扫取、位移和结构变化形成触发'],
+    ['Flow 验证', '用成交推进、吸收或 Delta 检查假设']
+  ],
+  'structure-language': [
+    ['受保护摆动', '先声明哪个高低点维持当前结构'],
+    ['收盘破坏', '区分影线触碰与有效接受'],
+    ['位移 / MSS', '检查破坏是否伴随足够的方向性推进'],
+    ['回测确认', '回访不能重新恢复已经失效的旧结构']
+  ],
+  'liquidity-map': [
+    ['父级位置', '先确认流动性位于区间内部还是外部'],
+    ['Stops / Orders', '等高低点只是潜在订单聚集的代理'],
+    ['Sweep / Acceptance', '越界后快速收回与外侧建立价值必须区分'],
+    ['结构与 Flow', '用 MSS、位移和成交推进验证后续路径']
+  ],
+  'pd-arrays': [
+    ['结构来源', '先找到产生位移与失衡的真实结构事件'],
+    ['OB / FVG / Breaker', '区域名称来自其形成机制而非外观'],
+    ['回访反应', '观察首次触达、成交接受与离开速度'],
+    ['区域失效', '收破、重复消耗或结构改变会降低有效性']
+  ],
+  'hybrid-workflow': [
+    ['HTF Bias', '高周期只给方向和禁止交易的边界'],
+    ['Liquidity + POI', '等待价格进入有理由研究的区域'],
+    ['Sweep / MSS / Retest', '结构事件把位置假设转成候选触发'],
+    ['Footprint / Delta', '成交证据决定确认、否定或继续等待']
+  ],
+  'liquidity-nesting': [
+    ['父级区间', '先固定外部高低点和主研究坐标'],
+    ['内部流动性', '子级等高低点可能只是路径中的诱导'],
+    ['内部扫取', '观察扫取后是否重新指向父级目标'],
+    ['外部到达', '外部突破后必须重建区间与流动性地图']
+  ],
+  'dealing-range': [
+    ['固定锚点', '只用已经确认的摆动高低点建立区间'],
+    ['Premium / Discount', '上半、下半只是区间内相对坐标'],
+    ['结构与流动性', '位置必须与方向、目标和反应证据组合'],
+    ['锚点失效', '边界改变时整体重算，不能只移动有利端']
+  ],
+  'auction-engine': [
+    ['可见深度', 'Bid / Ask 各档显示当前可见流动性'],
+    ['主动订单', '买方或卖方主动跨价寻找成交'],
+    ['消耗或吸收', '比较成交数量与实际价格推进'],
+    ['执行影响', '跨档、补单与撤单共同改变成交均价']
+  ],
+  'footprint-reading': [
+    ['结构假设', '先说明为什么研究这个位置而非任意 K 线'],
+    ['Bid × Ask', '逐价比较主动卖出与主动买入成交'],
+    ['Imbalance', '不平衡必须对应连续档位和价格结果'],
+    ['价格确认', '有推进才确认；无推进可能是吸收或冲突']
+  ],
+  'delta-context': [
+    ['位置与方向', '先把 Delta 放回结构和关键价格区域'],
+    ['主动成交差', 'Delta 只描述主动买卖成交的净差'],
+    ['价格响应', '比较成交压力是否真正推动价格'],
+    ['背离闸门', '背离是观察问题，不是自动反转信号']
+  ],
+  'confluence-lab': [
+    ['HTF + Liquidity', '父级方向和流动性目标形成交易假设'],
+    ['POI + MSS', '位置与结构触发限定候选入场'],
+    ['Flow Confirmation', 'Footprint、Delta 与推进检查真实成交'],
+    ['净 RR', '确认后再计入止损、滑点和剩余目标空间']
+  ],
+  'volume-profile': [
+    ['历史分布', '先标记旧 Value Area、HVN、LVN 与 POC'],
+    ['离开旧价值', '突破本身不等于市场已接受新价格'],
+    ['成交重心', '观察 VPOC 与 Value Area 是否持续迁移'],
+    ['接受分类', '区外建立价值、回到旧价值或证据冲突']
+  ],
+  'footprint-auctions': [
+    ['极值位置', '先确认高低点处于哪一层拍卖边界'],
+    ['终端打印', '观察 Excess、零打印或 Unfinished Auction'],
+    ['离开质量', '比较极值后的速度、失衡与价格推进'],
+    ['后续验证', '回补不是必然，结构接受决定解释']
+  ],
+  'dom-dynamics': [
+    ['t0 挂单', '记录某档深度出现时的初始快照'],
+    ['t1 事件', '区分主动成交、撤单、叠加与补充'],
+    ['t2 队列', '观察同一价格档的数量和排队如何变化'],
+    ['价格结果', '只有事件序列加实际推进才支持行为解释']
+  ]
+};
+
 const glossaryLessonGroups = {
   'candle-language': ['Candlestick', 'OHLC'],
   'timeframe-layers': ['Timeframe'],
@@ -633,7 +762,24 @@ function renderMartingaleCase(outcome) {
   </g>`;
 }
 
+function renderCrossSystemCase(outcome) {
+  const valid = outcome === 'valid';
+  const conflict = outcome === 'conflict';
+  const gateLabel = valid ? '净 2.1R · 执行' : conflict ? '证据冲突 · 等待' : '净值不足 · 放弃';
+  return `<g class="case-diagram-cross-system">
+    <g transform="translate(26,82)"><rect class="case-diagram-panel" width="142" height="208"></rect><text class="case-diagram-small" x="14" y="30">01 · STRUCTURE</text><text class="case-diagram-label" x="14" y="60">HTF Bias</text><polyline class="case-structure-path" points="14,164 44,126 70,148 100,94 128,116"></polyline><line class="case-break-level" x1="76" y1="118" x2="130" y2="118"></line><text class="case-diagram-small" x="14" y="190">父级方向 + 保护点</text></g>
+    ${caseArrow(168,186,202,186)}
+    <g transform="translate(202,82)"><rect class="case-diagram-panel" width="142" height="208"></rect><text class="case-diagram-small" x="14" y="30">02 · LIQUIDITY</text><text class="case-diagram-label" x="14" y="60">Sweep / POI</text><line class="case-liquidity-level" x1="14" y1="126" x2="128" y2="126"></line><circle class="case-liquidity-point" cx="34" cy="126" r="5"></circle><circle class="case-liquidity-point" cx="64" cy="126" r="5"></circle><circle class="case-liquidity-point" cx="94" cy="126" r="5"></circle><path class="case-liquidity-sweep" d="M 94 90 L 110 146 L 126 106"></path><text class="case-diagram-small" x="14" y="190">扫取后收回关键区</text></g>
+    ${caseArrow(344,186,378,186)}
+    <g transform="translate(378,82)"><rect class="case-diagram-panel ${valid ? '' : 'result'}" width="142" height="208"></rect><text class="case-diagram-small" x="14" y="30">03 · ORDER FLOW</text><text class="case-diagram-label" x="14" y="60">Bid × Ask</text><rect class="case-footprint-bid" x="16" y="82" width="48" height="30"></rect><rect class="case-footprint-ask" x="66" y="82" width="60" height="30"></rect><rect class="case-footprint-bid" x="16" y="114" width="70" height="30"></rect><rect class="case-footprint-ask" x="88" y="114" width="38" height="30"></rect><text class="case-diagram-small" x="40" y="103" text-anchor="middle">${valid ? '42' : '96'}</text><text class="case-diagram-small" x="96" y="103" text-anchor="middle">${valid ? '118' : '44'}</text><text class="case-diagram-small" x="51" y="135" text-anchor="middle">${valid ? '38' : '122'}</text><text class="case-diagram-small" x="107" y="135" text-anchor="middle">${valid ? '106' : '31'}</text><text class="case-diagram-small" x="14" y="190">${valid ? '买方推进确认' : '卖方仍在推进'}</text></g>
+    ${caseArrow(520,186,554,186)}
+    <g transform="translate(554,82)"><rect class="case-diagram-panel result" width="140" height="208"></rect><text class="case-diagram-small" x="14" y="30">04 · RISK GATE</text><text class="case-diagram-label" x="14" y="60">Entry / SL / TP</text><line class="case-risk-axis" x1="26" y1="86" x2="26" y2="164"></line><rect class="case-reward-band" x="26" y="82" width="92" height="9"></rect><rect class="case-risk-band" x="26" y="160" width="56" height="9"></rect><text class="case-diagram-small" x="38" y="108">TP ${valid ? '104' : '101'}</text><text class="case-diagram-small" x="38" y="140">ENTRY 100</text><text class="case-diagram-small" x="38" y="178">SL 98</text><text class="case-diagram-small" x="14" y="198">${gateLabel}</text></g>
+    <text class="case-diagram-value" x="360" y="326" text-anchor="middle">${valid ? 'STRUCTURE 假设 → FLOW 验证 → RISK 许可' : conflict ? '结构与成交不一致 → 不交易' : '证据或净 R 不合格 → 放弃'}</text>
+  </g>`;
+}
+
 function renderWorkflowCase(outcome, lessonId) {
+  if (lessonId === 'hybrid-workflow' || lessonId === 'confluence-lab') return renderCrossSystemCase(outcome);
   const conflict = outcome !== 'valid';
   const labels = lessonId === 'confluence-lab' ? ['位置与结构','成交证据','风险许可'] : lessonId === 'hybrid-workflow' ? ['父级方向','位置 + 时段','低级触发'] : ['父级方向','Discount POI','Sweep + MSS'];
   return `<g class="case-diagram-workflow">
@@ -777,6 +923,36 @@ function renderCaseConceptSvg(profile, lessonId, caseItem, outcome) {
   return caseDiagramBase(profile, outcome, (renderers[profile.diagram] || renderers.workflow)());
 }
 
+function renderCaseAssociationMap(lessonId, outcome) {
+  const roles = ['CONTEXT · 背景', 'HYPOTHESIS · 假设对象', 'EVIDENCE · 可观察证据', 'GATE · 决策闸门'];
+  const profile = caseAssociationProfiles[lessonId] || [
+    ['研究背景', '先声明周期、位置与能够观察的数据'],
+    ['候选假设', '把观点写成可以被证据否定的命题'],
+    ['证据变化', '记录真正改变判断的市场事实'],
+    ['决策条件', '确认、失效与冲突必须有不同动作']
+  ];
+  const outcomeNode = outcome === 'valid'
+    ? ['ACTION · 执行与风险', '条件成立', '按实际成交、失效距离和剩余目标空间计算仓位与净 R']
+    : outcome === 'failed'
+      ? ['ACTION · 放弃原判断', '原判断失效', '停止沿用旧标签；记录失效事实，再重新建立地图']
+      : ['ACTION · 等待', '证据冲突', '不把分歧强行解释成合流；在证据一致前不交易'];
+  const nodes = profile.map((item, index) => ({ role: roles[index], title: item[0], detail: item[1] }))
+    .concat({ role: outcomeNode[0], title: outcomeNode[1], detail: outcomeNode[2], result: true });
+  return html`
+    <section class="case-association-map" aria-label="跨体系因果关联图">
+      <header><small>01 · CROSS-SYSTEM CAUSAL BRIDGE</small><p>从研究背景到最终行动：每个箭头表示后一项必须读取前一项，不能跳过中间证据。</p></header>
+      <ol>
+        ${nodes.map((node, index) => html`
+          <li class="${node.result ? 'association-result' : ''}">
+            <span>${String(index + 1).padStart(2, '0')}</span>
+            <small>${escapeHtml(node.role)}</small>
+            <b>${escapeHtml(node.title)}</b>
+            <p>${escapeHtml(node.detail)}</p>
+          </li>`).join('')}
+      </ol>
+    </section>`;
+}
+
 function renderCaseFigure(lessonId, caseItem, index, scope = 'micro') {
   const profile = caseVisualProfiles[lessonId] || { family: 'DECISION FLOW', diagram: 'workflow' };
   const outcome = caseVisualOutcome(caseItem, index, scope);
@@ -786,6 +962,8 @@ function renderCaseFigure(lessonId, caseItem, index, scope = 'micro') {
   const caption = `图解目的：用与“${caseItem.title}”直接相关的${profile.family}机制，连接开始条件、关键变化与最后结果。`;
   return html`
     <figure class="case-instance-figure visual-${outcome} diagram-${profile.diagram}" style="--case-accent:${accent}">
+      ${renderCaseAssociationMap(lessonId, outcome)}
+      <div class="case-mechanism-label"><small>02 · CONCEPT EVIDENCE PLATE</small><p>放大本案例最关键的局部机制；它为上面的因果链提供证据，不单独构成交易指令。</p></div>
       <svg class="case-concept-svg" viewBox="0 0 720 360" role="img" aria-label="${escapeHtml(title)}">
         <title>${escapeHtml(title)}；教学机制图，不是历史行情。</title>
         <desc>${stages.map((stage) => `${stage.number} ${stage.title}：${stage.text}`).join('；')}</desc>

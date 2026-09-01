@@ -537,6 +537,18 @@
 - User clarified that mobile is not a target; desktop reading quality and semantic fidelity are the release criteria. Existing responsive behavior remains, but no content or typography is compressed to optimize for phones.
 - Pushed implementation commit `feb6794` to `origin/main`, fast-forwarded both `/root/Glearn` and the live `/opt/glearn` checkout, and restarted `glearn.service`.
 - Server-local release verification passes: service active/enabled under user `glearn`, both checkouts at `feb6794`, `http://127.0.0.1:4173/` returns HTTP 200, and the served bundle contains the `concept-diagrams-2` revision plus the new mechanism renderer and styles.
+
+### 2026-09-01 — Desktop cross-system association maps
+
+- **Status:** in progress.
+- The previous release implemented concept-specific mechanism plates, but did not yet implement the referenced multi-system causal chain that connects SMC/ICT hypothesis, Order Flow evidence, execution, and risk inside the same case.
+- Architectural direction: one semantic ordered list in the renderer, lesson-specific labels in data, and CSS-only desktop grid/reflow. No parallel mobile HTML and no mobile-driven typography compromises.
+- Added 21 lesson-specific causal profiles and one shared semantic renderer. Every worked case now connects context, hypothesis, observable evidence, decision gate, and outcome-aware action before its local mechanism plate.
+- Changed the desktop microcase book from two narrow columns to one full-width case per row so a five-node bridge, mechanism diagram, temporal stages, facts, and reasoning can remain readable together.
+- CSS owns every layout decision: five causal columns at the desktop baseline, container-query reflow only when the case itself becomes narrow, and no duplicated markup.
+- `npm run check`, `npm test` (3/3), and `git diff --check` pass after the implementation pass.
+- Added a four-panel integrated evidence plate for the Hybrid and Confluence lessons: structure, liquidity/POI, Footprint/Delta, and Entry/SL/TP risk now coexist in the same linked chart, with valid and conflict variants.
+- Desktop browser QA at 1440×900 confirms the full-width 1160px case dossier, lesson-specific chain content, integrated cross-system plate, zero overflow, and a clean console.
 - Visual QA passes for the Footprint family. Batched captures of the remaining families did not reach the casebook after late layout expansion, so focused delayed captures remain pending.
 - Visual QA passes for the DOM-event family. Risk-route scrolling remains under diagnosis; no repeated fixed-delay retry will be used.
 - Visual QA now passes for the risk/expectancy family after inspecting live geometry and capturing the settled viewport.
