@@ -33,48 +33,28 @@ const state = {
 
 const html = String.raw;
 
-const caseVisualPatterns = {
-  up: [24, 31, 28, 38, 35, 48, 45, 59, 56, 70, 67, 82],
-  down: [82, 75, 78, 66, 69, 57, 60, 47, 51, 39, 42, 28],
-  sweepUp: [48, 43, 39, 25, 46, 55, 52, 65, 61, 75, 72, 84],
-  sweepDown: [58, 64, 70, 86, 65, 56, 60, 46, 50, 37, 40, 28],
-  acceptUp: [28, 34, 39, 51, 57, 64, 61, 69, 66, 75, 73, 80],
-  acceptDown: [80, 74, 67, 56, 49, 42, 45, 36, 39, 30, 33, 24],
-  falseUp: [30, 36, 43, 55, 68, 80, 66, 55, 48, 40, 34, 29],
-  falseDown: [78, 70, 62, 49, 34, 20, 37, 50, 58, 67, 73, 79],
-  range: [43, 56, 47, 61, 52, 65, 49, 58, 45, 62, 51, 57],
-  conflict: [46, 58, 43, 64, 49, 60, 45, 63, 48, 57, 44, 54],
-  spike: [49, 47, 45, 18, 76, 51, 48, 54, 50, 52, 49, 51],
-  retestUp: [28, 38, 49, 62, 75, 68, 57, 48, 60, 69, 78, 86],
-  retestDown: [82, 72, 61, 48, 35, 42, 53, 62, 50, 41, 33, 24],
-  decay: [32, 45, 56, 50, 60, 53, 61, 55, 59, 50, 43, 34],
-  absorbUp: [52, 45, 37, 29, 28, 30, 32, 45, 58, 66, 74, 81],
-  absorbDown: [48, 56, 65, 73, 74, 72, 69, 57, 46, 38, 31, 24],
-  exposure: [78, 70, 61, 53, 44, 35, 29, 24, 21, 18, 16, 15]
-};
-
 const caseVisualProfiles = {
-  'candle-language': { family: 'PRICE / OHLC', band: '父级观察区', evidence: '实体与影线路径', micro: ['sweepUp', 'spike'] },
-  'timeframe-layers': { family: 'MULTI-TIMEFRAME', band: '父级结构', evidence: '低周期路径', micro: ['down', 'conflict'] },
-  'order-basics': { family: 'EXECUTION', band: '可成交队列', evidence: '深度与滑点', micro: ['range', 'down'] },
-  'data-provenance': { family: 'DATA PROVENANCE', band: '证据边界', evidence: '来源可比性', micro: ['absorbUp', 'conflict'] },
-  'risk-r': { family: 'RISK / EXPECTANCY', band: '1R 风险带', evidence: '盈亏贡献', micro: ['up', 'falseUp'] },
-  'session-context': { family: 'SESSION PATH', band: '时段边界', evidence: 'ETH / RTH 状态', micro: ['sweepUp', 'conflict'] },
-  'martingale-grid': { family: 'EXPOSURE PATH', band: '网格范围', evidence: '累计仓位', micro: ['range', 'exposure'] },
-  'smc-map': { family: 'SMC MAP', band: '父级 POI', evidence: '位置与触发', micro: ['retestUp', 'conflict'] },
-  'structure-language': { family: 'MARKET STRUCTURE', band: '受保护摆动', evidence: 'BOS / CHoCH', micro: ['up', 'conflict'], textbook: ['down', 'spike', 'conflict'] },
-  'liquidity-map': { family: 'LIQUIDITY PATH', band: '外侧流动性', evidence: 'Sweep / Acceptance', micro: ['sweepUp', 'acceptUp'], textbook: ['sweepDown', 'acceptUp', 'conflict'] },
-  'pd-arrays': { family: 'ZONE LIFECYCLE', band: 'OB / FVG 区域', evidence: '回访与失效', micro: ['retestUp', 'decay'], textbook: ['retestUp', 'range', 'conflict'] },
-  'hybrid-workflow': { family: 'TOP-DOWN FLOW', band: '主时段 POI', evidence: '方向 / 位置 / 时序', micro: ['retestUp', 'conflict'] },
-  'liquidity-nesting': { family: 'NESTED LIQUIDITY', band: '父级区间', evidence: '内部 → 外部', micro: ['sweepUp', 'acceptUp'] },
-  'dealing-range': { family: 'DEALING RANGE', band: 'Premium / Discount', evidence: '锚点与 EQ', micro: ['retestUp', 'conflict'] },
-  'auction-engine': { family: 'AUCTION / DEPTH', band: 'Bid / Ask 队列', evidence: '成交与价格冲击', micro: ['up', 'absorbUp'] },
-  'footprint-reading': { family: 'FOOTPRINT', band: '关键价格行', evidence: 'Bid × Ask 不平衡', micro: ['up', 'absorbDown'] },
-  'delta-context': { family: 'DELTA / PRICE', band: '结构边界', evidence: 'Delta 与价格进展', micro: ['absorbUp', 'acceptUp'] },
-  'confluence-lab': { family: 'CONFLUENCE GATE', band: '预设执行区', evidence: 'Flow 与净风险', micro: ['absorbUp', 'down'], textbook: ['absorbUp', 'absorbDown', 'down'] },
-  'volume-profile': { family: 'VOLUME PROFILE', band: 'Value Area', evidence: 'POC / 价值迁移', micro: ['range', 'acceptDown'], textbook: ['acceptUp', 'falseUp', 'conflict'] },
-  'footprint-auctions': { family: 'AUCTION EXTREME', band: '拍卖极值', evidence: 'Excess / Imbalance', micro: ['sweepUp', 'down'] },
-  'dom-dynamics': { family: 'DOM EVENTS', band: '盘口关键档', evidence: '补单 / 撤单 / 成交', micro: ['absorbUp', 'conflict'] }
+  'candle-language': { family: 'PRICE / OHLC', diagram: 'ohlc' },
+  'timeframe-layers': { family: 'MULTI-TIMEFRAME', diagram: 'timeframe' },
+  'order-basics': { family: 'EXECUTION', diagram: 'execution' },
+  'data-provenance': { family: 'DATA PROVENANCE', diagram: 'provenance' },
+  'risk-r': { family: 'RISK / EXPECTANCY', diagram: 'risk' },
+  'session-context': { family: 'SESSION CLOCK', diagram: 'session' },
+  'martingale-grid': { family: 'EXPOSURE LADDER', diagram: 'martingale' },
+  'smc-map': { family: 'SMC MAP', diagram: 'workflow' },
+  'structure-language': { family: 'MARKET STRUCTURE', diagram: 'structure' },
+  'liquidity-map': { family: 'LIQUIDITY MAP', diagram: 'liquidity' },
+  'pd-arrays': { family: 'ZONE LIFECYCLE', diagram: 'zones' },
+  'hybrid-workflow': { family: 'TOP-DOWN FLOW', diagram: 'workflow' },
+  'liquidity-nesting': { family: 'NESTED LIQUIDITY', diagram: 'nesting' },
+  'dealing-range': { family: 'DEALING RANGE', diagram: 'range' },
+  'auction-engine': { family: 'AUCTION / DEPTH', diagram: 'orderbook' },
+  'footprint-reading': { family: 'FOOTPRINT', diagram: 'footprint' },
+  'delta-context': { family: 'DELTA / PRICE', diagram: 'delta' },
+  'confluence-lab': { family: 'CONFLUENCE GATE', diagram: 'workflow' },
+  'volume-profile': { family: 'VOLUME PROFILE', diagram: 'profile' },
+  'footprint-auctions': { family: 'AUCTION EXTREME', diagram: 'auction-extreme' },
+  'dom-dynamics': { family: 'DOM EVENTS', diagram: 'dom' }
 };
 
 const glossaryLessonGroups = {
@@ -526,8 +506,8 @@ function renderTextbookChapter(lesson, chapter) {
 
 function caseVisualOutcome(caseItem, index, scope) {
   const label = `${caseItem.type || ''} ${caseItem.title || ''}`;
-  if (/冲突|无交易|不可证明|误区|失控/.test(label) || (scope === 'textbook' && index === 2)) return 'conflict';
-  if (/失败|反例|衰减|风险放大|越界|尾部/.test(label) || (scope === 'textbook' && index === 1)) return 'failed';
+  if (/冲突|无交易|不可证明|误区|失控|过拟合|假警报/.test(label) || (scope === 'textbook' && index === 2)) return 'conflict';
+  if (/失败|反例|衰减|风险放大|越界|尾部|失效|偏差/.test(label) || (scope === 'textbook' && index === 1)) return 'failed';
   return 'valid';
 }
 
@@ -557,87 +537,264 @@ function caseStageStory(caseItem, outcome) {
   ];
 }
 
+function caseDiagramBase(profile, outcome, content) {
+  const stateLabel = outcome === 'valid' ? '条件成立' : outcome === 'failed' ? '原判断失效' : '证据冲突 / 等待';
+  return `<rect class="case-diagram-bg" x="0" y="0" width="720" height="360"></rect>
+    <text class="case-diagram-kicker" x="30" y="30">${escapeHtml(profile.family)}</text>
+    <text class="case-diagram-state" x="690" y="30" text-anchor="end">${stateLabel}</text>
+    <line class="case-diagram-rule" x1="30" y1="48" x2="690" y2="48"></line>
+    <line class="case-diagram-divider" x1="240" y1="58" x2="240" y2="338"></line>
+    <line class="case-diagram-divider" x1="480" y1="58" x2="480" y2="338"></line>
+    <g class="case-diagram-stage"><circle cx="48" cy="76" r="16"></circle><text x="48" y="82" text-anchor="middle">01</text><text x="74" y="82">开始</text></g>
+    <g class="case-diagram-stage"><circle cx="288" cy="76" r="16"></circle><text x="288" y="82" text-anchor="middle">02</text><text x="314" y="82">关键变化</text></g>
+    <g class="case-diagram-stage"><circle cx="528" cy="76" r="16"></circle><text x="528" y="82" text-anchor="middle">03</text><text x="554" y="82">最后</text></g>
+    ${content}`;
+}
+
+function caseArrow(x1, y1, x2, y2) {
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const size = 9;
+  const leftX = x2 - size * Math.cos(angle - Math.PI / 6);
+  const leftY = y2 - size * Math.sin(angle - Math.PI / 6);
+  const rightX = x2 - size * Math.cos(angle + Math.PI / 6);
+  const rightY = y2 - size * Math.sin(angle + Math.PI / 6);
+  return `<line class="case-diagram-arrow" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"></line><path class="case-diagram-arrowhead" d="M ${leftX} ${leftY} L ${x2} ${y2} L ${rightX} ${rightY}"></path>`;
+}
+
+function renderOhlcCase(outcome) {
+  const failed = outcome !== 'valid';
+  return `<g class="case-diagram-ohlc">
+    <text class="case-diagram-label" x="42" y="116">父级位置</text><rect class="case-diagram-zone" x="42" y="134" width="164" height="112"></rect><text class="case-diagram-small" x="124" y="198" text-anchor="middle">区间下沿</text>
+    <line class="case-candle-wick" x1="360" y1="118" x2="360" y2="286"></line><rect class="case-candle-body" x="326" y="170" width="68" height="70"></rect><text class="case-diagram-small" x="404" y="126">H · 108</text><text class="case-diagram-small" x="404" y="184">C · ${failed ? '199' : '103'}</text><text class="case-diagram-small" x="404" y="238">O · ${failed ? '200' : '101'}</text><text class="case-diagram-small" x="404" y="292">L · ${failed ? '190' : '98'}</text>
+    <rect class="case-diagram-panel" x="520" y="122" width="154" height="144"></rect><text class="case-diagram-label" x="597" y="158" text-anchor="middle">${failed ? '点差 ×5' : '收回区间'}</text><text class="case-diagram-value" x="597" y="210" text-anchor="middle">${failed ? '不确认' : '等待后柱'}</text><text class="case-diagram-small" x="597" y="244" text-anchor="middle">${failed ? '形状被新闻污染' : '形状不是指令'}</text>
+  </g>`;
+}
+
+function renderTimeframeCase(outcome) {
+  const conflict = outcome !== 'valid';
+  const childBars = [0,1,2,3].map((item) => `<g transform="translate(${278 + item * 44},0)"><line class="case-candle-wick" x1="0" y1="142" x2="0" y2="272"></line><rect class="${item % 2 ? 'case-candle-body negative' : 'case-candle-body'}" x="-13" y="${160 + item * 14}" width="26" height="58"></rect></g>`).join('');
+  return `<g class="case-diagram-timeframe">
+    <rect class="case-diagram-panel" x="46" y="122" width="154" height="164"></rect><text class="case-diagram-label" x="123" y="156" text-anchor="middle">${conflict ? '1 小时 / 15 分' : '日线父级'}</text><line class="case-candle-wick" x1="123" y1="176" x2="123" y2="262"></line><rect class="case-candle-body" x="99" y="196" width="48" height="48"></rect><text class="case-diagram-small" x="123" y="310" text-anchor="middle">先固定背景</text>
+    ${childBars}<path class="case-diagram-bracket" d="M 274 126 L 274 112 L 430 112 L 430 126"></path><text class="case-diagram-small" x="352" y="304" text-anchor="middle">${conflict ? '切到 30 秒找反向标签' : '5 分钟只是父级内部路径'}</text>
+    <rect class="case-diagram-panel result" x="520" y="128" width="158" height="142"></rect><text class="case-diagram-label" x="599" y="165" text-anchor="middle">父子关系</text><text class="case-diagram-value" x="599" y="215" text-anchor="middle">${conflict ? '结论后选周期' : '父级仍完整'}</text><text class="case-diagram-small" x="599" y="248" text-anchor="middle">${conflict ? '放弃该次交易' : '低周期只负责触发'}</text>
+  </g>`;
+}
+
+function renderExecutionCase(outcome) {
+  if (outcome === 'failed') {
+    const rows = [[98,'5 手'],[97.8,'8 手'],[97.6,'20 手']];
+    return `<g class="case-diagram-execution">
+      <rect class="case-diagram-panel" x="50" y="128" width="148" height="136"></rect><text class="case-diagram-small" x="124" y="160" text-anchor="middle">多头止损触发</text><text class="case-diagram-value" x="124" y="216" text-anchor="middle">98.0</text><text class="case-diagram-small" x="124" y="246" text-anchor="middle">触发价 ≠ 成交价</text>
+      <text class="case-diagram-small" x="276" y="118">Bid 深度</text>${rows.map(([price,size],i)=>`<g transform="translate(276,${136+i*55})"><rect class="case-depth-track" width="166" height="40"></rect><rect class="case-depth-fill negative" width="${34+i*45}" height="40"></rect><text class="case-diagram-small" x="10" y="27">${price}</text><text class="case-diagram-small" x="156" y="27" text-anchor="end">${size}</text></g>`).join('')}${caseArrow(360,126,360,294)}
+      <rect class="case-diagram-panel result" x="522" y="128" width="154" height="150"></rect><text class="case-diagram-small" x="599" y="160" text-anchor="middle">跨三档成交</text><text class="case-diagram-value" x="599" y="214" text-anchor="middle">均价 97.6</text><text class="case-diagram-small" x="599" y="250" text-anchor="middle">滑点 0.4</text>
+    </g>`;
+  }
+  return `<g class="case-diagram-execution">
+    <text class="case-diagram-small" x="44" y="120">买入限价 · 100</text><rect class="case-queue-ahead" x="44" y="142" width="124" height="54"></rect><rect class="case-queue-own" x="168" y="142" width="40" height="54"></rect><text class="case-diagram-small" x="106" y="176" text-anchor="middle">前方 80 手</text><text class="case-diagram-small" x="188" y="176" text-anchor="middle">20</text><text class="case-diagram-small" x="126" y="230" text-anchor="middle">先到先成交</text>
+    <rect class="case-diagram-panel" x="278" y="136" width="164" height="64"></rect><text class="case-diagram-label" x="360" y="176" text-anchor="middle">卖单打入 90 手</text>${caseArrow(360,208,360,278)}<rect class="case-queue-filled" x="278" y="278" width="146" height="34"></rect><rect class="case-queue-own" x="424" y="278" width="18" height="34"></rect><text class="case-diagram-small" x="360" y="266" text-anchor="middle">80 + 10</text>
+    <rect class="case-diagram-panel result" x="522" y="128" width="154" height="150"></rect><text class="case-diagram-small" x="599" y="162" text-anchor="middle">实际成交</text><text class="case-diagram-value" x="599" y="214" text-anchor="middle">10 / 20 手</text><text class="case-diagram-small" x="599" y="250" text-anchor="middle">价格碰到 ≠ 全部成交</text>
+  </g>`;
+}
+
+function renderProvenanceCase(outcome) {
+  const valid = outcome === 'valid';
+  return `<g class="case-diagram-provenance">
+    <rect class="case-diagram-panel" x="46" y="124" width="164" height="70"></rect><text class="case-diagram-label" x="128" y="166" text-anchor="middle">${valid ? '交易所逐笔' : '经纪商 A'}</text><rect class="case-diagram-panel" x="46" y="214" width="164" height="70"></rect><text class="case-diagram-label" x="128" y="256" text-anchor="middle">${valid ? '成交量 4,000' : '经纪商 B'}</text>
+    ${caseArrow(214,160,286,160)}${caseArrow(214,250,286,250)}<rect class="case-diagram-zone" x="286" y="126" width="154" height="156"></rect><text class="case-diagram-label" x="363" y="170" text-anchor="middle">数据边界</text><text class="case-diagram-value" x="363" y="218" text-anchor="middle">${valid ? '真实成交' : '报价更新'}</text><text class="case-diagram-small" x="363" y="252" text-anchor="middle">${valid ? '同一集中市场' : '口径各自不同'}</text>
+    ${caseArrow(444,204,518,204)}<rect class="case-diagram-panel result" x="518" y="126" width="162" height="156"></rect><text class="case-diagram-label" x="599" y="165" text-anchor="middle">可得结论</text><text class="case-diagram-value" x="599" y="214" text-anchor="middle">${valid ? '可谈吸收' : '不能相加'}</text><text class="case-diagram-small" x="599" y="252" text-anchor="middle">${valid ? '仍需价格结果确认' : 'Tick ≠ 全市场手数'}</text>
+  </g>`;
+}
+
+function renderRiskCase(outcome) {
+  const valid = outcome === 'valid';
+  const expectancy = valid ? '+0.16R' : '−0.49R';
+  return `<g class="case-diagram-risk">
+    <line class="case-risk-axis" x1="70" y1="142" x2="210" y2="142"></line><line class="case-risk-axis" x1="70" y1="220" x2="210" y2="220"></line><line class="case-risk-axis" x1="70" y1="298" x2="210" y2="298"></line><text class="case-diagram-small" x="48" y="148">目标</text><text class="case-diagram-small" x="48" y="226">入场</text><text class="case-diagram-small" x="48" y="304">止损</text><rect class="case-reward-band" x="136" y="142" width="42" height="78"></rect><rect class="case-risk-band" x="136" y="220" width="42" height="78"></rect><text class="case-diagram-value" x="157" y="190" text-anchor="middle">${valid ? '2R' : '3R'}</text><text class="case-diagram-value" x="157" y="270" text-anchor="middle">1R</text>
+    <rect class="case-diagram-panel" x="274" y="126" width="168" height="166"></rect><text class="case-diagram-small" x="358" y="160" text-anchor="middle">实际样本</text><text class="case-diagram-label" x="358" y="202" text-anchor="middle">胜率 ${valid ? '45%' : '22%'}</text><text class="case-diagram-label" x="358" y="238" text-anchor="middle">均赢 ${valid ? '1.8R' : '2.2R'}</text><text class="case-diagram-small" x="358" y="272" text-anchor="middle">含成本 ${valid ? '0.1R' : '0.12R'}</text>
+    <rect class="case-diagram-panel result" x="518" y="126" width="162" height="166"></rect><text class="case-diagram-small" x="599" y="164" text-anchor="middle">每笔期望</text><text class="case-diagram-value" x="599" y="222" text-anchor="middle">${expectancy}</text><text class="case-diagram-small" x="599" y="260" text-anchor="middle">${valid ? '计划与实现共同评估' : '漂亮盈亏比仍可亏钱'}</text>
+  </g>`;
+}
+
+function renderSessionCase(outcome) {
+  const valid = outcome === 'valid';
+  return `<g class="case-diagram-session">
+    <line class="case-session-axis" x1="52" y1="204" x2="676" y2="204"></line><rect class="case-session-eth" x="52" y="154" width="178" height="100"></rect><rect class="case-session-open" x="240" y="136" width="228" height="136"></rect><rect class="case-session-rth" x="478" y="154" width="198" height="100"></rect><text class="case-diagram-label" x="141" y="190" text-anchor="middle">ETH</text><text class="case-diagram-small" x="141" y="226" text-anchor="middle">${valid ? '扫过隔夜低点' : '固定 UTC 时钟'}</text><text class="case-diagram-label" x="354" y="182" text-anchor="middle">RTH OPEN</text><text class="case-diagram-value" x="354" y="228" text-anchor="middle">${valid ? '重新收回' : 'DST +1h'}</text><text class="case-diagram-label" x="577" y="190" text-anchor="middle">${valid ? '接受在开盘区上方' : '观察窗错位'}</text><text class="case-diagram-small" x="577" y="226" text-anchor="middle">${valid ? '时段赋予路径含义' : '本次不交易'}</text>
+  </g>`;
+}
+
+function renderMartingaleCase(outcome) {
+  const failed = outcome === 'failed';
+  const sizes = failed ? [1,2,4,8,16,32] : [1,1,1];
+  const rows = sizes.map((size,i)=>`<g transform="translate(274,${112+i*34})"><text class="case-diagram-small" x="0" y="23">第 ${i+1} 层</text><rect class="case-exposure-track" x="58" y="4" width="136" height="24"></rect><rect class="case-exposure-fill" x="58" y="4" width="${Math.max(12,size/32*136)}" height="24"></rect><text class="case-diagram-small" x="208" y="23">${size}</text></g>`).join('');
+  return `<g class="case-diagram-martingale">
+    <line class="case-grid-axis" x1="66" y1="126" x2="204" y2="126"></line><line class="case-grid-axis" x1="66" y1="182" x2="204" y2="182"></line><line class="case-grid-axis" x1="66" y1="238" x2="204" y2="238"></line><line class="case-grid-axis" x1="66" y1="294" x2="204" y2="294"></line><text class="case-diagram-small" x="54" y="132">106</text><text class="case-diagram-small" x="54" y="188">104</text><text class="case-diagram-small" x="54" y="244">102</text><text class="case-diagram-small" x="54" y="300">100</text><circle class="case-grid-order" cx="174" cy="${failed ? 294 : 238}" r="12"></circle><text class="case-diagram-small" x="135" y="324" text-anchor="middle">价格逐格下移</text>
+    ${rows}
+    <rect class="case-diagram-panel result" x="522" y="128" width="154" height="156"></rect><text class="case-diagram-small" x="599" y="164" text-anchor="middle">累计仓位</text><text class="case-diagram-value" x="599" y="220" text-anchor="middle">${failed ? '63 单位' : '3 单位'}</text><text class="case-diagram-small" x="599" y="258" text-anchor="middle">${failed ? '均价靠近，尾险暴增' : '固定数量 + 硬止损'}</text>
+  </g>`;
+}
+
+function renderWorkflowCase(outcome, lessonId) {
+  const conflict = outcome !== 'valid';
+  const labels = lessonId === 'confluence-lab' ? ['位置与结构','成交证据','风险许可'] : lessonId === 'hybrid-workflow' ? ['父级方向','位置 + 时段','低级触发'] : ['父级方向','Discount POI','Sweep + MSS'];
+  return `<g class="case-diagram-workflow">
+    ${labels.map((label,i)=>`<g transform="translate(${42+i*240},126)"><rect class="case-workflow-node ${conflict && i===2 ? 'is-blocked' : ''}" width="176" height="136"></rect><text class="case-diagram-small" x="88" y="38" text-anchor="middle">第 ${i+1} 道门</text><text class="case-diagram-label" x="88" y="78" text-anchor="middle">${label}</text><text class="case-diagram-small" x="88" y="112" text-anchor="middle">${conflict && i===2 ? '缺失 / 冲突' : '通过'}</text></g>`).join('')}
+    ${caseArrow(218,194,278,194)}${caseArrow(458,194,518,194)}<text class="case-diagram-value" x="360" y="314" text-anchor="middle">${conflict ? '任一门不通过 → 不交易' : '三层依次满足 → 才执行'}</text>
+  </g>`;
+}
+
+function renderStructureCase(outcome) {
+  const conflict = outcome !== 'valid';
+  return `<g class="case-diagram-structure">
+    <line class="case-parent-bias" x1="48" y1="126" x2="678" y2="286"></line><text class="case-diagram-small" x="52" y="116">${conflict ? '小时级下行背景' : '受保护低点 105'}</text>
+    <polyline class="case-structure-path" points="54,274 150,188 234,244 340,152 430,220 540,120 666,92"></polyline><circle class="case-structure-point" cx="150" cy="188" r="7"></circle><circle class="case-structure-point" cx="234" cy="244" r="7"></circle><circle class="case-structure-point" cx="540" cy="120" r="7"></circle><text class="case-diagram-label" x="150" y="170" text-anchor="middle">HH</text><text class="case-diagram-label" x="234" y="276" text-anchor="middle">HL</text><line class="case-break-level" x1="430" y1="152" x2="676" y2="152"></line><text class="case-diagram-value" x="590" y="190" text-anchor="middle">${conflict ? '微型 CHoCH' : '收盘 BOS'}</text><text class="case-diagram-small" x="590" y="224" text-anchor="middle">${conflict ? '没有改变父级方向' : '越过有意义摆动'}</text>
+  </g>`;
+}
+
+function renderLiquidityCase(outcome, caseItem) {
+  const caseText = `${caseItem.title || ''} ${caseItem.setup || ''} ${caseItem.background || ''}`;
+  const accepted = /新价值|建立新成交|持续.*边界外|连续.*上方/.test(caseText);
+  const unresolved = outcome === 'conflict';
+  const swept = !accepted && !unresolved;
+  return `<g class="case-diagram-liquidity">
+    <line class="case-liquidity-level" x1="42" y1="208" x2="218" y2="208"></line><circle class="case-liquidity-point" cx="74" cy="208" r="7"></circle><circle class="case-liquidity-point" cx="126" cy="208" r="7"></circle><circle class="case-liquidity-point" cx="178" cy="208" r="7"></circle><text class="case-diagram-label" x="126" y="246" text-anchor="middle">等低 · 50</text><text class="case-diagram-small" x="126" y="274" text-anchor="middle">下方有待成交订单</text>
+    <path class="case-liquidity-sweep" d="M 278 174 L 338 202 L 360 286 L 394 188 L 446 154"></path><line class="case-liquidity-level" x1="270" y1="208" x2="448" y2="208"></line><text class="case-diagram-value" x="360" y="318" text-anchor="middle">${swept ? '越界 → 快速收回' : accepted ? '越界 → 外侧停留' : '拒绝与扩张并存'}</text>
+    <rect class="case-diagram-panel result" x="520" y="126" width="158" height="156"></rect><text class="case-diagram-small" x="599" y="162" text-anchor="middle">结果分类</text><text class="case-diagram-value" x="599" y="214" text-anchor="middle">${swept ? 'Sweep' : accepted ? 'Acceptance' : '未解决'}</text><text class="case-diagram-small" x="599" y="250" text-anchor="middle">${swept ? '外侧接受失败' : accepted ? '边界外建立新价值' : '等待更高层证据'}</text>
+  </g>`;
+}
+
+function renderZoneCase(outcome) {
+  const valid = outcome === 'valid';
+  return `<g class="case-diagram-zones">
+    <rect class="case-ob-zone" x="46" y="190" width="164" height="72"></rect><text class="case-diagram-label" x="128" y="232" text-anchor="middle">OB · 70—71</text><text class="case-diagram-small" x="128" y="290" text-anchor="middle">位移来源区</text>
+    <rect class="case-fvg-zone" x="278" y="156" width="164" height="92"></rect><text class="case-diagram-label" x="360" y="198" text-anchor="middle">FVG</text>${caseArrow(300,270,420,118)}<text class="case-diagram-small" x="360" y="286" text-anchor="middle">离开时留下失衡</text>
+    <path class="case-zone-revisit" d="M 526 132 L 628 132 L 580 232 L 652 188"></path><rect class="case-ob-zone" x="520" y="220" width="158" height="54"></rect><text class="case-diagram-value" x="599" y="310" text-anchor="middle">${valid ? '首次回测有反应' : '第三次回测衰减'}</text>
+  </g>`;
+}
+
+function renderNestingCase(outcome) {
+  const valid = outcome === 'valid';
+  return `<g class="case-diagram-nesting">
+    <rect class="case-parent-range" x="42" y="112" width="636" height="210"></rect><text class="case-diagram-label" x="62" y="140">父区间 100—120</text><line class="case-external-level" x1="42" y1="112" x2="678" y2="112"></line><text class="case-diagram-small" x="666" y="104" text-anchor="end">外部高点 120</text><rect class="case-internal-range" x="274" y="170" width="168" height="102"></rect><text class="case-diagram-label" x="358" y="206" text-anchor="middle">内部区间</text><text class="case-diagram-small" x="358" y="242" text-anchor="middle">108 → 114</text><path class="case-nesting-path" d="M 76 250 L 196 218 L 316 278 L 400 196 L 512 154 L 646 ${valid ? '96' : '82'}"></path><text class="case-diagram-value" x="596" y="300" text-anchor="middle">${valid ? '内部扫取 → 外部目标' : '突破后必须重画父区间'}</text>
+  </g>`;
+}
+
+function renderRangeCase(outcome) {
+  const valid = outcome === 'valid';
+  const priceY = valid ? 258 : 154;
+  return `<g class="case-diagram-range">
+    <rect class="case-range-premium" x="74" y="114" width="130" height="90"></rect><rect class="case-range-discount" x="74" y="204" width="130" height="90"></rect><line class="case-range-eq" x1="60" y1="204" x2="218" y2="204"></line><text class="case-diagram-small" x="139" y="144" text-anchor="middle">Premium</text><text class="case-diagram-small" x="139" y="258" text-anchor="middle">Discount</text><text class="case-diagram-label" x="222" y="120">120 高</text><text class="case-diagram-label" x="222" y="210">110 EQ</text><text class="case-diagram-label" x="222" y="296">100 低</text>
+    <line class="case-range-price" x1="286" y1="${priceY}" x2="442" y2="${priceY}"></line><circle class="case-range-price-dot" cx="364" cy="${priceY}" r="14"></circle><text class="case-diagram-value" x="364" y="${priceY-30}" text-anchor="middle">价格 ${valid ? '106' : '115'}</text><text class="case-diagram-small" x="364" y="316" text-anchor="middle">${valid ? '固定锚点后再定位' : '原区间显示 Premium'}</text>
+    <rect class="case-diagram-panel result" x="520" y="126" width="158" height="158"></rect><text class="case-diagram-label" x="599" y="164" text-anchor="middle">坐标判断</text><text class="case-diagram-value" x="599" y="216" text-anchor="middle">${valid ? 'Discount' : '不能换锚'}</text><text class="case-diagram-small" x="599" y="254" text-anchor="middle">${valid ? '等待低级 MSS' : '结论不能决定区间'}</text>
+  </g>`;
+}
+
+function orderbookRows(x, values, side = 'ask') {
+  return values.map(([price,qty],i)=>`<g transform="translate(${x},${126+i*48})"><text class="case-diagram-small" x="0" y="28">${price}</text><rect class="case-depth-track" x="54" y="4" width="126" height="34"></rect><rect class="case-depth-fill ${side === 'bid' ? 'bid' : 'negative'}" x="54" y="4" width="${Math.min(126,qty*1.25)}" height="34"></rect><text class="case-diagram-small" x="188" y="28">${qty}</text></g>`).join('');
+}
+
+function renderOrderbookCase(outcome, caseItem) {
+  const caseText = `${caseItem.title || ''} ${caseItem.setup || ''}`;
+  const absorb = /吸收|主动卖出/.test(caseText);
+  return `<g class="case-diagram-orderbook">
+    ${orderbookRows(48, absorb ? [[301,18],[300,40],[299,26]] : [[103,50],[102,30],[101,20]], absorb ? 'bid' : 'ask')}
+    <rect class="case-diagram-panel" x="276" y="136" width="168" height="124"></rect><text class="case-diagram-small" x="360" y="170" text-anchor="middle">${absorb ? '主动卖出' : '市价买入'}</text><text class="case-diagram-value" x="360" y="220" text-anchor="middle">${absorb ? '2,500 手' : '80 手'}</text>${caseArrow(360,268,360,316)}
+    <rect class="case-diagram-panel result" x="520" y="126" width="158" height="158"></rect><text class="case-diagram-label" x="599" y="166" text-anchor="middle">价格结果</text><text class="case-diagram-value" x="599" y="218" text-anchor="middle">${absorb ? '只下移一档' : '扫过三档'}</text><text class="case-diagram-small" x="599" y="258" text-anchor="middle">${absorb ? '可能有被动承接' : '最差成交到 103'}</text>
+  </g>`;
+}
+
+function footprintCells(x, values) {
+  return values.map(([price,bid,ask],i)=>`<g transform="translate(${x},${124+i*48})"><text class="case-diagram-small" x="0" y="30">${price}</text><rect class="case-footprint-bid" x="44" y="3" width="66" height="38"></rect><rect class="case-footprint-ask" x="112" y="3" width="66" height="38"></rect><text class="case-diagram-small" x="98" y="30" text-anchor="end">${bid}</text><text class="case-diagram-small" x="124" y="30">${ask}</text></g>`).join('');
+}
+
+function renderFootprintCase(outcome, extreme = false) {
+  const conflict = outcome !== 'valid';
+  const values = extreme ? [[103,0,18],[102,12,48],[101,18,72],[100,6,54]] : conflict ? [[103,18,74],[102,24,82],[101,30,86],[100,42,58]] : [[103,12,66],[102,18,72],[101,22,81],[100,40,46]];
+  return `<g class="case-diagram-footprint">
+    <text class="case-diagram-small" x="48" y="112">Price</text><text class="case-diagram-small" x="122" y="112">Bid</text><text class="case-diagram-small" x="184" y="112">Ask</text>${footprintCells(48,values)}
+    <rect class="case-diagram-zone" x="278" y="130" width="164" height="150"></rect><text class="case-diagram-label" x="360" y="168" text-anchor="middle">${extreme ? '拍卖边缘' : '对角不平衡'}</text><text class="case-diagram-value" x="360" y="220" text-anchor="middle">${extreme ? (conflict ? '双侧成交' : '单侧 Excess') : 'Ask ≥ 3× Bid'}</text><text class="case-diagram-small" x="360" y="256" text-anchor="middle">${conflict ? '颜色强但价格不推进' : '连续三层才有上下文'}</text>
+    <rect class="case-diagram-panel result" x="520" y="130" width="158" height="150"></rect><text class="case-diagram-label" x="599" y="168" text-anchor="middle">价格确认</text><text class="case-diagram-value" x="599" y="220" text-anchor="middle">${conflict ? (extreme ? '不保证回补' : '收在中部') : '离开关键区'}</text><text class="case-diagram-small" x="599" y="256" text-anchor="middle">成交必须对应结果</text>
+  </g>`;
+}
+
+function renderDeltaCase(outcome) {
+  const conflict = outcome !== 'valid';
+  const bars = [-54,-68,-42,36].map((value,i)=>`<g transform="translate(${54+i*42},0)"><line class="case-delta-axis" x1="0" y1="214" x2="0" y2="${214-value}"></line><rect class="case-delta-bar ${value<0?'negative':''}" x="-12" y="${value<0?214:214-value}" width="24" height="${Math.abs(value)}"></rect></g>`).join('');
+  return `<g class="case-diagram-delta">
+    <line class="case-delta-baseline" x1="42" y1="214" x2="218" y2="214"></line>${bars}<text class="case-diagram-label" x="130" y="306" text-anchor="middle">连续负 Delta</text>
+    <g transform="translate(282,0)"><line class="case-candle-wick" x1="20" y1="154" x2="20" y2="262"></line><rect class="case-candle-body negative" x="4" y="178" width="32" height="56"></rect><line class="case-candle-wick" x1="78" y1="168" x2="78" y2="260"></line><rect class="case-candle-body" x="62" y="196" width="32" height="38"></rect><line class="case-candle-wick" x1="136" y1="164" x2="136" y2="258"></line><rect class="case-candle-body" x="120" y="188" width="32" height="46"></rect></g><line class="case-break-level" x1="276" y1="258" x2="450" y2="258"></line><text class="case-diagram-label" x="364" y="306" text-anchor="middle">${conflict ? '价格仍创新高' : '低点不再下移'}</text>
+    <rect class="case-diagram-panel result" x="520" y="130" width="158" height="150"></rect><text class="case-diagram-small" x="599" y="166" text-anchor="middle">Delta × 价格</text><text class="case-diagram-value" x="599" y="218" text-anchor="middle">${conflict ? '背离不等于反转' : '吸收候选'}</text><text class="case-diagram-small" x="599" y="256" text-anchor="middle">${conflict ? '趋势仍在推进' : '再等结构突破'}</text>
+  </g>`;
+}
+
+function profileSnapshot(x, shift = 0) {
+  const widths = [48,78,126,162,118,72,42];
+  return widths.map((width,i)=>`<rect class="case-profile-bar ${i===3?'poc':''}" x="${x}" y="${120+i*28+shift}" width="${width}" height="20"></rect>`).join('');
+}
+
+function renderProfileCase(outcome, caseItem) {
+  const caseText = `${caseItem.title || ''} ${caseItem.setup || ''} ${caseItem.background || ''}`;
+  const transient = /十分钟|误当成整日/.test(caseText);
+  const conflict = outcome === 'conflict';
+  const migrate = !transient && /迁移|新成交中心|新价值|VAL.*下方|VAH.*形成/.test(caseText);
+  return `<g class="case-diagram-profile">
+    ${profileSnapshot(48)}<line class="case-profile-value" x1="42" y1="148" x2="218" y2="148"></line><line class="case-profile-value" x1="42" y1="288" x2="218" y2="288"></line><text class="case-diagram-small" x="48" y="112">昨日 Value Area</text>
+    ${profileSnapshot(278,migrate?34:0)}<text class="case-diagram-value" x="360" y="326" text-anchor="middle">${migrate ? 'VPOC 101 → 95' : transient ? 'POC 暂时上移' : conflict ? 'TPO / Volume 分裂' : 'HVN 100—102'}</text>
+    <rect class="case-diagram-panel result" x="520" y="130" width="158" height="150"></rect><text class="case-diagram-label" x="599" y="168" text-anchor="middle">${migrate ? '新价值建立' : transient ? '样本不足' : conflict ? '证据冲突' : '重新接受'}</text><text class="case-diagram-value" x="599" y="220" text-anchor="middle">${migrate ? '价值发生迁移' : transient ? '不能外推整日' : conflict ? '暂不分类' : '区内旋转'}</text><text class="case-diagram-small" x="599" y="256" text-anchor="middle">分布位置而非方向指令</text>
+  </g>`;
+}
+
+function domSnapshot(x, title, qty, state) {
+  return `<g transform="translate(${x},0)"><text class="case-diagram-label" x="84" y="122" text-anchor="middle">${title}</text><rect class="case-dom-row" x="0" y="146" width="168" height="46"></rect><rect class="case-dom-row active" x="0" y="194" width="168" height="54"></rect><rect class="case-dom-row" x="0" y="250" width="168" height="46"></rect><text class="case-diagram-small" x="14" y="176">501</text><text class="case-diagram-small" x="14" y="228">500</text><text class="case-diagram-small" x="14" y="280">499</text><text class="case-diagram-value" x="148" y="230" text-anchor="end">${qty}</text><text class="case-diagram-small" x="84" y="320" text-anchor="middle">${state}</text></g>`;
+}
+
+function renderDomCase(outcome) {
+  const conflict = outcome !== 'valid';
+  return `<g class="case-diagram-dom">${domSnapshot(42, 't0 · 出现', conflict ? '1,000' : '40', '挂单可见')}${domSnapshot(276, 't1 · 事件', conflict ? '0' : '300', conflict ? '撤走，未成交' : '成交打入')}${domSnapshot(510, 't2 · 结果', conflict ? '?' : '40', conflict ? '意图不可证明' : '反复补回')}</g>`;
+}
+
+function renderCaseConceptSvg(profile, lessonId, caseItem, outcome) {
+  const renderers = {
+    ohlc: () => renderOhlcCase(outcome),
+    timeframe: () => renderTimeframeCase(outcome),
+    execution: () => renderExecutionCase(outcome),
+    provenance: () => renderProvenanceCase(outcome),
+    risk: () => renderRiskCase(outcome),
+    session: () => renderSessionCase(outcome),
+    martingale: () => renderMartingaleCase(outcome),
+    workflow: () => renderWorkflowCase(outcome, lessonId),
+    structure: () => renderStructureCase(outcome),
+    liquidity: () => renderLiquidityCase(outcome, caseItem),
+    zones: () => renderZoneCase(outcome),
+    nesting: () => renderNestingCase(outcome),
+    range: () => renderRangeCase(outcome),
+    orderbook: () => renderOrderbookCase(outcome, caseItem),
+    footprint: () => renderFootprintCase(outcome),
+    delta: () => renderDeltaCase(outcome),
+    profile: () => renderProfileCase(outcome, caseItem),
+    'auction-extreme': () => renderFootprintCase(outcome, true),
+    dom: () => renderDomCase(outcome)
+  };
+  return caseDiagramBase(profile, outcome, (renderers[profile.diagram] || renderers.workflow)());
+}
+
 function renderCaseFigure(lessonId, caseItem, index, scope = 'micro') {
-  const profile = caseVisualProfiles[lessonId] || { family: 'CASE PATH', band: '观察区域', evidence: '路径证据', micro: ['up', 'conflict'] };
-  const patternName = (scope === 'textbook' ? profile.textbook : profile.micro)?.[index] || (index === 0 ? 'up' : index === 1 ? 'falseUp' : 'conflict');
-  const values = caseVisualPatterns[patternName] || caseVisualPatterns.conflict;
+  const profile = caseVisualProfiles[lessonId] || { family: 'DECISION FLOW', diagram: 'workflow' };
   const outcome = caseVisualOutcome(caseItem, index, scope);
   const accent = outcome === 'valid' ? '#d5f43c' : outcome === 'failed' ? '#e04b32' : '#73b9d0';
-  const xAt = (itemIndex) => 48 + itemIndex * 56;
-  const yAt = (value) => 210 - value * 1.62;
-  const points = values.map((value, itemIndex) => `${xAt(itemIndex)},${yAt(value).toFixed(1)}`).join(' ');
-  const deltas = values.map((value, itemIndex) => {
-    const previous = itemIndex ? values[itemIndex - 1] : value;
-    const base = Math.max(-90, Math.min(90, (value - previous) * 7));
-    if (patternName === 'absorbUp' && itemIndex < 7) return -Math.max(22, Math.abs(base));
-    if (patternName === 'absorbDown' && itemIndex < 7) return Math.max(22, Math.abs(base));
-    if (patternName === 'exposure') return -18 - itemIndex * 6;
-    return base || (itemIndex % 2 ? 16 : -13);
-  });
-  const candles = values.map((value, itemIndex) => {
-    const previous = itemIndex ? values[itemIndex - 1] : value - 4;
-    const openY = yAt(previous);
-    const closeY = yAt(value);
-    const top = Math.min(openY, closeY);
-    const height = Math.max(3, Math.abs(closeY - openY));
-    const fill = value >= previous ? '#d5f43c' : '#e04b32';
-    return `<g class="case-candle"><line x1="${xAt(itemIndex)}" y1="${Math.max(34, top - 7)}" x2="${xAt(itemIndex)}" y2="${Math.min(216, top + height + 7)}"></line><rect x="${xAt(itemIndex) - 4}" y="${top.toFixed(1)}" width="8" height="${height.toFixed(1)}" fill="${fill}"></rect></g>`;
-  }).join('');
-  const flowBars = deltas.map((delta, itemIndex) => {
-    const height = Math.max(3, Math.abs(delta) * .28);
-    const y = delta >= 0 ? 270 - height : 270;
-    return `<rect x="${xAt(itemIndex) - 6}" y="${y.toFixed(1)}" width="12" height="${height.toFixed(1)}" fill="${delta >= 0 ? '#d5f43c' : '#e04b32'}"></rect>`;
-  }).join('');
   const stages = caseStageStory(caseItem, outcome);
-  const stageIndexes = [1, 6, 11];
-  const stageNodes = stages.map((stage, stageIndex) => {
-    const valueIndex = stageIndexes[stageIndex];
-    const x = xAt(valueIndex);
-    const y = yAt(values[valueIndex]);
-    return `<g class="case-stage-node stage-${stageIndex + 1}">
-      <line x1="${x}" y1="57" x2="${x}" y2="${Math.max(62, y - 16).toFixed(1)}"></line>
-      <circle cx="${x}" cy="${y.toFixed(1)}" r="15"></circle>
-      <text class="case-stage-number" x="${x}" y="${(y + 3).toFixed(1)}" text-anchor="middle">${stage.number}</text>
-    </g>`;
-  }).join('');
-  const title = `${caseItem.title}：${profile.family} 教学结构示意`;
-  const caption = `图解目的：按“开始—变化—结果”读懂“${caseItem.title}”，价格路径只作为三阶段故事的辅助证据。`;
+  const title = `${caseItem.title}：${profile.family} 机制关联图`;
+  const caption = `图解目的：用与“${caseItem.title}”直接相关的${profile.family}机制，连接开始条件、关键变化与最后结果。`;
   return html`
-    <figure class="case-instance-figure visual-${outcome}">
-      <svg viewBox="0 0 720 300" role="img" aria-label="${escapeHtml(title)}">
-        <title>${escapeHtml(title)}；结构示意，不是历史行情。</title>
+    <figure class="case-instance-figure visual-${outcome} diagram-${profile.diagram}" style="--case-accent:${accent}">
+      <svg class="case-concept-svg" viewBox="0 0 720 360" role="img" aria-label="${escapeHtml(title)}">
+        <title>${escapeHtml(title)}；教学机制图，不是历史行情。</title>
         <desc>${stages.map((stage) => `${stage.number} ${stage.title}：${stage.text}`).join('；')}</desc>
-        <rect class="case-plot-bg" x="0" y="0" width="720" height="300"></rect>
-        <g class="case-stage-zones">
-          <rect x="36" y="38" width="224" height="180"></rect>
-          <rect x="260" y="38" width="224" height="180"></rect>
-          <rect x="484" y="38" width="200" height="180"></rect>
-        </g>
-        <g class="case-plot-grid">
-          <line x1="36" y1="62" x2="684" y2="62"></line><line x1="36" y1="108" x2="684" y2="108"></line><line x1="36" y1="154" x2="684" y2="154"></line><line x1="36" y1="200" x2="684" y2="200"></line>
-          <line x1="260" y1="38" x2="260" y2="218"></line><line x1="484" y1="38" x2="484" y2="218"></line>
-        </g>
-        <text class="case-plot-kicker" x="36" y="25">${escapeHtml(profile.family)}</text>
-        <text class="case-plot-state" x="684" y="25" text-anchor="end">${outcome === 'valid' ? 'CONSTRUCTIVE' : outcome === 'failed' ? 'FAILED / COUNTER' : 'CONFLICT / WAIT'}</text>
-        <g class="case-stage-headings">
-          <text x="104" y="53" text-anchor="middle">01 · 开始</text>
-          <text x="384" y="53" text-anchor="middle">02 · 关键变化</text>
-          <text x="664" y="53" text-anchor="end">03 · 最后</text>
-        </g>
-        <rect class="case-decision-band" x="36" y="102" width="648" height="44"></rect>
-        <text class="case-band-label" x="48" y="119">${escapeHtml(profile.band)}</text>
-        <line class="case-structure-line" x1="36" y1="124" x2="684" y2="124"></line>
-        <g class="case-candles">${candles}</g>
-        <polyline class="case-path-line" points="${points}" style="stroke:${accent}"></polyline>
-        <g class="case-stage-nodes">${stageNodes}</g>
-        <line class="case-flow-baseline" x1="36" y1="270" x2="684" y2="270"></line>
-        <text class="case-flow-label" x="36" y="292">${escapeHtml(profile.evidence)}</text>
-        <g class="case-flow-bars">${flowBars}</g>
+        ${renderCaseConceptSvg(profile, lessonId, caseItem, outcome)}
       </svg>
       <ol class="case-stage-story" aria-label="案例三阶段阅读">
         ${stages.map((stage, stageIndex) => `<li class="${stageIndex === 2 ? 'stage-result' : ''}"><small>${stage.number}</small><div><b>${stage.title}</b>${stage.state ? `<em>${escapeHtml(stage.state)}</em>` : ''}<p>${escapeHtml(stage.text)}</p></div></li>`).join('')}
       </ol>
-      <figcaption><b>${scope === 'textbook' ? 'CASE PLATE' : 'INSTANCE MAP'} · ${escapeHtml(profile.family)}</b><span>${escapeHtml(caption)}</span><small>能说明：本案例的路径、区域与证据先后。不能说明：真实市场曾出现、参与者身份或未来收益。</small></figcaption>
+      <figcaption><b>${scope === 'textbook' ? 'CASE PLATE' : 'MECHANISM MAP'} · ${escapeHtml(profile.family)}</b><span>${escapeHtml(caption)}</span><small>能说明：本案例中变量如何关联、证据如何改变判断。不能说明：真实市场曾出现、参与者身份或未来收益。</small></figcaption>
     </figure>`;
 }
 

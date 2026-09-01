@@ -525,6 +525,23 @@
 
 ## Test Results
 
+### 2026-09-01 — Concept-specific case diagrams
+
+- **Status:** in progress.
+- The supplied execution screenshot confirms that adding start/middle/end markers did not solve the core semantic problem: queue and stop-slippage cases are still represented by unrelated generic price lines.
+- Target architecture: a bounded registry of reusable domain diagrams mapped across all 21 lessons, while preserving the existing three-stage prose and result-state treatment.
+- Existing interactive diagrams provide a semantic reference for 20 lesson families; implementation will reuse those concepts in static case-specific plates rather than duplicate their interactive behavior.
+- Replaced the generic case-pattern table with a 21-lesson concept registry and implemented 19 static mechanism renderers. The three-stage prose remains shared and outcome-aware.
+- Updated the figure stylesheet for directly labeled queues, depth ladders, risk bands, session blocks, exposure bars, structure levels, zones, footprint cells, profiles, and DOM snapshots; static asset revision bumped for reliable reload.
+- Desktop runtime sampling passes for `risk-r`, `footprint-reading`, `volume-profile`, and `dom-dynamics`: correct diagram-family classes, complete stage stories, and no overflow.
+- Visual QA passes for the Footprint family. Batched captures of the remaining families did not reach the casebook after late layout expansion, so focused delayed captures remain pending.
+- Visual QA passes for the DOM-event family. Risk-route scrolling remains under diagnosis; no repeated fixed-delay retry will be used.
+- Visual QA now passes for the risk/expectancy family after inspecting live geometry and capturing the settled viewport.
+- Visual QA passes for the Volume Profile family and for the execution family at 390×844 mobile width.
+- Full route QA passes at desktop and mobile: 21 lessons, 57 concept figures, 19 mechanism families, 0 legacy generic paths, 0 out-of-bounds SVG text labels, 0 missing stages, and 0 overflowing routes.
+- Completed a second semantic pass: absorption vs price sweep, Sweep vs Acceptance, and profile migration vs transient/conflicting distributions now select case-specific states instead of relying only on success/failure color.
+- Cache-busted semantic verification and the final full desktop/mobile sweep pass after that logic change. Local implementation and visual QA are complete; GitHub push and server deployment remain.
+
 ### 2026-09-01 — Three-stage case diagrams
 
 - **Status:** complete.
@@ -628,6 +645,12 @@
 | 2026-09-01 | Browser evaluation did not expose `history.replaceState` or native element `.click()` as callable methods | 2 | Stopped trying alternate in-page mutations and resolved lesson ids from the bootstrap payload for explicit tab navigation |
 | 2026-09-01 | Deriving sweep routes from the currently collapsed sidebar returned only the active lesson link | 1 | Use all 21 lesson ids from `/api/bootstrap` instead of treating rendered navigation as the curriculum source of truth |
 | 2026-09-01 | The first remote bootstrap summary used an invalid jq expression that indexed an array as an object | 1 | Re-ran a focused remote verification with correctly parenthesized fields and confirmed 21 lessons plus a valid lesson-depth object |
+| 2026-09-01 | Initial frontend-skill read used the catalog name instead of the actual `tokrepo-...` directory | 1 | Resolved the exact filesystem path from the skill catalog and read the complete skill before editing |
+| 2026-09-01 | First syntax check found nested template interpolation accidentally quoted inside the DOM snapshot renderer | 1 | Passed the conditional snapshot labels as normal JavaScript arguments, then re-ran the parser before styling |
+| 2026-09-01 | Saved case-browser tab expired before concept-diagram QA | 1 | Opened a fresh `conceptTab` in the existing browser session and continued verification there |
+| 2026-09-01 | Browser sandbox did not expose global `parseFloat()` during the mobile sweep | 1 | Returned computed font-size strings directly and verified the unique set was exactly `20px` |
+| 2026-09-01 | Semantic recheck still showed pre-fix mechanism variants because the ES module URL had not changed after the second logic pass | 1 | Bumped the static asset revision from `concept-diagrams-1` to `concept-diagrams-2` before repeating the browser verification |
+| 2026-09-01 | First combined final sweep referenced the Node-side viewport descriptor inside browser-page evaluation | 1 | Removed the cross-context reference, returned neutral stacked counts, and interpreted them in the Node loop |
 
 ## 5-Question Reboot Check
 

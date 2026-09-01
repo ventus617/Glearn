@@ -560,32 +560,62 @@ button { color: inherit; }
 .textbook-case footer p { max-width: 800px; margin: 10px 0 0; font: 400 20px/1.5 var(--display); }
 
 .case-instance-figure { margin: 0; background: #111b19; color: var(--white); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); position: relative; overflow: hidden; container-type: inline-size; }
-.case-instance-figure::before { content: "THREE-STAGE CASE"; position: absolute; z-index: 2; right: 14px; bottom: 83px; color: rgba(255,255,255,.25); font: 7px var(--mono); letter-spacing: .15em; }
+.case-instance-figure::before { content: "CONCEPT MECHANISM"; position: absolute; z-index: 2; right: 14px; bottom: 83px; color: rgba(255,255,255,.25); font: 7px var(--mono); letter-spacing: .15em; }
 .case-instance-figure svg { display: block; width: 100%; height: auto; min-height: 238px; }
-.case-plot-bg { fill: #111b19; }
-.case-stage-zones rect { fill: rgba(255,255,255,.018); }
-.case-stage-zones rect:nth-child(2) { fill: rgba(255,255,255,.035); }
-.case-plot-grid line { stroke: rgba(255,255,255,.08); stroke-width: 1; }
-.case-plot-kicker, .case-plot-state, .case-band-label, .case-flow-label { fill: rgba(255,255,255,.54); font: 700 9px var(--mono); letter-spacing: .11em; }
-.case-plot-state { fill: var(--lime); }
-.visual-failed .case-plot-state { fill: var(--vermilion); }
-.visual-conflict .case-plot-state { fill: #73b9d0; }
-.case-decision-band { fill: rgba(213,244,60,.08); stroke: rgba(213,244,60,.46); stroke-dasharray: 5 4; }
-.visual-failed .case-decision-band { fill: rgba(224,75,50,.09); stroke: rgba(224,75,50,.55); }
-.visual-conflict .case-decision-band { fill: rgba(115,185,208,.09); stroke: rgba(115,185,208,.55); }
-.case-structure-line { stroke: rgba(255,255,255,.38); stroke-dasharray: 3 5; }
-.case-candles { opacity: .54; }
-.case-candle line { stroke: rgba(255,255,255,.46); stroke-width: 1.3; }
-.case-candle rect { stroke: #111b19; stroke-width: 1; }
-.case-path-line { fill: none; stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(213,244,60,.22)); }
-.case-stage-headings text { fill: rgba(255,255,255,.84); font: 700 10px var(--sans); letter-spacing: .04em; paint-order: stroke; stroke: #111b19; stroke-width: 4px; stroke-linejoin: round; }
-.case-stage-node line { stroke: rgba(255,255,255,.36); stroke-dasharray: 3 4; }
-.case-stage-node circle { fill: #111b19; stroke: var(--lime); stroke-width: 3; filter: drop-shadow(0 0 5px rgba(213,244,60,.28)); }
-.visual-failed .case-stage-node circle { stroke: var(--vermilion); filter: drop-shadow(0 0 5px rgba(224,75,50,.28)); }
-.visual-conflict .case-stage-node circle { stroke: #73b9d0; filter: drop-shadow(0 0 5px rgba(115,185,208,.28)); }
-.case-stage-number { fill: var(--white); font: 700 8px var(--mono); }
-.case-flow-baseline { stroke: rgba(255,255,255,.34); }
-.case-flow-bars { opacity: .58; }
+.case-concept-svg text { fill: var(--white); font-family: var(--sans); }
+.case-diagram-bg { fill: #111b19; }
+.case-diagram-kicker, .case-diagram-state { fill: rgba(255,255,255,.58); font: 700 13px var(--mono); letter-spacing: .1em; }
+.case-diagram-state { fill: var(--case-accent); }
+.case-diagram-rule, .case-diagram-divider { stroke: rgba(255,255,255,.18); stroke-width: 1; }
+.case-diagram-divider { stroke-dasharray: 4 7; }
+.case-diagram-stage circle { fill: #111b19; stroke: var(--case-accent); stroke-width: 3; }
+.case-diagram-stage text { font-size: 16px; font-weight: 700; }
+.case-diagram-stage text:first-of-type { fill: var(--case-accent); font: 700 12px var(--mono); }
+.case-diagram-label { font-size: 18px; font-weight: 700; }
+.case-diagram-small { fill: rgba(255,255,255,.72) !important; font-size: 16px; }
+.case-diagram-value { fill: var(--case-accent) !important; font-size: 24px; font-weight: 700; }
+.case-diagram-panel, .case-workflow-node { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.32); stroke-width: 1.5; }
+.case-diagram-panel.result, .case-workflow-node.is-blocked { fill: var(--case-accent); fill-opacity: .09; stroke: var(--case-accent); }
+.case-diagram-zone { fill: var(--case-accent); fill-opacity: .1; stroke: var(--case-accent); stroke-width: 1.5; stroke-dasharray: 6 5; }
+.case-diagram-arrow, .case-diagram-bracket { fill: none; stroke: var(--case-accent); stroke-width: 2.5; }
+.case-diagram-arrowhead { fill: none; stroke: var(--case-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.case-candle-wick { stroke: rgba(255,255,255,.7); stroke-width: 3; }
+.case-candle-body { fill: var(--case-accent); stroke: #111b19; stroke-width: 2; }
+.case-candle-body.negative { fill: var(--vermilion); }
+.case-queue-ahead { fill: rgba(255,255,255,.18); }
+.case-queue-own, .case-queue-filled { fill: var(--case-accent); }
+.case-queue-own { fill-opacity: .35; stroke: var(--case-accent); stroke-width: 2; }
+.case-depth-track, .case-exposure-track { fill: rgba(255,255,255,.08); }
+.case-depth-fill, .case-exposure-fill { fill: var(--case-accent); }
+.case-depth-fill.negative, .case-delta-bar.negative { fill: var(--vermilion); }
+.case-depth-fill.bid { fill: #73b9d0; }
+.case-risk-axis, .case-grid-axis, .case-session-axis, .case-delta-baseline { stroke: rgba(255,255,255,.5); stroke-width: 2; }
+.case-reward-band { fill: var(--case-accent); fill-opacity: .65; }
+.case-risk-band { fill: var(--vermilion); fill-opacity: .75; }
+.case-session-eth, .case-session-rth { fill: rgba(115,185,208,.12); stroke: #73b9d0; }
+.case-session-open { fill: var(--case-accent); fill-opacity: .12; stroke: var(--case-accent); stroke-width: 2; }
+.case-grid-order, .case-range-price-dot, .case-structure-point, .case-liquidity-point { fill: #111b19; stroke: var(--case-accent); stroke-width: 3; }
+.case-parent-bias { stroke: rgba(255,255,255,.35); stroke-width: 2; stroke-dasharray: 7 6; }
+.case-structure-path, .case-liquidity-sweep, .case-zone-revisit, .case-nesting-path { fill: none; stroke: var(--case-accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.case-break-level, .case-liquidity-level, .case-range-price { stroke: rgba(255,255,255,.62); stroke-width: 2; stroke-dasharray: 7 5; }
+.case-ob-zone { fill: var(--case-accent); fill-opacity: .12; stroke: var(--case-accent); stroke-width: 2; }
+.case-fvg-zone { fill: rgba(115,185,208,.14); stroke: #73b9d0; stroke-width: 2; stroke-dasharray: 6 5; }
+.case-parent-range { fill: rgba(255,255,255,.025); stroke: rgba(255,255,255,.5); stroke-width: 2; }
+.case-internal-range { fill: var(--case-accent); fill-opacity: .1; stroke: var(--case-accent); stroke-width: 2; }
+.case-external-level { stroke: var(--vermilion); stroke-width: 3; }
+.case-range-premium { fill: rgba(224,75,50,.18); }
+.case-range-discount { fill: rgba(213,244,60,.16); }
+.case-range-eq { stroke: var(--white); stroke-width: 3; }
+.case-footprint-bid { fill: rgba(224,75,50,.22); stroke: rgba(224,75,50,.65); }
+.case-footprint-ask { fill: var(--case-accent); fill-opacity: .22; stroke: var(--case-accent); }
+.case-delta-axis { stroke: rgba(255,255,255,.22); }
+.case-delta-bar { fill: var(--case-accent); }
+.case-profile-bar { fill: rgba(255,255,255,.22); }
+.case-profile-bar.poc { fill: var(--case-accent); }
+.case-profile-value { stroke: rgba(255,255,255,.55); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.case-dom-row { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.24); }
+.case-dom-row.active { fill: var(--case-accent); fill-opacity: .13; stroke: var(--case-accent); stroke-width: 2; }
 .case-stage-story { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3,1fr); list-style: none; border-top: 1px solid rgba(255,255,255,.18); background: #111b19; }
 .case-stage-story li { min-width: 0; padding: 22px 20px 24px; display: grid; grid-template-columns: 30px 1fr; gap: 12px; border-right: 1px solid rgba(255,255,255,.18); }
 .case-stage-story li:last-child { border-right: 0; background: rgba(213,244,60,.06); }
@@ -609,6 +639,11 @@ button { color: inherit; }
 .microcase-card .case-instance-figure figcaption small { grid-column: 1; }
 
 @container (max-width: 720px) {
+  .case-diagram-stage text { font-size: 20px; }
+  .case-diagram-stage text:first-of-type { font-size: 15px; }
+  .case-diagram-label { font-size: 22px; }
+  .case-diagram-small { font-size: 20px; }
+  .case-diagram-value { font-size: 28px; }
   .case-stage-story { grid-template-columns: 1fr; }
   .case-stage-story li { padding: 20px 18px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
   .case-stage-story li:last-child { border-bottom: 0; }

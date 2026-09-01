@@ -6,11 +6,11 @@ Build a polished local web server whose HTML learning interface teaches SMC/ICT 
 
 ## Next Step
 
-Increase glossary reading typography across desktop and mobile, then deploy the verified stylesheet revision to the existing `glearn.service`.
+Replace the generic shared line-chart case plate with concept-specific teaching diagrams, verify every lesson family, then deploy the revision to the existing `glearn.service`.
 
 ## Current Phase
 
-Phase 45 — in progress (glossary reading typography)
+Phase 48 — in progress (concept-specific case diagrams)
 
 ## Phases
 
@@ -361,6 +361,16 @@ Phase 45 — in progress (glossary reading typography)
 - [x] Verify representative constructive, conflict, and failed outcomes on desktop and 390px mobile
 - [x] Push the revision and update the running service on `43.160.244.246`
 - **Status:** complete
+
+### Phase 48: Concept-specific case diagrams
+
+- [x] Inspect the supplied execution-case screenshot and identify why a generic price path is semantically unrelated
+- [x] Define a small diagram grammar that maps each of the 21 lesson concepts to an appropriate visual model
+- [x] Replace the shared line-only plot with concept-specific queue, ladder, nesting, risk, distribution, footprint, profile, and timeline renderers
+- [x] Preserve the readable `01 开始 → 02 关键变化 → 03 最后结果` explanation layer for every case
+- [x] Verify representative diagram families plus all 57 figures at desktop and 390px mobile widths
+- [ ] Push the revision and update the running service on `43.160.244.246`
+- **Status:** in_progress
 
 ## Key Questions
 
