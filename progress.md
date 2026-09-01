@@ -654,6 +654,7 @@
 | 2026-09-01 | Browser sandbox did not expose global `parseFloat()` during the mobile sweep | 1 | Returned computed font-size strings directly and verified the unique set was exactly `20px` |
 | 2026-09-01 | Semantic recheck still showed pre-fix mechanism variants because the ES module URL had not changed after the second logic pass | 1 | Bumped the static asset revision from `concept-diagrams-1` to `concept-diagrams-2` before repeating the browser verification |
 | 2026-09-01 | First combined final sweep referenced the Node-side viewport descriptor inside browser-page evaluation | 1 | Removed the cross-context reference, returned neutral stacked counts, and interpreted them in the Node loop |
+| 2026-09-01 | Two final remote bootstrap checks assumed nonexistent `content.chapters` and `track.lessons` fields | 2 | Inspected the live payload shape, counted `content.tracks[].lessonIds`, and confirmed all 21 lessons without changing the running service |
 
 ## 5-Question Reboot Check
 
