@@ -235,6 +235,7 @@
 - Running the public Node process directly as root is unnecessary. A dedicated `glearn` user plus a root-owned checkout under `/opt/glearn` limits filesystem impact while allowing only `data/runtime` to remain writable.
 - The systemd unit can retain outbound IPv4/IPv6 access for scheduled source checks while dropping Linux capabilities and restricting persistent writes to the runtime JSON directory.
 - Public deployment does not add account isolation: progress and update state belong to one server instance. This needs to be stated explicitly rather than implied to be per-user.
+- Root's apparent `/usr/local/bin/node` is only a symlink to `/root/.hermes/node/bin/node`. That private runtime is deliberately inaccessible to the hardened `glearn` service; CentOS AppStream offers Node streams 18, 20, 22, and 24, so installing the Node 22 system package is the correct non-root runtime fix.
 
 | Decision | Rationale |
 |----------|-----------|

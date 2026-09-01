@@ -374,6 +374,8 @@ Phase 44 — in progress (public server deployment)
 | First terminology route sweep queried `data-lesson` but the directory uses `data-lesson-id` | 1 | Inspected one rendered navigation button and reran the sweep with the real attribute |
 | One browser inspection expression missed a closing parenthesis | 1 | Split the value into a named variable, emitted it separately, and continued with the corrected selector |
 | Browser locator did not provide an `allInnerTexts()` convenience method | 1 | Read the representative term cards individually with `nth(i).innerText()` |
+| The first service launch returned `203/EXEC` for `/usr/local/bin/node` | 1 | The path was a symlink into root-only `/root/.hermes`; stop the restart loop, install the CentOS Node 22 system package, and use `/usr/bin/node` for the non-root service |
+| Whole-host `systemd-analyze verify` reported an unrelated malformed `wg-performance.service` | 1 | Leave the pre-existing unrelated service untouched and validate Glearn through its own status, journal, security report, listener, and HTTP responses |
 
 ## Notes
 

@@ -12,6 +12,9 @@
 - Documented the deployment variables and the shared-state/public-access boundary in README.
 - Local verification passed: syntax checks, three existing tests, whitespace validation, and a real temporary launch with `HOST=0.0.0.0 PORT=4180`.
 - The temporary public-bind launch returned HTTP 200 and loaded 21 lessons, 6 staged case dossiers, and 28 sources through `/api/bootstrap`; the temporary process was then stopped cleanly.
+- Installed the runtime checkout at `/opt/glearn`, created system user/group `glearn` (UID/GID 982), and made only `/opt/glearn/data/runtime` writable by that user.
+- First systemd launch exposed a real environment mismatch: `/usr/local/bin/node` is a symlink into root-only `/root/.hermes`, so the hardened non-root unit correctly refused it with `203/EXEC`. Stopped the restart loop and changed the unit to the system package path `/usr/bin/node`.
+- Firewalld has already accepted permanent TCP port 4173. A whole-host unit verification also surfaced an unrelated pre-existing quote error in `wg-performance.service`; it is outside this deployment and remains unchanged.
 
 ## Session: 2026-09-01 — Beginner terminology repair
 

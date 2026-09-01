@@ -12,7 +12,7 @@ Environment=NODE_ENV=production
 Environment=HOST=0.0.0.0
 Environment=PORT=4173
 Environment=UPDATE_INTERVAL_HOURS=24
-ExecStart=/usr/local/bin/node /opt/glearn/server.js
+ExecStart=/usr/bin/node /opt/glearn/server.js
 Restart=on-failure
 RestartSec=3
 UMask=0027
