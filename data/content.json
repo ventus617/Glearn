@@ -1,0 +1,1021 @@
+{
+  "meta": {
+    "title": "结构与流",
+    "englishTitle": "MARKET STRUCTURE ATLAS",
+    "subtitle": "把价格叙事与成交证据放在同一张桌上",
+    "version": "2026.08 · EXPECTANCY EXPANSION",
+    "readTime": "约 5 小时 35 分",
+    "disclaimer": "本地课程仅用于教育与图表阅读训练，不构成投资建议、收益承诺或自动交易信号。SMC/ICT 术语带有解释性；Order Flow 也受数据源、市场结构与时效限制。实盘前请自行验证、模拟并设定风险上限。",
+    "updatePolicy": "来源检查只生成待审核候选；接受候选代表“值得人工写入课程”，不会自动改写已发布课文。"
+  },
+  "tracks": [
+    {
+      "id": "foundation",
+      "number": "00",
+      "eyebrow": "START HERE / MARKET BASICS",
+      "title": "零基础先修：先学会看图",
+      "description": "从 K 线压缩、周期嵌套、订单撮合、数据来源、1R 与仓位路径风险搭好地基。",
+      "accent": "blue",
+      "lessonIds": ["candle-language", "timeframe-layers", "order-basics", "data-provenance", "risk-r", "session-context", "martingale-grid"]
+    },
+    {
+      "id": "smc",
+      "number": "01",
+      "eyebrow": "PRICE NARRATIVE",
+      "title": "SMC / ICT：先提出假设",
+      "description": "从摆动结构、流动性与价格失衡建立一套可证伪的图表叙事。",
+      "accent": "vermilion",
+      "lessonIds": ["smc-map", "structure-language", "liquidity-map", "pd-arrays", "hybrid-workflow", "liquidity-nesting", "dealing-range"]
+    },
+    {
+      "id": "flow",
+      "number": "02",
+      "eyebrow": "EXECUTED EVIDENCE",
+      "title": "Order Flow：再检查证据",
+      "description": "从撮合、Footprint、Delta 与吸收理解一根 K 线内部发生了什么。",
+      "accent": "lime",
+      "lessonIds": ["auction-engine", "footprint-reading", "delta-context", "confluence-lab", "volume-profile", "footprint-auctions", "dom-dynamics"]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "candle-language",
+      "track": "foundation",
+      "number": "00.1",
+      "title": "一根 K 线，是一段被压缩的故事",
+      "dek": "先别背形态名称：一根蜡烛只是在选定时间里，记录开、高、低、收四个价格。",
+      "duration": 12,
+      "level": "零基础",
+      "sourceIds": ["tradingview-intervals"],
+      "tags": ["OHLC", "实体", "影线"],
+      "outcome": "能指出开高低收、分清实体与影线，并知道单根 K 线无法证明参与者意图。",
+      "sections": [
+        {
+          "kind": "lead",
+          "title": "先读事实，再讲故事",
+          "body": "K 线把一个时间窗口压成四个数字：Open 是窗口第一笔附近的价格，High 与 Low 是期间触及的最高和最低，Close 是窗口结束时的价格。实体连接开盘与收盘，影线记录实体之外走过但没有停在收盘处的范围。",
+          "items": ["上涨柱：收盘高于开盘；下跌柱：收盘低于开盘", "长影线：价格曾走到那里又离开，但原因仍未知", "大实体：该时间窗口内净位移较大，不等于下一根必延续", "最右侧未收盘 K 线仍在变化，不能把暂时形状当最终事实"]
+        },
+        {
+          "kind": "diagram",
+          "title": "K 线解剖台",
+          "body": "切换上涨与下跌，再逐项点亮 OHLC。观察颜色改变了叙事，却没有改变四个事实。",
+          "diagram": "candle-anatomy"
+        },
+        {
+          "kind": "caution",
+          "title": "影线不是“操纵证明”",
+          "body": "长上影只说明期间到过更高价格、收盘又回落。获利了结、流动性不足、被动卖单、新闻波动等都可能产生相似外观；需要位置、后续结构和成交数据继续验证。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-candle-language",
+        "question": "一根尚未收盘的 15 分钟 K 线出现长上影，最准确的表述是？",
+        "choices": ["主力已经完成出货", "价格曾上探后回落，但 K 线仍可能继续变化", "下一根一定下跌", "所有买单已经消失"],
+        "answer": 1,
+        "explanation": "OHLC 描述发生了什么，不直接证明谁做了什么；未收盘柱还没有固定形状。"
+      }
+    },
+    {
+      "id": "timeframe-layers",
+      "track": "foundation",
+      "number": "00.2",
+      "title": "时间周期：同一条路的地图与街景",
+      "dek": "日线与 5 分钟线并不争论谁正确；它们只是用不同大小的盒子压缩同一段成交。",
+      "duration": 14,
+      "level": "零基础",
+      "sourceIds": ["tradingview-intervals"],
+      "tags": ["Timeframe", "Top-down", "Fractal"],
+      "outcome": "能解释周期为何会给出不同结构，并用“位置—路径—触发”分工阅读多周期。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "周期决定压缩方式",
+          "body": "一根 4 小时 K 线汇总四小时的 OHLC；在 15 分钟图上，同一时段会展开成 16 根更细的柱。高周期保留大位置与主要摆动，低周期保留到达过程，却也带来更多噪声。"
+        },
+        {
+          "kind": "diagram",
+          "title": "从地图放大到街景",
+          "body": "在 4H、1H 与 15m 之间切换。红色高周期回撤，展开后可能包含完整的低周期下跌与反转结构。",
+          "diagram": "timeframe-zoom"
+        },
+        {
+          "kind": "steps",
+          "title": "新手固定读图顺序",
+          "items": ["位置：用较高周期回答价格处在区间哪里、靠近哪组显眼高低点", "路径：用中间周期观察价格如何接近区域，是位移还是缓慢重叠", "触发：用较低周期等待扫取、结构变化或成交响应", "失效：必须写在入场假设之前；低周期噪声不能随意推翻高周期，也不能替高周期失败找借口"]
+        },
+        {
+          "kind": "caution",
+          "title": "周期越小，不等于信息越真",
+          "body": "更细的周期只是保留更多短时波动。它可以改善执行观察，也会制造更多假突破、更多结构标签和更高交易频率。先固定每个周期的职责。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-timeframe-layers",
+        "question": "日线看涨、5 分钟线正在下跌，最合理的初始理解是？",
+        "choices": ["两张图必有一张错误", "5 分钟下跌可能是日线上涨结构内的回撤，需要看位置与失效", "立刻删除日线", "低周期永远优先"],
+        "answer": 1,
+        "explanation": "不同周期压缩尺度不同；先确定各自职责，再判断低周期变化是否真的破坏高周期假设。"
+      }
+    },
+    {
+      "id": "order-basics",
+      "track": "foundation",
+      "number": "00.3",
+      "title": "Bid / Ask：市场是一场排队与成交",
+      "dek": "报价是仍在等待的队伍，成交是有人接受对手价格后真正发生的交换。",
+      "duration": 16,
+      "level": "零基础",
+      "sourceIds": ["investorgov-orders", "cme-liquidity", "gocharting-orderflow"],
+      "tags": ["Bid/Ask", "Spread", "Market/Limit"],
+      "outcome": "能区分报价、成交、市价与限价，并解释价差与滑点来自哪里。",
+      "sections": [
+        {
+          "kind": "compare",
+          "title": "先认识两扇门",
+          "items": ["Bid：当前公开愿意买入的最高报价；主动卖方通常与它成交", "Ask：当前公开愿意卖出的最低报价；主动买方通常与它成交", "Spread：最佳 Ask − 最佳 Bid，是立即成交需要跨过的报价间距", "Last：上一笔已经完成的成交价，不保证下一笔仍能在这里成交"]
+        },
+        {
+          "kind": "diagram",
+          "title": "排队还是立刻成交",
+          "body": "切换市价与限价，再改变订单大小；看清“成交速度”和“成交价格”无法同时得到保证。",
+          "diagram": "spread-auction"
+        },
+        {
+          "kind": "prose",
+          "title": "市价与限价交换了什么",
+          "body": "市价单追求尽快执行，但不保证最终成交价；订单较大或市场快速移动时，可能跨多个价位成交，形成滑点。限价单约束可接受价格，却可能排不到、只成交一部分或完全不成交。"
+        },
+        {
+          "kind": "caution",
+          "title": "主动不等于聪明，被动不等于安全",
+          "body": "主动订单说明谁跨过价差完成交易；它不说明参与者是否信息更好。限价单虽控制价格，也承担不成交、逆向选择与市场穿越后的风险。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-order-basics",
+        "question": "关于市价单与限价单，哪项最准确？",
+        "choices": ["市价单保证成交价格", "限价单保证一定成交", "市价单偏执行确定性，限价单偏价格约束", "二者在快速市场完全相同"],
+        "answer": 2,
+        "explanation": "市价单不保证价格，限价单不保证执行；这正是两者最核心的权衡。"
+      }
+    },
+    {
+      "id": "data-provenance",
+      "track": "foundation",
+      "number": "00.4",
+      "title": "数据血统：屏幕很像，底层可能不同",
+      "dek": "在解释 Delta、Footprint 或 Volume Profile 之前，先确认数字究竟来自逐笔成交、报价更新还是低周期估算。",
+      "duration": 14,
+      "level": "基础",
+      "sourceIds": ["tradingview-volume-profile", "gocharting-orderflow", "quantt-orderflow", "tradingview-orderflow"],
+      "tags": ["Tick Data", "Volume", "Estimate"],
+      "outcome": "能给常见成交量图标注数据等级，并避免把估算 Delta 当作交易所逐笔事实。",
+      "sections": [
+        {
+          "kind": "diagram",
+          "title": "数据质量阶梯",
+          "body": "点击四层数据，查看它能回答的问题、不能证明的事，以及使用前必须记录的字段。",
+          "diagram": "data-ladder"
+        },
+        {
+          "kind": "compare",
+          "title": "四类常见输入",
+          "items": ["交易所逐笔成交：包含每笔价格、数量与时间；若有可靠 aggressor 分类，可构建 Bid × Ask", "订单簿 / Market Depth：显示公开等待数量，但订单可能新增、移动或撤销", "经纪商或场外 tick volume：常表示报价更新次数，不一定是全市场真实成交量", "低周期 K 线估算：按小柱涨跌方向分配 volume；可做近似研究，但不能冒充真实买卖主动成交"]
+        },
+        {
+          "kind": "checklist",
+          "title": "截图旁必须写的四行",
+          "items": ["品种与交易场所：中心化交易所、经纪商还是场外报价", "数据类型：真实成交量、tick volume、订单簿或估算值", "聚合方法：时间周期、价格步长、imbalance 阈值", "覆盖限制：是否只有顶层报价、历史深度多长、连续合约如何拼接"]
+        },
+        {
+          "kind": "caution",
+          "title": "漂亮的 Footprint 外观不是数据证明",
+          "body": "同样的红绿格子可能来自真实逐笔 Bid/Ask，也可能来自低周期柱方向估算。先写数据来源，再讨论吸收、不平衡或 CVD。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-data-provenance",
+        "question": "某脚本用 1 分钟 K 线涨跌估算日线买卖量，最合适的标签是？",
+        "choices": ["交易所原生逐笔 Delta", "低周期方向估算，需注明方法与限制", "完整订单簿", "机构仓位证明"],
+        "answer": 1,
+        "explanation": "估算可以有研究价值，但它和逐笔 aggressor-side 成交不是同一类数据。"
+      }
+    },
+    {
+      "id": "risk-r",
+      "track": "foundation",
+      "number": "00.5",
+      "title": "1R：先定义怎么错，再谈能赚多少",
+      "dek": "先用 1R 统一单笔风险，再用胜率、实际平均盈亏与成本判断策略是否拥有正期望。",
+      "duration": 23,
+      "level": "基础",
+      "sourceIds": ["cftc-futures-basics", "cme-position-size", "cme-simulator-guide", "investorgov-fees", "investorgov-performance-claims"],
+      "tags": ["R Multiple", "Expectancy", "Break-even"],
+      "outcome": "能计算单笔计划盈亏比、策略期望值与保本胜率，并从目标期望反推最低平均盈利要求。",
+      "sections": [
+        {
+          "kind": "formula",
+          "title": "1R = 入场假设到失效点的距离",
+          "body": "做多示例：入场 100、结构失效 98，则每单位风险距离为 2。目标 104 距离入场 4，因此是 2R。R 只把距离标准化，不包含胜率、费用、滑点或仓位建议。"
+        },
+        {
+          "kind": "diagram",
+          "title": "R 倍数尺",
+          "body": "移动失效与目标，观察风险距离、潜在回报距离和 R 倍数如何联动。所有数值都是抽象训练单位。",
+          "diagram": "risk-ruler"
+        },
+        {
+          "kind": "formula",
+          "title": "计划盈亏比不是策略期望值",
+          "body": "单笔毛盈亏比 = 目标距离 ÷ 止损距离；更诚实的净盈亏比 =（目标毛利润 − 获利路径成本）÷（止损毛亏损 + 亏损路径成本）。评价一组交易则要用实际平均盈利 W、实际平均亏损 L、胜率 p 与平均成本 C：E[R] = p×W − (1−p)×L − C。所有量必须使用同一份事前 1R 标准化。"
+        },
+        {
+          "kind": "diagram",
+          "title": "胜率 × 平均盈亏 × 成本",
+          "body": "调节历史或保守假设，观察盈利贡献、亏损贡献和成本拖累如何合成每笔期望；再从目标期望反推所需平均盈利。输出是长期样本的数学均值，不是下一笔结果。",
+          "diagram": "expectancy-lab"
+        },
+        {
+          "kind": "steps",
+          "title": "事前按预期计算：从失效到数量",
+          "items": ["先定结构失效与止损距离，不要为了凑 2R 或 3R 把止损塞进正常噪声", "写风险预算 B；数量 =（B − 预计固定费用）÷（止损距离×每点价值 + 每单位预计费用），按允许的最小交易单位向下取整", "用可实现的结构目标计算净回报与净风险，不把理论最高点当平均盈利", "用独立样本或保守假设填写 p、W、L、C；保本胜率 pBE = (L+C) ÷ (W+L)", "如果目标期望为 E*，最低平均盈利 W要求 = [E* + (1−p)L + C] ÷ p；达不到就等待、改善执行或放弃，而不是扩大仓位"]
+        },
+        {
+          "kind": "steps",
+          "title": "评价策略要看实现值，而不是标签值",
+          "items": ["把每笔净结果除以该笔事前 1R；用实际平均盈利和实际平均亏损，不用固定止盈止损标签代替", "同时记录期望值、Profit Factor、最大回撤、最长连续亏损与样本数量；高盈亏比可能由少数离群盈利撑起", "按趋势、震荡、波动率与交易时段分组，确认结果是否只来自单一环境", "分开样本内设计、样本外验证与前向模拟；记录试过多少参数，避免只展示最幸运版本", "压力测试胜率下降、平均盈利缩水、成本上升的组合；正期望仍不等于短期不会出现深回撤"]
+        },
+        {
+          "kind": "caution",
+          "title": "漂亮回测不是收益承诺",
+          "body": "回测具有后见性，也可能忽略流动性、滑点、费用、漏单与连续亏损时能否坚持规则。过去结果、目标期望与模拟结果都不能保证未来表现；杠杆只会放大估计错误。本站计算器使用抽象 R 单位，只用于学习与压力测试。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-risk-r",
+        "question": "某策略平均盈利 2R、平均亏损 1R、每笔平均成本 0.1R。忽略估计误差时，它的保本胜率约是多少？",
+        "choices": ["25%", "33.3%", "36.7%", "50%"],
+        "answer": 2,
+        "explanation": "pBE = (L+C) ÷ (W+L) = 1.1 ÷ 3 ≈ 36.7%。若忽略成本才是 33.3%。"
+      }
+    },
+    {
+      "id": "session-context",
+      "track": "foundation",
+      "number": "00.6",
+      "title": "交易时段：先确认市场的钟",
+      "dek": "东京、伦敦、纽约只是常见观察标签；真正决定图表边界的是品种、交易所、交易日和时区。",
+      "duration": 14,
+      "level": "基础",
+      "sourceIds": ["tradingview-sessions", "tradingview-intervals", "cme-futures-guide"],
+      "tags": ["Session", "RTH/ETH", "Timezone"],
+      "outcome": "能区分交易时段、交易日与日历日，并为一个品种正确记录时区、RTH/ETH 和活跃窗口。",
+      "sections": [
+        {
+          "kind": "lead",
+          "title": "先问“谁的几点钟”",
+          "body": "时段不是画在背景上的装饰。股票可能区分常规、盘前与盘后；许多期货的默认电子时段跨越午夜；加密市场又可能连续运行。研究任何开盘、Kill Zone 或初始平衡前，必须先确认品种所在交易所、图表时区与交易日边界。"
+        },
+        {
+          "kind": "diagram",
+          "title": "24 小时时段拼图",
+          "body": "切换股票、期货与加密示例，观察相同的 24 小时如何被不同市场切成 RTH、ETH、休市与连续交易。",
+          "diagram": "session-map"
+        },
+        {
+          "kind": "compare",
+          "title": "三个容易混淆的日期",
+          "items": ["Calendar day：当地午夜到下一次午夜", "Trading session：交易所为该品种定义的一段可交易时间，可跨两个日历日", "Trading day：交易所分配给一段交易活动的业务日期，节假日可能缩短或合并", "Chart timezone：只是显示与分组视角；固定 UTC 偏移可能因夏令时与当地时钟错开"]
+        },
+        {
+          "kind": "checklist",
+          "title": "每张日内图先写四行",
+          "items": ["Symbol / Venue：究竟是哪一个交易场所和合约", "Session：RTH、ETH、24h 还是自定义窗口", "Timezone：优先使用带夏令时规则的地区时区", "Events：开盘、结算、数据公布与假日短时段是否改变样本"]
+        },
+        {
+          "kind": "caution",
+          "title": "活跃时段不是盈利时段",
+          "body": "成交量和波动在不同开收盘附近可能变化，但这不保证方向或机会。不能把另一个品种、另一个时区的固定时钟直接复制过来。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-session-context",
+        "question": "研究某期货的“纽约开盘”前，最先应该确认什么？",
+        "choices": ["社区常用的颜色", "该合约的交易所时段、交易日定义与图表时区", "前一天是否盈利", "把所有市场都设成固定 GMT-5"],
+        "answer": 1,
+        "explanation": "时段定义属于品种元数据；固定偏移还可能在夏令时切换后错开。"
+      }
+    },
+    {
+      "id": "martingale-grid",
+      "track": "foundation",
+      "number": "00.7",
+      "title": "马丁网格：均价变近，尾部风险变大",
+      "dek": "网格安排价格层，马丁安排仓位倍率；平均成本改善的同时，总敞口可能按几何级数增长。",
+      "duration": 22,
+      "level": "风险进阶",
+      "sourceIds": ["okx-futures-grid", "bybit-martingale-parameters", "cftc-futures-basics", "cme-position-size", "investorgov-stop-orders"],
+      "tags": ["Grid", "Martingale", "Stop", "Risk/Reward"],
+      "outcome": "能区分普通网格与马丁加仓，计算累计敞口、加权均价、止损总风险、目标回报与盈亏比，并识别趋势、资金耗尽和强平风险。",
+      "sections": [
+        {
+          "kind": "lead",
+          "title": "先把两个机制拆开",
+          "body": "网格是在预设价格区间内放置多层买卖订单，试图捕捉往返波动；它可以每格等额。马丁是亏损或逆向移动后放大下一笔仓位，试图让较小反弹覆盖前面损失。把马丁倍率装进网格，只是把两种机制叠加，不会产生新的市场优势。"
+        },
+        {
+          "kind": "compare",
+          "title": "等额网格、DCA 与马丁不是一回事",
+          "items": [
+            "等额网格：按价格层成交，每格数量相同；敞口随成交层数线性增加",
+            "定时 DCA：按时间计划投入固定或预定金额，不依赖价格触发",
+            "马丁加仓：逆向后按倍率增加下一单；敞口可能按几何级数增长",
+            "马丁网格：以网格价格触发马丁仓位，既承担出区间风险，也承担倍率放大风险"
+          ]
+        },
+        {
+          "kind": "formula",
+          "title": "第 n 单 = q₀ × mⁿ；累计仓位是几何和",
+          "body": "初始数量为 q₀、倍率为 m、共成交 N+1 单时，m ≠ 1 的累计数量为 q₀ × (m^(N+1) − 1) ÷ (m − 1)；m = 1 时为 q₀ × (N+1)。例如倍率 2 连续成交 6 单，数量为 1、2、4、8、16、32，累计 63，而不是 12。"
+        },
+        {
+          "kind": "formula",
+          "title": "先定止损 S，再算 1R 与盈亏比",
+          "body": "多层做多持仓总量为 Q、加权均价为 P̄、共同止损为 S、目标为 T：计划止损风险 = Q × (P̄ − S)；计划目标回报 = Q × (T − P̄)；Reward/Risk = (T − P̄) ÷ (P̄ − S)。倍率不直接改变这个价格比值，却会放大实际风险与回报金额。若止损外移而数量不减，1R 就已经变大。"
+        },
+        {
+          "kind": "diagram",
+          "title": "敞口阶梯：均价、止损与盈亏比",
+          "body": "切换成交层数、仓位倍率、止损距离和目标距离。观察平均入场靠近现价时，总止损风险与目标回报怎样随全部仓位变化。全部为抽象单位，不含费用、滑点、资金费或强平公式。",
+          "diagram": "martingale-ladder"
+        },
+        {
+          "kind": "steps",
+          "title": "评估时不要只看 Grid Profit",
+          "items": [
+            "记录总仓位与加权均价，而不是只看每格已实现的小额收益",
+            "把未实现盈亏、手续费、Spread、Slippage 与资金费加入总 P&L",
+            "先用结构失效确定止损，再用风险预算反推允许的总数量；不要先固定数量再把止损外移",
+            "预演单边穿越下界、跳空或流动性不足时，止损滑点和剩余保证金会怎样",
+            "事前限制总层数、最大总敞口与策略失效；到上限后停止加仓，不用新资金延长叙事"
+          ]
+        },
+        {
+          "kind": "caution",
+          "title": "高胜率外观可能来自少数巨大尾部损失",
+          "body": "震荡阶段可能产生许多小额闭环，使曲线看起来平滑；一次持续单边行情却可能耗尽预留资金。止损触发价也不是保证成交价，快速行情中的实际损失可能大于计划 1R；Stop-Limit 虽约束价格，却可能不成交。本站不提供倍率、层数、止损距离或实盘资金建议。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-martingale-grid",
+        "question": "初始数量为 1、每次按 2 倍加仓，连续成交 6 单后的累计数量是多少？",
+        "choices": ["6", "12", "32", "63"],
+        "answer": 3,
+        "explanation": "六单依次为 1、2、4、8、16、32，累计为 63。平均成本可能改善，但下一段逆向波动作用于全部 63 单位敞口。"
+      }
+    },
+    {
+      "id": "smc-map",
+      "track": "smc",
+      "number": "01.1",
+      "title": "先画地图，不急着预测",
+      "dek": "SMC/ICT 是一组观察价格行为的语言，不是可以脱离情境单独点亮的买卖按钮。",
+      "duration": 12,
+      "level": "基础",
+      "sourceIds": ["homedadpro-smc", "tradingview-smc-ict"],
+      "tags": ["框架", "风险", "自上而下"],
+      "outcome": "能把一个 SMC 观点写成“方向—位置—触发—失效”的完整假设。",
+      "sections": [
+        {
+          "kind": "lead",
+          "title": "四格假设",
+          "body": "一笔结构交易至少回答四件事：高周期往哪里吸引价格（方向）；你等待哪个区域（位置）；什么新信息允许行动（触发）；哪个事实证明判断错了（失效）。只标出 OB 或 FVG，不等于完成分析。",
+          "items": ["方向：高周期结构与下一处潜在流动性", "位置：流动性、OB、FVG 或 Breaker 的重叠区域", "触发：扫取后出现位移与低周期结构变化", "失效：价格接受于假设相反的一侧，而非仅凭情绪离场"]
+        },
+        {
+          "kind": "diagram",
+          "title": "从叙事到执行",
+          "body": "点击图中的四个节点，查看每一步应该回答的问题。",
+          "diagram": "hypothesis-stack"
+        },
+        {
+          "kind": "caution",
+          "title": "把“聪明钱”当作叙事标签",
+          "body": "普通图表通常不能证明某一根 K 线就是某机构的真实建仓。更稳妥的写法是描述可观察到的价格、成交量与订单行为，而不是声称知道隐形参与者的意图。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-smc-map",
+        "question": "下面哪一项让 SMC 观点最接近可验证的计划？",
+        "choices": ["图上出现一个新的 FVG", "方向、位置、触发与失效同时写清楚", "社区脚本给出买入形状", "只选择胜率看起来最高的历史截图"],
+        "answer": 1,
+        "explanation": "完整假设既说明为什么参与，也预先说明什么情况会否定判断。"
+      }
+    },
+    {
+      "id": "structure-language",
+      "track": "smc",
+      "number": "01.2",
+      "title": "结构是句法：BOS 与 CHoCH",
+      "dek": "先定义摆动，再谈突破；同一张图因摆动尺度不同，可以同时存在多层结构。",
+      "duration": 16,
+      "level": "基础",
+      "sourceIds": ["homedadpro-smc", "tradingview-smc-ict"],
+      "tags": ["HH/HL", "BOS", "CHoCH"],
+      "outcome": "能用一致的摆动尺度区分趋势延续和首次反向结构警报。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "先固定观察尺度",
+          "body": "上升结构常用更高高点（HH）与更高低点（HL）描述；下降结构对应更低低点（LL）与更低高点（LH）。关键不是标签多，而是你使用相同的摆动确认规则。把每根小波动都升级成结构，会得到大量互相冲突的 CHoCH。"
+        },
+        {
+          "kind": "compare",
+          "title": "延续与警报",
+          "items": ["BOS：沿当前结构方向越过已确认摆动点，更偏向延续证据", "CHoCH / MSS：第一次反向破坏受保护摆动点，提示主导节奏可能改变", "二者都需要先说明：用影线还是收盘确认？摆动如何成立？"]
+        },
+        {
+          "kind": "diagram",
+          "title": "结构解剖台",
+          "body": "切换延续/转变，观察被突破的是哪一个摆动。",
+          "diagram": "structure-toggle"
+        },
+        {
+          "kind": "caution",
+          "title": "CHoCH 不是自动反转",
+          "body": "低周期 CHoCH 可能只是高周期回撤。先问它发生在什么位置、是否伴随明显位移、是否扫过流动性，以及高周期叙事是否支持。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-structure",
+        "question": "上升结构中，价格首次有效跌破此前受保护的 HL，最合适的描述是？",
+        "choices": ["看涨 BOS", "结构变化警报（CHoCH/MSS）", "必然进入长期熊市", "已经形成看涨 FVG"],
+        "answer": 1,
+        "explanation": "这是反向结构警报，不足以单独证明长期反转。"
+      }
+    },
+    {
+      "id": "liquidity-map",
+      "track": "smc",
+      "number": "01.3",
+      "title": "流动性：价格可能去哪里",
+      "dek": "把明显高低点视为潜在订单聚集地，再区分扫取、突破与接受。",
+      "duration": 15,
+      "level": "基础",
+      "sourceIds": ["homedadpro-smc"],
+      "tags": ["BSL/SSL", "Sweep", "DOL"],
+      "outcome": "能标出买方/卖方流动性，并避免把每次影线都解释为操纵。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "哪里容易聚集订单",
+          "body": "前高、等高与区间高点上方常被称为买方流动性（BSL）；前低、等低与区间低点下方常被称为卖方流动性（SSL）。这些位置可能聚集止损、突破单与获利单，但图表只能显示结果，不能展示每一笔未成交意图。"
+        },
+        {
+          "kind": "diagram",
+          "title": "扫取还是接受？",
+          "body": "拖动时间轴，比较价格短暂越界后收回与持续在外侧成交。",
+          "diagram": "liquidity-sweep"
+        },
+        {
+          "kind": "steps",
+          "title": "观察顺序",
+          "items": ["标记最显眼、多人可见的摆动点，而非画满整张图", "记录价格越界后的速度、收盘位置与后续位移", "等待结构或成交证据确认，而不是在触碰时猜顶底", "把下一处对侧流动性当作潜在路径，不当作必达目标"]
+        }
+      ],
+      "quiz": {
+        "id": "quiz-liquidity",
+        "question": "价格短暂刺穿等高后迅速收回区间，首先应记录什么？",
+        "choices": ["机构一定完成做空", "发生了对高点外侧流动性的测试/扫取", "任何空单都不会再亏损", "所有未成交订单都已消失"],
+        "answer": 1,
+        "explanation": "可观察事实是越界与收回；参与者身份和后续方向仍需证据。"
+      }
+    },
+    {
+      "id": "pd-arrays",
+      "track": "smc",
+      "number": "01.4",
+      "title": "位置工具：OB、Breaker 与 FVG",
+      "dek": "这些区域用来缩小观察范围；品质来自上下文，而不是矩形本身。",
+      "duration": 18,
+      "level": "进阶",
+      "sourceIds": ["homedadpro-smc", "tsg-hybrid"],
+      "tags": ["OB", "Breaker", "FVG", "POI"],
+      "outcome": "能解释三类区域的构造、确认条件与失败方式。",
+      "sections": [
+        {
+          "kind": "compare",
+          "title": "三个不同问题",
+          "items": ["Order Block：导致明显位移前的最后一段反向交易区，作为潜在反应区观察", "Breaker：原先区域失败并被结构性穿越后，可能在反向回测时产生作用", "Fair Value Gap：三根 K 线结构中，第一与第三根影线未重叠形成的快速交付区"]
+        },
+        {
+          "kind": "diagram",
+          "title": "三根 K 线里的 FVG",
+          "body": "调整中间 K 线位移，观察缺口何时成立与何时被填补。",
+          "diagram": "fvg-builder"
+        },
+        {
+          "kind": "checklist",
+          "title": "区域品质检查",
+          "items": ["是否引发了清晰的位移与结构结果？", "是否位于高周期叙事支持的位置？", "区域是否新鲜，还是已经多次来回交易？", "区域后方是否有合理且明确的失效点？", "目标流动性是否给出足够空间，而非事后硬凑盈亏比？"]
+        },
+        {
+          "kind": "caution",
+          "title": "不要把“未成交订单”当成已证实事实",
+          "body": "仅从 K 线无法直接看见某区域还剩多少真实订单。将 OB/FVG 描述为潜在反应区，更诚实也更便于回测。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-pd",
+        "question": "一个 FVG 最值得优先研究的附加条件是？",
+        "choices": ["颜色最醒目", "与高周期方向、位移和结构结果一致", "距离当前价格最近", "社区脚本最先画出"],
+        "answer": 1,
+        "explanation": "区域需要上下文；单独出现的几何缺口没有足够信息。"
+      }
+    },
+    {
+      "id": "hybrid-workflow",
+      "track": "smc",
+      "number": "01.5",
+      "title": "ICT × SMC：把时间加入过滤器",
+      "dek": "一种来源所提出的混合流程：SMC 负责“为何与哪里”，ICT 时间窗口负责“何时”。",
+      "duration": 14,
+      "level": "进阶",
+      "sourceIds": ["tsg-hybrid", "homedadpro-smc"],
+      "tags": ["Kill Zone", "多周期", "执行"],
+      "outcome": "能搭建周/日叙事—4H/1H 区域—低周期执行的观察模板。",
+      "sections": [
+        {
+          "kind": "steps",
+          "title": "三层漏斗",
+          "items": ["周线 / 日线：记录结构阶段与最近潜在流动性方向", "4H / 1H：挑选 OB、FVG 或 Breaker，并写清边界与失效", "执行周期：仅在预先定义的活跃时段等待扫取、位移与结构确认"]
+        },
+        {
+          "kind": "timeline",
+          "title": "时间是过滤器，不是魔法时钟",
+          "body": "活跃交易时段会因资产、交易所、夏令时与事件日不同。课程不硬编码一个全球通用“必胜窗口”；请按交易品种的真实成交分布验证。"
+        },
+        {
+          "kind": "caution",
+          "title": "术语并非全球统一",
+          "body": "不同作者对 MSS、CHoCH、PD Array、POI 与 Kill Zone 的定义和严格程度可能不同。研究时先记录采用的规则，再比较结果，避免只比较名称。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-hybrid",
+        "question": "在这套三层混合流程中，执行时段的主要角色是？",
+        "choices": ["替代方向分析", "保证订单一定获利", "过滤入场时机", "自动识别所有机构订单"],
+        "answer": 2,
+        "explanation": "来源把时间维度用作执行过滤器，高周期叙事与区域分析仍需先完成。"
+      }
+    },
+    {
+      "id": "liquidity-nesting",
+      "track": "smc",
+      "number": "01.6",
+      "title": "内部与外部流动性：先画盒子",
+      "dek": "“内部”或“外部”永远相对于你选定的结构区间；不先声明盒子，标签就没有稳定含义。",
+      "duration": 16,
+      "level": "进阶",
+      "sourceIds": ["homedadpro-smc", "tradingview-smc-ict"],
+      "tags": ["Internal/External", "Inducement", "Range"],
+      "outcome": "能在一个明确区间内区分内部摆动与外部边界，并把 Inducement 写成待验证路径假设。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "所有标签都需要父区间",
+          "body": "在交易者常用的 SMC 语言里，区间两端的显眼高低点常被称为外部流动性，区间内部的小摆动、等高低与短期止损聚集则被称为内部流动性。同一个低点在 5 分钟区间里可能是外部，在 4 小时区间里却只是内部。"
+        },
+        {
+          "kind": "diagram",
+          "title": "流动性套娃",
+          "body": "切换高周期与低周期盒子，观察同一个摆动点的角色如何改变，并逐步揭示内部路径与外部目标。",
+          "diagram": "liquidity-nesting"
+        },
+        {
+          "kind": "steps",
+          "title": "从盒子到路径",
+          "items": ["先用已确认摆动选择父区间，不要为了适配结果随意换锚点", "标出区间两端的外部边界，再标内部最显眼的中继高低点", "把内部扫取视为可能的路径事件，而不是外部目标必达的证明", "每次结构重新定价后，说明旧区间何时失效、何时需要重新框选"]
+        },
+        {
+          "kind": "caution",
+          "title": "Inducement 不是可直接观察的意图",
+          "body": "“诱导”是交易者对路径的解释，图表本身只能证明某个内部摆动被测试、扫取或接受。不要因为价格先触及一个内部低点，就声称知道参与者被故意引诱。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-liquidity-nesting",
+        "question": "为什么同一个低点可以同时被称为内部和外部流动性？",
+        "choices": ["术语完全没有意义", "它相对于不同父区间扮演不同角色", "外部流动性一定在日线", "内部流动性一定会先被扫"],
+        "answer": 1,
+        "explanation": "内部/外部是相对分类，必须连同时间周期和父区间一起记录。"
+      }
+    },
+    {
+      "id": "dealing-range",
+      "track": "smc",
+      "number": "01.7",
+      "title": "Dealing Range：Premium / Discount 的坐标系",
+      "dek": "Premium、Equilibrium、Discount 不是绝对高低，而是一个选定区间里的相对位置。",
+      "duration": 15,
+      "level": "进阶",
+      "sourceIds": ["homedadpro-smc", "tsg-hybrid", "tradingview-smc-ict"],
+      "tags": ["Premium", "Discount", "Equilibrium"],
+      "outcome": "能用明确摆动锚定 Dealing Range，并说明位置过滤器何时失效、为何不能单独触发交易。",
+      "sections": [
+        {
+          "kind": "formula",
+          "title": "Equilibrium = 区间高低点的 50%",
+          "body": "选定 swing low 与 swing high 后，上半区通常被称为 Premium，下半区称为 Discount，中点称为 Equilibrium。它是几何坐标，不是资产的基本面公允价值。"
+        },
+        {
+          "kind": "diagram",
+          "title": "区间位置罗盘",
+          "body": "移动当前价格并更换锚点，观察同一价格如何从 Premium 变成 Discount；再叠加方向假设查看位置是否一致。",
+          "diagram": "dealing-range"
+        },
+        {
+          "kind": "compare",
+          "title": "位置过滤，不是反转按钮",
+          "items": ["看涨叙事通常更愿意在 Discount 寻找证据，但价格可以在 Premium 继续上涨", "看跌叙事通常更愿意在 Premium 寻找证据，但位置本身不能证明卖方出现", "50% 只回答相对位置；OB、FVG、流动性和成交回答不同问题", "若父区间被结构性穿越或重新定价，原坐标系需要失效或重锚"]
+        },
+        {
+          "kind": "caution",
+          "title": "先写锚点规则，避免事后重画",
+          "body": "若每次结果不理想就换一个 swing high/low，Premium/Discount 可以解释任何走势。固定摆动确认、区间失效和重锚规则，才有可能复盘。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-dealing-range",
+        "question": "价格进入 Dealing Range 的 Discount 后，最合理的结论是？",
+        "choices": ["价格一定反弹", "它处在区间下半部，可结合看涨叙事继续等待触发", "卖方已经全部离场", "止损可以取消"],
+        "answer": 1,
+        "explanation": "Discount 是位置过滤器，不是方向和触发证据。"
+      }
+    },
+    {
+      "id": "auction-engine",
+      "track": "flow",
+      "number": "02.1",
+      "title": "订单如何变成价格",
+      "dek": "Order Flow 从撮合机制开始：被动挂单提供流动性，主动订单消耗流动性。",
+      "duration": 17,
+      "level": "基础",
+      "sourceIds": ["gocharting-orderflow", "quantt-orderflow", "dhan-orderflow"],
+      "tags": ["Bid/Ask", "DOM", "Aggressor"],
+      "outcome": "能区分挂在盘口里的数量和已经成交的主动买卖。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "一笔成交有两边",
+          "body": "限价单在订单簿中等待，通常被称为被动流动性；可成交的市价或侵略性限价单跨过价差，与等待中的订单撮合。成交在 Ask 一侧通常被分类为主动买入，成交在 Bid 一侧通常被分类为主动卖出。主动不等于聪明，被动也不等于弱。"
+        },
+        {
+          "kind": "diagram",
+          "title": "迷你撮合器",
+          "body": "发送主动买单或卖单，观察最优报价的挂单如何被消耗。",
+          "diagram": "orderbook-sim"
+        },
+        {
+          "kind": "compare",
+          "title": "两种信息流",
+          "items": ["Trades / Tape：已经成交，通常可按 aggressor side 分类", "Order Book / DOM：尚未成交的公开挂单，可能新增、撤销或移动", "价格推进：一侧主动订单持续消耗对手方可用流动性时，成交价格需要寻找下一档"]
+        },
+        {
+          "kind": "caution",
+          "title": "看见挂单不等于它会成交",
+          "body": "订单簿中的显示数量可能在成交前撤销；不同数据源还可能只提供部分深度。DOM 与实际成交应分开读。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-auction",
+        "question": "成交发生在 Ask，通常怎样分类？",
+        "choices": ["主动买入成交", "主动卖出成交", "未成交限价买单", "一定是机构买入"],
+        "answer": 0,
+        "explanation": "买方跨过价差、抬 Ask 完成交易，因此被归为买方 aggressor。"
+      }
+    },
+    {
+      "id": "footprint-reading",
+      "track": "flow",
+      "number": "02.2",
+      "title": "Footprint：打开 K 线外壳",
+      "dek": "把每根 K 线按价格层拆开，观察 Bid × Ask 成交量、VPOC 与不平衡。",
+      "duration": 18,
+      "level": "基础",
+      "sourceIds": ["gocharting-orderflow", "tradingview-orderflow", "dhan-orderflow"],
+      "tags": ["Footprint", "VPOC", "Imbalance"],
+      "outcome": "能读懂一个基础 Bid × Ask Footprint，并说明数据限制。",
+      "sections": [
+        {
+          "kind": "diagram",
+          "title": "可交互 Footprint",
+          "body": "点击价格层，比较同价和对角线不平衡；观察高成交量并不自动决定方向。",
+          "diagram": "footprint-grid"
+        },
+        {
+          "kind": "compare",
+          "title": "表格里常见什么",
+          "items": ["左列 Bid：主动卖出撞向买方挂单的成交量", "右列 Ask：主动买入抬走卖方挂单的成交量", "VPOC：该柱中成交量最大的价格层", "Imbalance：一侧成交显著高于比较侧；阈值与比较方式必须记录"]
+        },
+        {
+          "kind": "caution",
+          "title": "先问数据从哪里来",
+          "body": "交易所原生逐笔 Bid/Ask、经纪商数据、外汇 tick volume 与用低周期 K 线方向估算的 delta 并不等价。TradingView 社区脚本可能因为 Pine 与数据限制进行估算；界面像 Footprint，不代表底层就是完整逐笔成交。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-footprint",
+        "question": "看到一个高亮的买方不平衡后，下一步更合理的是？",
+        "choices": ["立即做多", "结合位置、相邻层、后续价格反应和数据来源判断", "认定卖方已经消失", "忽略流动性与结构"],
+        "answer": 1,
+        "explanation": "单个不平衡需要结构位置、连续性、反应与数据品质共同解释。"
+      }
+    },
+    {
+      "id": "delta-context",
+      "track": "flow",
+      "number": "02.3",
+      "title": "Delta：主动性与价格的对话",
+      "dek": "Delta 衡量主动买卖成交量之差；真正有价值的问题是价格如何回应这股主动性。",
+      "duration": 16,
+      "level": "进阶",
+      "sourceIds": ["gocharting-orderflow", "quantt-orderflow", "tradingview-orderflow"],
+      "tags": ["Delta", "CVD", "Absorption"],
+      "outcome": "能区分同向确认、分歧、吸收与衰竭的观察语言。",
+      "sections": [
+        {
+          "kind": "formula",
+          "title": "Delta = Ask 成交量 − Bid 成交量",
+          "body": "正值表示该统计窗口内主动买入更多，负值表示主动卖出更多。Cumulative Delta（CVD）把连续窗口的 delta 累加，用来观察净主动性的路径。"
+        },
+        {
+          "kind": "diagram",
+          "title": "价格 × Delta 情境板",
+          "body": "切换四种组合，先描述事实，再考虑吸收、衰竭或延续假设。",
+          "diagram": "delta-matrix"
+        },
+        {
+          "kind": "compare",
+          "title": "重点不是正负本身",
+          "items": ["价格上涨 + 正 Delta：主动买入与价格方向一致，但仍要看位置和追价成本", "价格停滞 + 大幅正 Delta：可能有被动卖方吸收，也可能只是暂时平衡", "价格创新高 + CVD 未创新高：可能出现分歧，不等于自动反转", "极端 Delta + 无法延续：可研究衰竭，但需要后续成交与结构确认"]
+        },
+        {
+          "kind": "caution",
+          "title": "短时信息，短时半径",
+          "body": "Order Flow 通常更适合秒到分钟、偶尔小时级的执行研究；它不是把一笔日内成交解释成数周方向的望远镜。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-delta",
+        "question": "价格在阻力位几乎不涨，但持续出现很大的正 Delta，最谨慎的初始解释是？",
+        "choices": ["买方必胜", "存在主动买入，但价格响应弱；需要检查潜在吸收与后续确认", "Delta 数据一定错误", "立刻满仓做空"],
+        "answer": 1,
+        "explanation": "先描述主动买入与弱价格响应，再用后续数据验证吸收假设。"
+      }
+    },
+    {
+      "id": "confluence-lab",
+      "track": "flow",
+      "number": "02.4",
+      "title": "合流实验室：叙事必须接受审问",
+      "dek": "结构给出观察地点，Order Flow 给出当下证据；若证据冲突，最好的交易可能是不交易。",
+      "duration": 12,
+      "level": "实战",
+      "sourceIds": ["homedadpro-smc", "tsg-hybrid", "gocharting-orderflow", "quantt-orderflow"],
+      "tags": ["Confluence", "Playbook", "No trade"],
+      "outcome": "能完成一个带有反证条件的结构 × Order Flow 执行卡。",
+      "sections": [
+        {
+          "kind": "lab",
+          "title": "构建你的执行卡",
+          "body": "选择高周期叙事、价格位置和到达后的成交证据，实验室会判断信息是否一致。",
+          "diagram": "confluence-builder"
+        },
+        {
+          "kind": "steps",
+          "title": "回放记录模板",
+          "items": ["事前截图：结构、目标流动性、区域边界、时段与失效", "到达区域：记录 sweep / displacement / CHoCH 是否真实发生", "成交证据：记录 delta、imbalance、absorption 的数据来源和阈值", "事后分类：有效、无效、错过或规则外；不要只按盈亏重写理由"]
+        },
+        {
+          "kind": "caution",
+          "title": "合流不是堆指标",
+          "body": "多个指标若都由同一份价格或成交量变换而来，并不等于独立证据。合流的价值在于不同问题互相约束：结构回答哪里，成交回答现在发生什么，风险规则回答错了怎么办。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-confluence",
+        "question": "高周期看多区域到达后，Footprint 显示持续卖方主动性、价格接受于区域下方，最符合规则的动作是？",
+        "choices": ["因为高周期看多而继续加仓", "忽略成交数据", "承认触发/失效条件未满足，等待或放弃", "把止损移得更远"],
+        "answer": 2,
+        "explanation": "执行证据反驳了原假设；可证伪的计划允许“不交易”。"
+      }
+    },
+    {
+      "id": "volume-profile",
+      "track": "flow",
+      "number": "02.5",
+      "title": "Volume Profile：市场在哪里停留成交",
+      "dek": "K 线按时间组织价格，Volume Profile 按价格组织历史成交量；它展示接受与薄弱通道，不预言下一步。",
+      "duration": 18,
+      "level": "进阶",
+      "sourceIds": ["tradingview-volume-profile", "tradingview-tpo", "gocharting-orderflow"],
+      "tags": ["POC", "VAH/VAL", "HVN/LVN"],
+      "outcome": "能读懂 POC、Value Area、HVN 与 LVN，并说明 Profile 周期、数据来源和重算限制。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "把成交量从时间轴转到价格轴",
+          "body": "Volume Profile 将选定时段内的成交量按价格层累积。最长的行是 POC；包含指定比例总量的连续区域称为 Value Area，常见默认值为 70%，上、下边界分别是 VAH 与 VAL。"
+        },
+        {
+          "kind": "diagram",
+          "title": "可交互成交分布",
+          "body": "切换平衡、双峰与趋势三种分布，点选价格层查看 POC、Value Area、HVN 和 LVN 的形成。",
+          "diagram": "volume-profile"
+        },
+        {
+          "kind": "compare",
+          "title": "接受与快速通过",
+          "items": ["HVN：历史成交量峰值，说明该样本里反复成交或停留较多", "LVN：历史成交量谷值，说明该样本里成交较薄或价格快速穿越", "Developing POC：当前未完成时段的最大量价位，会随着新成交移动", "Previous Profile：已完成样本提供固定参考，但未来可以直接穿越、重新接受或完全忽略"]
+        },
+        {
+          "kind": "checklist",
+          "title": "使用前固定参数",
+          "items": ["Profile 范围：Session、固定区间、可见范围还是周/月", "Value Area 百分比与每行价格步长", "成交量类型：真实成交、tick volume 或低周期估算", "是否使用非标准图表；Renko 等构造可能扭曲价格和成交量分配"]
+        },
+        {
+          "kind": "caution",
+          "title": "POC 不是磁铁，LVN 不是隧道",
+          "body": "这些是对过去样本的反应式描述。价格可能回到 POC，也可能在新信息下重新定价；LVN 可能快速穿越，也可能在返回后建立新的成交接受。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-volume-profile",
+        "question": "某个价格层是本时段 POC，最准确的解释是？",
+        "choices": ["下一时段一定回到这里", "该 Profile 中它累积了最多成交量", "所有机构成本都在这里", "它一定成为支撑"],
+        "answer": 1,
+        "explanation": "POC 是样本内最大成交量价位，是历史分布事实，不是未来路径保证。"
+      }
+    },
+    {
+      "id": "footprint-auctions",
+      "track": "flow",
+      "number": "02.6",
+      "title": "Stacked Imbalance 与拍卖边缘",
+      "dek": "连续不平衡比单个彩色格更有结构，但阈值、比较方式和极值定义必须先固定。",
+      "duration": 17,
+      "level": "进阶",
+      "sourceIds": ["gocharting-imbalance", "gocharting-orderflow", "tradingview-footprint"],
+      "tags": ["Stacked Imbalance", "Excess", "Unfinished Auction"],
+      "outcome": "能识别对角不平衡、连续堆叠与拍卖极值，并把它们写成上下文证据而非自动信号。",
+      "sections": [
+        {
+          "kind": "formula",
+          "title": "Diagonal Imbalance：Ask[p] 对 Bid[p−1]",
+          "body": "许多 Footprint 用对角线比较相邻价位的主动买卖量，并用比例阈值高亮。一些平台把同侧连续多层高亮称为 Stacked Imbalance；连续层数与阈值都是软件参数。"
+        },
+        {
+          "kind": "diagram",
+          "title": "拍卖打印检查器",
+          "body": "切换平衡、买方堆叠、完成边缘与未完成边缘，查看每种图形能观察到的事实和仍需验证的解释。",
+          "diagram": "auction-extremes"
+        },
+        {
+          "kind": "compare",
+          "title": "三个不同问题",
+          "items": ["Single Imbalance：一个比较层达到阈值，容易受低样本和设置影响", "Stacked Imbalance：多个相邻层同侧达到阈值，描述主动成交在价格上连续出现", "Excess：部分软件用极值处单边或极低反侧成交描述拍卖尾部；具体定义随平台变化", "Unfinished Auction：极值仍存在双向成交的实践术语，只提示该边缘可能继续被研究，不保证重访"]
+        },
+        {
+          "kind": "steps",
+          "title": "从打印到结论",
+          "items": ["先记录价格位置和柱内总成交量，避免在极低样本上放大比例", "写清同价还是对角比较、比例阈值与连续层数", "观察主动性是否推动价格离开，而非只看颜色", "在后续回测中检查区域是承接、穿越、失效还是被完全淡化"]
+        },
+        {
+          "kind": "caution",
+          "title": "软件术语不是交易所事件标签",
+          "body": "Excess 与 Unfinished Auction 的显示规则并不跨平台统一；Stacked Imbalance 也可能被随后成交直接淡化。截图必须附带设置与数据来源。"
+        }
+      ],
+      "quiz": {
+        "id": "quiz-footprint-auctions",
+        "question": "看到三个连续 Ask Imbalance 后，最合理的下一步是？",
+        "choices": ["立即追多", "记录阈值与位置，再检查价格是否得到推进及后续是否接受", "认定卖方已经消失", "忽略总成交量"],
+        "answer": 1,
+        "explanation": "堆叠描述连续主动性，仍需要价格响应、结构位置、数据品质和后续确认。"
+      }
+    },
+    {
+      "id": "dom-dynamics",
+      "track": "flow",
+      "number": "02.7",
+      "title": "动态 DOM：挂单会出现、移动与撤销",
+      "dek": "Depth 是当前公开队列的快照，不是参与者意图的永久承诺；真正的阅读单位是变化与成交响应。",
+      "duration": 16,
+      "level": "进阶",
+      "sourceIds": ["cme-liquidity", "cme-rule575", "quantt-orderflow"],
+      "tags": ["Pulling/Stacking", "Queue", "Spoofing"],
+      "outcome": "能区分挂单增加、撤单、成交消耗与补单，并避免仅凭 DOM 变化指控 Spoofing。",
+      "sections": [
+        {
+          "kind": "prose",
+          "title": "四种变化，四个不同事实",
+          "body": "订单簿数量增加可以是新挂单；减少可能来自成交、撤销或修改；最优价耗尽后价格可能移到下一档；被持续消耗后又补回的数量可能表现为 replenishment。只有把订单事件与实际成交对齐，才能区分这些路径。"
+        },
+        {
+          "kind": "diagram",
+          "title": "DOM 事件回放器",
+          "body": "播放挂单增加、主动消耗、撤单与补单四个事件，观察深度、成交和最佳报价分别怎样改变。",
+          "diagram": "dom-motion"
+        },
+        {
+          "kind": "compare",
+          "title": "可见事实与谨慎推断",
+          "items": ["Stacking：某侧公开深度增加；可能改变短时可见供给，但挂单仍可撤销", "Pulling：公开深度减少且没有对应成交；说明订单被移除，不自动说明原因", "Consumption：主动成交真实消耗队列；若深度耗尽，最佳报价可能移动", "Replenishment：成交后同价数量反复补充；可研究隐藏流动性，但普通深度不能直接显示完整总量"]
+        },
+        {
+          "kind": "caution",
+          "title": "大单消失不等于已经证明 Spoofing",
+          "body": "CME Rule 575 对 Spoofing 的描述包含下单时的取消或误导意图。零售图表能记录撤单，却通常不能单靠一次取消证明主观意图；更诚实的语言是“公开深度被撤走”。"
+        },
+        {
+          "kind": "steps",
+          "title": "DOM 观察记录",
+          "items": ["记录品种、深度层数、刷新/聚合设置与是否为 Market-by-Price 或 Market-by-Order", "同时记录 Trades，区分减少来自成交还是撤单", "观察最佳报价、Spread 与价格是否响应", "只在短时执行上下文使用，不把数秒队列变化外推为长期方向"]
+        }
+      ],
+      "quiz": {
+        "id": "quiz-dom-dynamics",
+        "question": "Ask 侧一笔大挂单突然消失，但没有对应成交，首先应该记录什么？",
+        "choices": ["已经证实 Spoofing", "公开卖方深度被撤销或修改，原因和意图仍未知", "买方一定突破", "所有卖方都离场"],
+        "answer": 1,
+        "explanation": "可观察事实是深度减少且没有成交；Spoofing 涉及意图，不能从单一快照直接证明。"
+      }
+    }
+  ],
+  "glossary": [
+    {"term": "Dealing Range", "alias": "交易区间", "track": "smc", "definition": "用一对明确摆动高低点建立的相对坐标系；Premium、Discount 与 Equilibrium 都依赖这两个锚点。"},
+    {"term": "Discount", "alias": "区间折价侧", "track": "smc", "definition": "选定 Dealing Range 的下半区。它只描述相对位置，不代表资产被低估或价格必然反弹。"},
+    {"term": "Equilibrium", "alias": "区间中点 / EQ", "track": "smc", "definition": "选定区间高低点之间的 50% 几何中点，不是基本面公允价值。"},
+    {"term": "Excess", "alias": "拍卖尾部", "track": "flow", "definition": "部分 Footprint 软件对极值处单边或极低反侧成交的实践标签；具体判定随平台与设置变化。"},
+    {"term": "External Liquidity", "alias": "外部流动性", "track": "smc", "definition": "相对于一个已声明父区间，位于区间边界外侧显眼高低点附近的潜在订单聚集。"},
+    {"term": "ETH", "alias": "Electronic / Extended Trading Hours", "track": "foundation", "definition": "常规主时段之外或更长的电子交易时段；准确含义由品种、交易所和数据源决定。"},
+    {"term": "Average Entry", "alias": "加权平均入场", "track": "foundation", "definition": "以每笔成交数量加权得到的持仓平均价格。加仓可让均价靠近现价，但不会抹去既有亏损。"},
+    {"term": "Grid Trading", "alias": "网格交易", "track": "foundation", "definition": "在预设价格区间和间隔放置多层订单、尝试捕捉往返波动的执行方法；价格离开区间时风险结构会改变。"},
+    {"term": "HVN", "alias": "High Volume Node", "track": "flow", "definition": "Volume Profile 中相对突出的成交量峰值，表示所选样本在该价格附近历史成交较多。"},
+    {"term": "Inducement", "alias": "诱导 / IDM", "track": "smc", "definition": "SMC 实践中对内部摆动可能吸引订单的解释术语；图表只能证明该位置被测试，不能直接证明故意诱导。"},
+    {"term": "Internal Liquidity", "alias": "内部流动性", "track": "smc", "definition": "相对于一个已声明父区间，位于区间内部的小摆动、等高低或短期订单聚集。"},
+    {"term": "LVN", "alias": "Low Volume Node", "track": "flow", "definition": "Volume Profile 中相对低量的谷值，表示所选样本在该价格层历史成交较薄或通过较快。"},
+    {"term": "Premium", "alias": "区间溢价侧", "track": "smc", "definition": "选定 Dealing Range 的上半区。它是相对位置过滤器，不代表资产绝对昂贵或价格必跌。"},
+    {"term": "Pulling / Stacking", "alias": "撤单 / 加单", "track": "flow", "definition": "公开订单簿深度减少或增加的描述；必须结合成交事件区分撤销、消耗和新挂单。"},
+    {"term": "Replenishment", "alias": "补单", "track": "flow", "definition": "某价位挂单被成交消耗后又持续出现的现象；可研究隐藏流动性，但不能直接得知完整订单总量。"},
+    {"term": "RTH", "alias": "Regular Trading Hours", "track": "foundation", "definition": "交易所或数据源为品种定义的常规主交易时段；不一定是该品种最长或默认电子时段。"},
+    {"term": "Spoofing", "alias": "幌骗交易", "track": "flow", "definition": "包含下单时取消或误导意图的受规管行为。单次大挂单撤销不能仅凭图表证明这种意图。"},
+    {"term": "Stacked Imbalance", "alias": "连续堆叠不平衡", "track": "flow", "definition": "Footprint 中多个相邻价格层在同一侧达到预设不平衡阈值；层数和阈值由软件设置。"},
+    {"term": "Trading Day", "alias": "交易日", "track": "foundation", "definition": "交易所赋予一段交易活动的业务日期；带隔夜时段的交易日可能跨越两个或更多日历日。"},
+    {"term": "Unfinished Auction", "alias": "未完成拍卖", "track": "flow", "definition": "部分 Footprint 方法对价格极值仍存在双向成交的实践标签；它不保证价格以后一定重访。"},
+    {"term": "Value Area", "alias": "价值区 / VA", "track": "flow", "definition": "Volume Profile 中包含指定比例总成交量的连续价格区域，常见默认比例为 70%，但参数可配置。"},
+    {"term": "VAH / VAL", "alias": "Value Area High / Low", "track": "flow", "definition": "所选 Value Area 的上边界和下边界，是历史分布参考，不是必然支撑阻力。"},
+    {"term": "Ask", "alias": "卖一 / 最佳卖价", "track": "foundation", "definition": "当前公开卖方愿意接受的最低报价。主动买方通常跨过价差与 Ask 一侧成交。"},
+    {"term": "Bid", "alias": "买一 / 最佳买价", "track": "foundation", "definition": "当前公开买方愿意支付的最高报价。主动卖方通常跨过价差与 Bid 一侧成交。"},
+    {"term": "Candlestick", "alias": "K 线 / 蜡烛图", "track": "foundation", "definition": "把一个指定窗口内的开盘、最高、最低、收盘四个价格压缩成实体和影线的图形。"},
+    {"term": "Limit Order", "alias": "限价单", "track": "foundation", "definition": "只允许在指定价格或更优价格成交的订单；约束价格，但不保证能够成交。"},
+    {"term": "Margin Exhaustion", "alias": "保证金 / 资金耗尽", "track": "foundation", "definition": "连续加仓、亏损、费用或资金费占用可用资本，导致后续订单无法执行或杠杆仓位被迫关闭。"},
+    {"term": "Market Order", "alias": "市价单", "track": "foundation", "definition": "寻求尽快按当前可用报价成交的订单；偏向执行确定性，但不保证最终成交价格。"},
+    {"term": "Martingale", "alias": "马丁格尔加仓", "track": "foundation", "definition": "在亏损或逆向移动后按预设倍率放大后续仓位、期待反向波动覆盖前损的 sizing 方法；连续不利路径会快速放大敞口。"},
+    {"term": "OHLC", "alias": "Open / High / Low / Close", "track": "foundation", "definition": "一个统计窗口内的开盘、最高、最低与收盘价格，是时间 K 线的四个基础事实。"},
+    {"term": "Break-even Win Rate", "alias": "保本胜率", "track": "foundation", "definition": "使策略长期平均期望恰好为零所需的胜率；它由平均盈利、平均亏损和交易成本共同决定。"},
+    {"term": "Expectancy", "alias": "交易期望值", "track": "foundation", "definition": "在统一 R 尺度下，每笔交易长期平均预期贡献：胜率×平均盈利 − 败率×平均亏损 − 平均成本。正值不保证下一笔或短期盈利。"},
+    {"term": "Maximum Drawdown", "alias": "最大回撤 / MDD", "track": "foundation", "definition": "样本净值从一个历史峰值到随后谷值的最大跌幅，用来描述过程中最深的已观察资金回撤；未来仍可能更大。"},
+    {"term": "Profit Factor", "alias": "盈利因子 / PF", "track": "foundation", "definition": "样本总毛盈利除以总毛亏损的绝对值。大于 1 表示该样本总盈利高于总亏损，但不说明回撤路径、样本稳定性或未来结果。"},
+    {"term": "R Multiple", "alias": "R 倍数", "track": "foundation", "definition": "用事前定义的单位风险 1R 标准化结果或目标。它便于比较计划，但不代表胜率或收益保证。"},
+    {"term": "Risk/Reward Ratio", "alias": "盈亏比 / 回报风险比", "track": "foundation", "definition": "计划目标回报除以计划止损风险。它依赖入场、止损和目标，不包含胜率，也不会限制实际滑点。"},
+    {"term": "Slippage", "alias": "滑点", "track": "foundation", "definition": "预期成交价与实际平均成交价之间的差异；快速市场、订单较大或深度不足时可能扩大。"},
+    {"term": "Spread", "alias": "买卖价差", "track": "foundation", "definition": "当前最佳 Ask 与最佳 Bid 的差；也是立即跨价成交时需要面对的显性摩擦之一。"},
+    {"term": "Stop Price", "alias": "止损触发价", "track": "foundation", "definition": "预先定义的退出触发价格。普通 Stop 触发后通常变为市价单，因此触发价不保证等于最终成交价。"},
+    {"term": "Tick Volume", "alias": "报价跳动量", "track": "foundation", "definition": "统计报价或价格更新次数的量度，常见于缺少集中成交量的市场；它不等同于全市场真实成交手数。"},
+    {"term": "Tail Risk", "alias": "尾部风险", "track": "foundation", "definition": "低频但损失极大的不利情形。马丁策略常呈现许多小盈利与少数巨大亏损，因此平均结果不能替代最坏路径检查。"},
+    {"term": "Timeframe", "alias": "时间周期", "track": "foundation", "definition": "每根时间 K 线所汇总的时间长度。改变周期会改变数据分组、摆动尺度与可见噪声。"},
+    {"term": "Absorption", "alias": "吸收", "track": "flow", "definition": "大量主动成交出现，但价格推进有限；可能有对手方被动挂单持续承接。它是待验证假设，不是自动反转信号。"},
+    {"term": "Aggressor", "alias": "主动方", "track": "flow", "definition": "跨过价差、立即与挂单成交的一方。成交在 Ask 通常归为主动买入，在 Bid 归为主动卖出。"},
+    {"term": "BOS", "alias": "Break of Structure", "track": "smc", "definition": "价格沿当前结构方向有效越过已确认摆动点，通常被用作延续证据。"},
+    {"term": "Breaker Block", "alias": "破坏块", "track": "smc", "definition": "原有订单区域失败并被结构性穿越后，在反向回测中被观察的潜在反应区。"},
+    {"term": "BSL", "alias": "Buy-side Liquidity", "track": "smc", "definition": "位于明显高点上方的潜在订单聚集区，可能包含空头止损与突破买单。"},
+    {"term": "CHoCH", "alias": "Change of Character", "track": "smc", "definition": "首次反向破坏受保护摆动的结构警报；定义常随作者与摆动尺度变化。"},
+    {"term": "CVD", "alias": "Cumulative Volume Delta", "track": "flow", "definition": "把连续统计窗口的 Delta 累加，观察净主动买卖的演变。"},
+    {"term": "Delta", "alias": "成交量差", "track": "flow", "definition": "主动买入成交量减去主动卖出成交量；常写为 Ask volume − Bid volume。"},
+    {"term": "DOM", "alias": "Depth of Market", "track": "flow", "definition": "显示订单簿各价位公开挂单深度的界面；其中数量可以在成交前撤销。"},
+    {"term": "Displacement", "alias": "位移", "track": "smc", "definition": "价格快速、方向性地离开某区域，常伴随大实体与失衡；应结合结构结果判断。"},
+    {"term": "Footprint", "alias": "足迹 / Cluster", "track": "flow", "definition": "在每根柱内按价格层显示 Bid/Ask 或总成交量的图表，用来观察 K 线内部的成交分布。"},
+    {"term": "FVG", "alias": "Fair Value Gap", "track": "smc", "definition": "三根 K 线结构中第一与第三根影线未重叠的快速交付区；不是天然必回补区域。"},
+    {"term": "Imbalance", "alias": "不平衡", "track": "flow", "definition": "比较的买卖成交量出现显著比例差异；必须记录阈值、同价/对角比较方式与数据来源。"},
+    {"term": "Kill Zone", "alias": "活跃时段窗口", "track": "smc", "definition": "ICT 流程中用于筛选执行时机的特定交易时段；需按品种、时区和夏令时校准。"},
+    {"term": "Liquidity Sweep", "alias": "流动性扫取", "track": "smc", "definition": "价格短暂越过明显高低点后收回；是否形成反转还需结构和成交确认。"},
+    {"term": "MSS", "alias": "Market Structure Shift", "track": "smc", "definition": "市场结构转变的术语，部分作者与 CHoCH 互换使用，部分作者要求额外位移条件。"},
+    {"term": "Order Block", "alias": "订单块", "track": "smc", "definition": "明显位移前最后一段反向交易区，被作为潜在反应位置观察；图表无法直接证明剩余机构订单。"},
+    {"term": "POI", "alias": "Point of Interest", "track": "smc", "definition": "值得等待更多证据的价格区域，可能由 OB、FVG、Breaker 或其他结构定义。"},
+    {"term": "SSL", "alias": "Sell-side Liquidity", "track": "smc", "definition": "位于明显低点下方的潜在订单聚集区，可能包含多头止损与突破卖单。"},
+    {"term": "VPOC", "alias": "Volume Point of Control", "track": "flow", "definition": "指定柱或分布中成交量最大的价格层。高成交代表接受/兴趣，不自动代表方向。"}
+  ]
+}

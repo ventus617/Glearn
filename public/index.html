@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SMC、ICT 与 Order Flow 的本地交互学习地图">
+    <meta name="theme-color" content="#ebe5d8">
+    <title>结构与流｜Market Structure Atlas</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%231b2522'/%3E%3Cpath d='M10 43h11V28h11v7h11V17h11' fill='none' stroke='%23d8ff45' stroke-width='5'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <div class="paper-grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="wordmark" href="#home" aria-label="结构与流首页">
+        <span class="wordmark-mark">S<span>/</span>F</span>
+        <span class="wordmark-copy"><b>结构与流</b><small>MARKET STRUCTURE ATLAS</small></span>
+      </a>
+      <nav class="main-nav" aria-label="主要导航">
+        <a href="#home" data-route="home">总览</a>
+        <a href="#course" data-route="course">课程</a>
+        <a href="#cases" data-route="cases">案例室</a>
+        <a href="#glossary" data-route="glossary">词典</a>
+        <a href="#updates" data-route="updates">更新台</a>
+      </nav>
+      <div class="header-tools">
+        <button class="beginner-toggle" id="beginner-mode" type="button" aria-pressed="true" aria-label="切换新手解释">
+          <span class="beginner-toggle-dot"></span><span><b>新手模式</b><small>白话解释开启</small></span>
+        </button>
+        <button class="soundless-status" id="open-progress" type="button" aria-label="查看学习进度">
+          <span class="status-ring"><i id="header-progress-ring"></i></span>
+          <span><b id="header-progress">0%</b><small>学习进度</small></span>
+        </button>
+      </div>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="打开导航">
+        <span></span><span></span>
+      </button>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <div id="app" aria-live="polite"></div>
+    </main>
+
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <p><span>STRUCTURE</span> 提出假设 <i>×</i> <span>FLOW</span> 检查证据</p>
+      <p>本地教育工具 · 不构成投资建议</p>
+    </footer>
+
+    <noscript>此学习站需要 JavaScript 才能显示交互课程。</noscript>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+[
+  {
+    "id": "homedadpro-smc",
+    "title": "SMC 策略完整教学",
+    "url": "https://homedadpro.com/smart-money-concepts/",
+    "category": "smc-ict"
+  },
+  {
+    "id": "tsg-hybrid",
+    "title": "Combining ICT and SMC",
+    "url": "https://tradingstrategyguides.com/day-20-combining-ict-and-smc-trading-the-hybrid-approach-that-works/",
+    "category": "smc-ict"
+  },
+  {
+    "id": "tradingview-smc-ict",
+    "title": "TradingView SMC / ICT 社区脚本",
+    "url": "https://tw.tradingview.com/scripts/smc-ict/",
+    "category": "tools"
+  },
+  {
+    "id": "tradingview-orderflow",
+    "title": "TradingView Order Flow 社区脚本",
+    "url": "https://tw.tradingview.com/scripts/orderflow/",
+    "category": "tools"
+  },
+  {
+    "id": "gocharting-orderflow",
+    "title": "GoCharting Order Flow 基础",
+    "url": "https://gocharting.com/docs/orderflow/basics-of-orderflow",
+    "category": "order-flow"
+  },
+  {
+    "id": "dhan-orderflow",
+    "title": "Dhan Order Flow 初学指南",
+    "url": "https://dhan.co/blog/technical-analysis/what-is-order-flow-trading/",
+    "category": "order-flow"
+  },
+  {
+    "id": "quantt-orderflow",
+    "title": "Quantt Order Flow Guide",
+    "url": "https://www.quantt.co.uk/resources/order-flow-trading-guide",
+    "category": "order-flow"
+  },
+  {
+    "id": "investorgov-orders",
+    "title": "Investor.gov 订单类型基础",
+    "url": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/types-orders",
+    "category": "foundation"
+  },
+  {
+    "id": "tradingview-intervals",
+    "title": "TradingView K 线与时间周期",
+    "url": "https://www.tradingview.com/support/solutions/43000747934-time-intervals-a-quick-introduction-and-tips/",
+    "category": "foundation"
+  },
+  {
+    "id": "tradingview-volume-profile",
+    "title": "TradingView Volume Profile 数据方法",
+    "url": "https://www.tradingview.com/support/solutions/43000502040-volume-profile-indicators-basic-concepts/",
+    "category": "data"
+  },
+  {
+    "id": "cme-liquidity",
+    "title": "CME 订单簿与流动性方法",
+    "url": "https://www.cmegroup.com/education/articles-and-reports/understanding-the-cme-liquidity-tool-methodology",
+    "category": "foundation"
+  },
+  {
+    "id": "cftc-futures-basics",
+    "title": "CFTC 期货基础与风险",
+    "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+    "category": "risk"
+  },
+  {
+    "id": "tradingview-sessions",
+    "title": "TradingView 交易时段与时区",
+    "url": "https://www.tradingview.com/support/solutions/43000729030-trading-sessions/",
+    "category": "foundation"
+  },
+  {
+    "id": "cme-futures-guide",
+    "title": "CME 期货交易者指南",
+    "url": "https://www.cmegroup.com/education/files/a-traders-guide-to-futures.pdf",
+    "category": "foundation"
+  },
+  {
+    "id": "tradingview-tpo",
+    "title": "TradingView TPO 与市场分布",
+    "url": "https://www.tradingview.com/support/solutions/43000713306-time-price-opportunity-tpo-indicator/",
+    "category": "order-flow"
+  },
+  {
+    "id": "gocharting-imbalance",
+    "title": "GoCharting 对角与堆叠不平衡",
+    "url": "https://gocharting.com/docs/orderflow/imbalance-charts",
+    "category": "order-flow"
+  },
+  {
+    "id": "tradingview-footprint",
+    "title": "TradingView Volume Footprint 指南",
+    "url": "https://www.tradingview.com/support/solutions/43000726164-volume-footprint-charts-a-complete-guide/",
+    "category": "order-flow"
+  },
+  {
+    "id": "cme-rule575",
+    "title": "CME Rule 575 与 Spoofing 边界",
+    "url": "https://www.cmegroup.com/content/dam/cmegroup/notices/market-regulation/2020/08/CME-Group-RA2006-07-27-2020.pdf",
+    "category": "market-regulation"
+  },
+  {
+    "id": "okx-futures-grid",
+    "title": "OKX Futures Grid 参数与运行机制",
+    "url": "https://www.okx.com/en-gb/help/ii-futures-grid",
+    "category": "risk-mechanics"
+  },
+  {
+    "id": "bybit-martingale-parameters",
+    "title": "Bybit Futures Martingale 参数说明",
+    "url": "https://www.bybit.com/en/help-center/article/Futures-Martingale-Bot-Parameters-Explained",
+    "category": "risk-mechanics"
+  },
+  {
+    "id": "cme-position-size",
+    "title": "CME 止损距离与仓位规模",
+    "url": "https://www.cmegroup.com/education/courses/trade-and-risk-management/proper-position-size",
+    "category": "risk-management"
+  },
+  {
+    "id": "investorgov-stop-orders",
+    "title": "Investor.gov Stop 与 Stop-Limit 订单边界",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-15",
+    "category": "risk-management"
+  },
+  {
+    "id": "cme-simulator-guide",
+    "title": "CME 交易计划与 Risk/Reward 模拟指南",
+    "url": "https://www.cmegroup.com/education/files/cme-institute-trading-simulator-guide.pdf",
+    "category": "risk-management"
+  },
+  {
+    "id": "investorgov-fees",
+    "title": "Investor.gov 费用如何影响回报",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/updated",
+    "category": "risk-management"
+  },
+  {
+    "id": "investorgov-performance-claims",
+    "title": "Investor.gov 业绩、回测与预测声明边界",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-47",
+    "category": "risk-management"
+  },
+  {
+    "id": "cme-assessing-liquidity",
+    "title": "CME：不能只用订单簿深度评价流动性",
+    "url": "https://www.cmegroup.com/education/articles-and-reports/assessing-liquidity",
+    "category": "market-microstructure",
+    "addedAt": "2026-09-01"
+  },
+  {
+    "id": "openstax-economics-pedagogy",
+    "title": "OpenStax Principles of Economics 3e · 教学结构",
+    "url": "https://openstax.org/books/principles-economics-3e/pages/preface",
+    "category": "pedagogy",
+    "addedAt": "2026-09-01"
+  },
+  {
+    "id": "core-econ-teaching-guide",
+    "title": "CORE Econ The Economy 2.0 · Teaching Guide",
+    "url": "https://www.core-econ.org/te2-0-micro-and-macro-guide/",
+    "category": "pedagogy",
+    "addedAt": "2026-09-01"
+  }
+]

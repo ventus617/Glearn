@@ -1,0 +1,16 @@
+{
+  "name": "market-structure-atlas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-first SMC, ICT and Order Flow learning server",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check lib/storage.js && node --check lib/source-checker.js && node --check public/app.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
