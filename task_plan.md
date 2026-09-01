@@ -349,8 +349,8 @@ Phase 45 — in progress (glossary reading typography)
 - [x] Reduce oversized lesson, vocabulary, chapter, and panel headings without flattening the editorial identity
 - [x] Increase the actual learning copy across vocabulary cards, chapter prose, explanations, cases, guides, lists, and callouts
 - [x] Verify the representative `timeframe-layers` lesson at the supplied wide desktop scale and at 390px mobile
-- [ ] Push the revision and update the running service on `43.160.244.246`
-- **Status:** in_progress
+- [x] Push the revision and update the running service on `43.160.244.246`
+- **Status:** complete
 
 ## Key Questions
 

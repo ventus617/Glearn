@@ -542,6 +542,8 @@
 - Final mobile long-form recheck passed: document and worked-item widths both equal 375px, with 20px prose/case/step copy and no horizontal overflow.
 - Full route sweep passed for all 21 lessons at 1378×736 and 390×844: zero overflowing routes; beginner lesson explanations consistently measure 21px desktop and 20px mobile.
 - Professional-mode spot check also passes without overflow at 18px terminology definitions, 16px guidance, and 19px lesson explanations; beginner mode was restored after the check.
+- Implementation revision `40dda10` was pushed to GitHub, fast-forwarded into both `/root/Glearn` and `/opt/glearn`, and deployed by restarting `glearn.service`.
+- Server-local verification passed: service enabled/active under `glearn`, HTTP 200 on `127.0.0.1:4173`, the `course-reading-3` asset is served, and the bootstrap still contains 21 lessons, 62 glossary entries, 62 detailed definitions, 6 cases, and 5 textbook chapters.
 
 ### 2026-09-01 — Glossary reading typography
 
