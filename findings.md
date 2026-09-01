@@ -226,6 +226,16 @@
 
 ## Technical Decisions
 
+### 2026-09-01 remote deployment discovery
+
+- `43.160.244.246` is a CentOS Stream 9 host with Node `v22.23.2`, npm, systemd `252`, active firewalld, and disabled SELinux.
+- Port `4173/tcp` is not listening and is not yet included in the permanent firewalld port list.
+- The user-provided checkout exists at `/root/Glearn`, is clean on `main`, and matches GitHub commit `7d08c8a`; no deployment conflict or existing Glearn service was detected.
+- The application currently hard-codes `127.0.0.1`, so public deployment needs an explicit host override. The safe compatibility rule is `HOST` opt-in with `127.0.0.1` remaining the default.
+- Running the public Node process directly as root is unnecessary. A dedicated `glearn` user plus a root-owned checkout under `/opt/glearn` limits filesystem impact while allowing only `data/runtime` to remain writable.
+- The systemd unit can retain outbound IPv4/IPv6 access for scheduled source checks while dropping Linux capabilities and restricting persistent writes to the runtime JSON directory.
+- Public deployment does not add account isolation: progress and update state belong to one server instance. This needs to be stated explicitly rather than implied to be per-user.
+
 | Decision | Rationale |
 |----------|-----------|
 | Separate “framework claim” from “observable data” in lessons | SMC/ICT narratives are interpretive; executed volume/order-book definitions are more directly measurable |

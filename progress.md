@@ -1,5 +1,18 @@
 # Progress Log
 
+## Session: 2026-09-01 — Deployment to 43.160.244.246:4173
+
+- Confirmed SSH access as root and performed read-only discovery before changing server state.
+- Remote host is CentOS Stream 9 with Node 22.23.2, npm, systemd 252, active firewalld, and SELinux disabled.
+- TCP 4173 is unused. Firewalld currently allows several ports but not 4173.
+- `/root/Glearn` is clean on `main` at `7d08c8a`, matching `origin/main`; no existing Glearn service or Node process was found.
+- Deployment decision: preserve `/root/Glearn`, install the runtime checkout at `/opt/glearn`, run it as a dedicated `glearn` system user, and use an opt-in `HOST=0.0.0.0` setting while keeping local development on `127.0.0.1` by default.
+- Implemented an opt-in `HOST` environment setting, retaining `127.0.0.1` when unset.
+- Added `deploy/glearn.service` with a dedicated user, automatic restart, no-new-privileges, filesystem protection, an empty capability set, restricted address families, and write access limited to `/opt/glearn/data/runtime`.
+- Documented the deployment variables and the shared-state/public-access boundary in README.
+- Local verification passed: syntax checks, three existing tests, whitespace validation, and a real temporary launch with `HOST=0.0.0.0 PORT=4180`.
+- The temporary public-bind launch returned HTTP 200 and loaded 21 lessons, 6 staged case dossiers, and 28 sources through `/api/bootstrap`; the temporary process was then stopped cleanly.
+
 ## Session: 2026-09-01 — Beginner terminology repair
 
 - Inspected the user-provided `candle-language` overview screenshot at original resolution.

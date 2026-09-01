@@ -1,0 +1,34 @@
+[Unit]
+Description=Glearn market structure learning server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=glearn
+Group=glearn
+WorkingDirectory=/opt/glearn
+Environment=NODE_ENV=production
+Environment=HOST=0.0.0.0
+Environment=PORT=4173
+Environment=UPDATE_INTERVAL_HOURS=24
+ExecStart=/usr/local/bin/node /opt/glearn/server.js
+Restart=on-failure
+RestartSec=3
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/opt/glearn/data/runtime
+
+[Install]
+WantedBy=multi-user.target

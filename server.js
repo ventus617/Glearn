@@ -21,7 +21,7 @@ const paths = {
   updates: path.join(runtimeDir, 'updates.json')
 };
 
-const host = '127.0.0.1';
+const host = process.env.HOST || '127.0.0.1';
 const port = Number(process.env.PORT || 4173);
 const updateHours = Math.max(1, Number(process.env.UPDATE_INTERVAL_HOURS || 24));
 let updateRun = null;

@@ -6,11 +6,11 @@ Build a polished local web server whose HTML learning interface teaches SMC/ICT 
 
 ## Next Step
 
-Preserve the completed 21-lesson terminology primer, the candle OHLC worked example, and the 57 case diagrams; continue expanding explanations with the same first-use-definition rule.
+Deploy the current `main` revision to `43.160.244.246:4173` as a restartable, non-root systemd service while preserving the local-only default listener.
 
 ## Current Phase
 
-Phase 43 — complete (beginner terminology comprehension)
+Phase 44 — in progress (public server deployment)
 
 ## Phases
 
@@ -323,6 +323,15 @@ Phase 43 — complete (beginner terminology comprehension)
 - [x] Extend the terminology primer across all 21 lessons using the curated local glossary
 - [x] Verify the redesigned chapter overview on desktop and mobile at `127.0.0.1`
 - **Status:** complete
+
+### Phase 44: Public server deployment
+
+- [x] Inspect the remote OS, repository state, Node runtime, firewall, service manager, and port 4173
+- [ ] Add an opt-in host binding and a hardened systemd unit without changing the local default
+- [ ] Push the deployment revision to GitHub and update the remote checkout
+- [ ] Install the application under `/opt/glearn` with a dedicated `glearn` system user
+- [ ] Open TCP 4173, start and enable the service, then verify local and external HTTP access
+- **Status:** in_progress
 
 ## Key Questions
 
