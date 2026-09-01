@@ -1628,6 +1628,177 @@ button { color: inherit; }
   .site-footer { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
 
+/* Course reading hierarchy: display type marks sections; copy carries the lesson. */
+.course-main {
+  --course-copy: 18px;
+  --course-reading: 19px;
+  --course-support: 16px;
+  --course-caption: 13px;
+}
+.course-main.beginner-reading {
+  --course-copy: 20px;
+  --course-reading: 21px;
+  --course-support: 18px;
+  --course-caption: 14px;
+}
+
+.course-main .lesson-hero h1 { max-width: 820px; font-size: clamp(48px, 5.7vw, 76px); line-height: .98; }
+.course-main .lesson-hero .dek { max-width: 780px; font-size: clamp(19px, 1.55vw, 22px); line-height: 1.72; }
+.course-main .lesson-section h2 { font-size: clamp(30px, 3vw, 40px); line-height: 1.12; }
+.course-main .lesson-section.kind-caution h2 { font-size: 32px; }
+.course-main .lesson-section.kind-formula h2 { font-size: clamp(22px, 2.4vw, 30px); }
+.course-main .lesson-section p { max-width: 780px; font-size: var(--course-reading); line-height: 1.9; }
+.course-main .lesson-section li { font-size: var(--course-support); line-height: 1.78; }
+
+.course-main .beginner-guide-grid p { font-size: var(--course-copy); line-height: 1.85; }
+.course-main .beginner-guide-grid li { font-size: var(--course-support); line-height: 1.7; }
+.course-main .guide-misread span { font-size: var(--course-caption); line-height: 1.65; }
+
+.course-main .depth-intro h2,
+.course-main .microcase-book > header h2,
+.course-main .depth-practice h2 { font-size: clamp(36px, 4vw, 50px); line-height: 1.02; }
+.course-main .depth-intro p { font-size: var(--course-reading); line-height: 1.9; }
+.course-main .depth-intro small { font-size: 11px; line-height: 1.65; }
+.course-main .depth-vocabulary > header { grid-template-columns: 150px minmax(230px,.72fr) minmax(360px,1.28fr); padding-block: 34px; }
+.course-main .depth-vocabulary > header h3 { font-size: clamp(30px, 2.7vw, 38px); line-height: 1.08; }
+.course-main .depth-vocabulary > header p { font-size: var(--course-support); line-height: 1.8; }
+.course-main .depth-vocabulary-grid article { min-height: 310px; padding: 30px 28px 32px; }
+.course-main .depth-vocabulary-grid small { font-size: 11px; }
+.course-main .depth-vocabulary-grid h4 { margin: 24px 0 16px; font-size: 27px; line-height: 1.08; }
+.course-main .depth-vocabulary-grid p { font-size: var(--course-copy); line-height: 1.85; }
+.course-main .depth-vocabulary-grid b { font-size: var(--course-support); line-height: 1.78; }
+
+.course-main .depth-worked-example h3 { font-size: clamp(34px, 3.5vw, 44px); line-height: 1.04; }
+.course-main .depth-worked-example ol li { min-height: 64px; font-size: var(--course-support); line-height: 1.78; }
+.course-main .depth-worked-example aside p { font-size: var(--course-support); line-height: 1.75; }
+.course-main .mechanic-grid h3 { font-size: clamp(29px, 3vw, 38px); line-height: 1.1; }
+.course-main .mechanic-grid p { font-size: var(--course-copy); line-height: 1.85; }
+.course-main .mechanic-grid li,
+.course-main .mechanic-grid li.explained-point b { font-size: var(--course-support); line-height: 1.72; }
+.course-main .mechanic-grid li.explained-point span { font-size: calc(var(--course-support) - 1px); line-height: 1.78; }
+
+.course-main .microcase-book > header > p,
+.course-main .microcase-card > header p { font-size: var(--course-copy); line-height: 1.82; }
+.course-main .microcase-card h3 { margin-top: 46px; font-size: clamp(30px, 3vw, 40px); line-height: 1.08; }
+.course-main .case-reasoning li,
+.course-main .microcase-card dd { font-size: var(--course-support); line-height: 1.78; }
+.course-main .case-reasoning small,
+.course-main .microcase-card dt { font-size: 10px; line-height: 1.55; }
+.course-main .case-instance-figure figcaption span { font-size: var(--course-support); line-height: 1.7; }
+.course-main .case-instance-figure figcaption small { font-size: var(--course-caption); line-height: 1.65; }
+.course-main .depth-practice li { font-size: var(--course-support); line-height: 1.75; }
+
+.course-main .textbook-title { min-height: 300px; }
+.course-main .textbook-title h2 { font-size: clamp(44px, 5vw, 64px); line-height: .98; }
+.course-main .textbook-title > p { font-size: var(--course-support); line-height: 1.75; }
+.course-main .textbook-copy > p,
+.course-main .model-copy p,
+.course-main .evidence-copy p,
+.course-main .chapter-summary > div p { font-size: var(--course-reading); line-height: 1.94; }
+.course-main .textbook-model > header h3,
+.course-main .worked-example > header h3 { font-size: clamp(32px, 3.5vw, 44px); line-height: 1.06; }
+.course-main .textbook-model summary { font-size: var(--course-support); line-height: 1.65; }
+.course-main .textbook-model details li { font-size: var(--course-support); line-height: 1.75; }
+.course-main .worked-example > header p,
+.course-main .worked-example > ol li,
+.course-main .worked-example footer p { font-size: var(--course-copy); line-height: 1.82; }
+.course-main .comparative-study > header h3,
+.course-main .textbook-evidence > header h3,
+.course-main .misconception-workshop > header h3,
+.course-main .chapter-summary > header h3,
+.course-main .chapter-questions > header h3,
+.course-main .knowledge-tree > header h3 { font-size: clamp(34px, 4vw, 52px); line-height: 1.04; }
+.course-main .comparative-study > header p,
+.course-main .chapter-questions > header p { font-size: var(--course-support); line-height: 1.75; }
+.course-main .textbook-casebook > header h3 { font-size: clamp(38px, 4.6vw, 58px); line-height: .98; }
+.course-main .textbook-casebook > header p { font-size: var(--course-caption); line-height: 1.75; }
+.course-main .textbook-case > header h4 { margin-top: 36px; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.06; }
+.course-main .textbook-case > header p,
+.course-main .textbook-case-grid li,
+.course-main .textbook-case dd { font-size: var(--course-copy); line-height: 1.82; }
+.course-main .misconception-workshop summary b,
+.course-main .chapter-questions summary b { font-size: var(--course-support); line-height: 1.7; }
+.course-main .misconception-workshop details > p,
+.course-main .chapter-questions details > p { font-size: var(--course-copy); line-height: 1.85; }
+.course-main .textbook-sources a b { font-size: 14px; }
+.course-main .textbook-sources a span { font-size: var(--course-caption); line-height: 1.7; }
+.course-main .textbook-sources a small { font-size: 10px; line-height: 1.55; }
+
+.course-main .candle-facts p,
+.course-main .timeframe-caption p,
+.course-main .auction-ticket p,
+.course-main .ladder-readout div p,
+.course-main .risk-controls > p,
+.course-main .session-readout p,
+.course-main .nesting-lab article p,
+.course-main .range-lab article p,
+.course-main .profile-lab article p,
+.course-main .auction-extreme-lab article p,
+.course-main .dom-motion-lab article p,
+.course-main .node-flow p,
+.course-main .delta-case span,
+.course-main .builder-verdict span { font-size: var(--course-support); line-height: 1.72; }
+.course-main .timeframe-caption span,
+.course-main .auction-ticket > span,
+.course-main .ladder-readout > span,
+.course-main .expectancy-balance > p,
+.course-main .expectancy-controls > span,
+.course-main .martingale-readout > p { font-size: var(--course-caption); line-height: 1.65; }
+.course-main .ladder-steps button b,
+.course-main .builder-column button { font-size: var(--course-support); line-height: 1.55; }
+.course-main .ladder-steps button small { font-size: 12px; line-height: 1.5; }
+.course-main .risk-controls h3,
+.course-main .expectancy-balance > h3,
+.course-main .martingale-readout h3 { font-size: 52px; }
+.course-main .risk-controls label,
+.course-main .expectancy-controls label { font-size: 14px; }
+.course-main .risk-controls > span,
+.course-main .session-readout strong,
+.course-main .nesting-lab article strong,
+.course-main .range-lab article strong,
+.course-main .profile-lab article strong,
+.course-main .auction-extreme-lab article strong,
+.course-main .dom-motion-lab article strong,
+.course-main .martingale-readout > strong { font-size: 14px; line-height: 1.65; }
+.course-main .mg-metrics span { font-size: 10px; line-height: 1.5; }
+.course-main .node-flow b { font-size: 24px; }
+.course-main .fp-readout,
+.course-main .builder-verdict span { font-size: var(--course-support); }
+.course-main .quiz-card h2 { font-size: clamp(30px, 3.4vw, 42px); }
+.course-main .quiz-option,
+.course-main .quiz-feedback { font-size: var(--course-support); line-height: 1.65; }
+.course-main .quiz-option { min-height: 72px; padding: 16px 18px; }
+
+@media (max-width: 720px) {
+  .course-main { --course-copy: 18px; --course-reading: 19px; --course-support: 17px; --course-caption: 13px; }
+  .course-main.beginner-reading { --course-copy: 20px; --course-reading: 20px; --course-support: 18px; --course-caption: 14px; }
+  .course-main .lesson-hero h1 { font-size: clamp(43px, 13vw, 54px); }
+  .course-main .lesson-section h2 { font-size: 34px; }
+  .course-main .depth-intro h2,
+  .course-main .microcase-book > header h2,
+  .course-main .depth-practice h2 { font-size: 40px; }
+  .course-main .depth-vocabulary > header { grid-template-columns: 1fr; gap: 20px; }
+  .course-main .depth-vocabulary > header h3 { font-size: 32px; }
+  .course-main .depth-vocabulary-grid,
+  .course-main .depth-vocabulary-grid.terms-1,
+  .course-main .depth-vocabulary-grid.terms-2,
+  .course-main .depth-vocabulary-grid.terms-3 { grid-template-columns: 1fr; }
+  .course-main .depth-vocabulary-grid article { min-height: auto; padding: 30px 24px 34px; }
+  .course-main .textbook-title h2 { font-size: 46px; }
+  .course-main .comparative-study > header h3,
+  .course-main .textbook-evidence > header h3,
+  .course-main .misconception-workshop > header h3,
+  .course-main .chapter-summary > header h3,
+  .course-main .chapter-questions > header h3,
+  .course-main .knowledge-tree > header h3 { font-size: 40px; }
+  .course-main .textbook-casebook > header h3 { font-size: 44px; }
+  .course-main .textbook-case > header h4 { font-size: 36px; }
+  .course-main .worked-example > ol { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .course-main .worked-example > ol li { min-width: 0; width: 100%; overflow-wrap: anywhere; }
+  .course-main .textbook-sources a { grid-template-columns: 1fr; gap: 10px; }
+  .course-main .textbook-sources a small { text-align: left; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

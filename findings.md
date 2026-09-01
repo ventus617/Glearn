@@ -373,6 +373,32 @@
 
 ## Visual/Browser Findings
 
+### 2026-09-01 course screenshot at 100% zoom — reading hierarchy diagnosis
+
+- The 2756×1472 screenshot shows browser zoom explicitly set to 100%, so the perceived smallness is not caused by accidental browser zoom.
+- The `这页先懂这些词` display heading consumes roughly two lines at a very large size, while the three definitions—the actual material the learner must parse—remain visually closer to navigation copy.
+- The page has abundant horizontal and vertical space. The repair should redistribute that space: smaller display headings, larger body copy, more comfortable line height, and narrower readable measures inside wide cards.
+- This is not confined to the terminology primer. A course-level typography pass must cover lesson introductions, long-form chapters, mechanism explanations, beginner notes, examples, analyses, lists, quizzes, and risk/case callouts so the hierarchy stays consistent after scrolling.
+- The desired editorial direction remains the existing market field manual, but its hierarchy changes from “poster first” to “reader first”: display type identifies the section; body type carries the lesson.
+- The CSS audit confirms the mismatch is systematic: beginner lesson paragraphs are 17px, lesson lists 15.5px, vocabulary definitions 14.5px, vocabulary guidance 13.5px, worked-example steps 14.5px, micro-case reasoning 13.5px, and quiz options 13px, while major display headings reach 48–105px.
+- Long textbook prose is already closer to a reading scale at 19.5px, but several embedded teaching components fall back to 12–15px. A course-scoped cascade is preferable to ad hoc fixes because it can correct those embedded components without altering navigation chrome or the standalone case laboratory.
+- The safest implementation is a CSS-only reading hierarchy layer under `.course-main`, plus one small mobile adjustment. No new renderer, state, or test suite is warranted for this typography correction.
+- Browser-computed values at the screenshot-equivalent 1378×736 viewport reproduce the imbalance exactly: lesson title 105px and vocabulary banner title 48px versus vocabulary definition 14.5px, guidance 13.5px, micro-case reasoning 13.5px, quiz options 13px, and normal lesson explanation 17px.
+- The representative page has no horizontal overflow before the change, so the new scale must preserve that property by allowing cards to grow vertically rather than widening the layout.
+- The long-form `structure-language` chapter exposes the same hierarchy inversion deeper in the course: an 82px chapter title and several 55.12px subheads sit above 13–14px worked steps, model lists, case reasoning, case introductions, and review questions. Even source summaries are only 11px.
+- The long continuous textbook prose is already 19.5px in beginner mode and should move only slightly. The strongest increase belongs to the fragmented instructional components where learners repeatedly compare claims, evidence, and decisions.
+- After the course-scoped cascade, the screenshot-equivalent viewport computes at 76px for the lesson title, about 37px for the vocabulary banner, 27px for term titles, 20px for term definitions, 18px for term guidance, micro-case reasoning, lists, and quiz choices, and 21px for section explanations.
+- The new definition line height is 37px, up from 24.94px, and the page remains free of horizontal overflow. This achieves the requested inversion: display headings are visibly smaller while reading copy gains the strongest scale increase.
+- The first wide screenshot also confirms beginner-guide explanations now read as course copy rather than secondary metadata; the blue editorial treatment remains intact while the sentences carry more visual weight.
+- The targeted vocabulary screenshot now shows the intended hierarchy at 100%: the banner heading is compact enough to share one row with its explanation, while each definition and guidance sentence is visibly larger than the English label and remains comfortably wrapped inside the three-column grid.
+- Long-form verification also passes: chapter title 82→64px; model, worked-example, and case titles about 55→44px; chapter prose 19.5→21px; model lists and questions 13–14→18px; worked and case explanations 13–14→20px; source summaries 11→14px. No horizontal overflow is introduced.
+- The first 390px measurement exposed a specificity defect that predated this pass: `.depth-vocabulary-grid.terms-3` overrode the generic mobile `.depth-vocabulary-grid` declaration, leaving three 120–135px columns. The larger copy makes this immediately unacceptable; every `terms-*` variant must be explicitly forced to one column on mobile.
+- The corrected 390×844 result is a true 375px single-column card: 32px vocabulary heading, 20px definition, 18px guidance, 20px lesson explanation, and no horizontal overflow. The screenshot shows full-width readable sentences with clear separation between English label, Chinese term, definition, and study instruction.
+- The mobile long-form route initially measured a narrow 12px document overflow. Element inspection isolates it to worked-example list items with formula-rich text: each item is 387px wide inside a 375px viewport, while the rest of the chapter—including the newly stacked source links—fits.
+- The constrained mobile long-form recheck passes at exactly 375px document and item width: 46px chapter title, 20px textbook prose, 20px worked/case explanation, and 18px review question text. The formula-rich worked items now wrap rather than widening the page.
+- The final mobile screenshot keeps the existing editorial color blocks and focus control, but the 20px Chinese explanations visibly dominate metadata and labels as intended.
+- A full route sweep confirms the course-scoped cascade is stable beyond the sampled pages: all 21 lessons render without horizontal overflow at both 1378×736 and 390×844. Beginner lesson explanations consistently compute at 21px desktop and 20px mobile.
+
 ### 2026-09-01 glossary screenshot — typography diagnosis
 
 - On the supplied 2770×1390 desktop screenshot, the `Dealing Range` title is readable, but the material users must actually study is visually subordinate: base and expanded paragraphs are 14px, expanded field labels are 8px, and the result count and summary metadata are 9px.

@@ -343,6 +343,15 @@ Phase 45 — in progress (glossary reading typography)
 - [x] Push the revision and update the running service on `43.160.244.246`
 - **Status:** complete
 
+### Phase 46: Course-first reading typography
+
+- [x] Inspect the supplied 100%-zoom course screenshot and identify the inverted title/body hierarchy
+- [x] Reduce oversized lesson, vocabulary, chapter, and panel headings without flattening the editorial identity
+- [x] Increase the actual learning copy across vocabulary cards, chapter prose, explanations, cases, guides, lists, and callouts
+- [x] Verify the representative `timeframe-layers` lesson at the supplied wide desktop scale and at 390px mobile
+- [ ] Push the revision and update the running service on `43.160.244.246`
+- **Status:** in_progress
+
 ## Key Questions
 
 1. Which supplied pages are accessible and what concepts can be responsibly synthesized from them?
@@ -390,6 +399,9 @@ Phase 45 — in progress (glossary reading typography)
 | First post-restart check reached `active` before the Node listener was ready | 1 | Use a bounded local HTTP readiness loop, then verify listener, page, API, process identity, and Git revision together |
 | The first glossary-mode class patch matched the homepage's identical `page-shell` line | 1 | Browser QA exposed the wrong class placement; retarget the patch with function-level context and verify the rendered glossary container |
 | The already-open browser document reused the previous module bundle after a hash-only navigation | 1 | Add explicit asset revision query strings and load a fresh document before measuring computed typography |
+| The glossary QA tab binding had been closed before the later course typography pass | 1 | Preserve the browser binding, discard only the stale tab handle, and create a fresh local QA tab |
+| The first 390px course check retained three vocabulary columns because a `terms-3` selector outranked the generic mobile rule | 1 | Add course-scoped mobile overrides for every `terms-*` vocabulary-grid variant, then repeat the mobile measurement and screenshot |
+| The first mobile long-form check overflowed by 12px in worked-example list items | 1 | Trace the exact overflowing elements, then constrain the mobile worked-example list and items to the available width before final QA |
 
 ## Notes
 

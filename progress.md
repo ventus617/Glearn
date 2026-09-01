@@ -525,6 +525,24 @@
 
 ## Test Results
 
+### 2026-09-01 — Course-first reading typography
+
+- **Status:** in progress.
+- The supplied `#lesson/timeframe-layers` screenshot at browser zoom 100% confirms that course typography still prioritizes display headings over reading copy.
+- Scope is deliberately cross-course: shrink oversized display headings and enlarge instructional prose, definitions, explanations, lists, callouts, worked-case analysis, and beginner guidance.
+- Baseline browser measurement at 1378×736: 105px lesson title, 48px vocabulary title, 30px term titles, 14.5px term definitions, 13.5px term guidance and micro-case reasoning, 17px lesson paragraphs, and 13px quiz choices.
+- Implemented one course-scoped CSS reading hierarchy instead of separate component rewrites: normal reading copy now uses 18–19px and beginner copy 20–21px, while embedded supporting text rises to 16px normally and 18px in beginner mode.
+- Reduced poster-scale course headings, enlarged terminology cards, chapter explanations, worked steps, model lists, case reasoning, diagram readouts, practice steps, quiz choices, and source summaries, and added a dedicated mobile scale.
+- Versioned the static assets as `20260901-course-reading-1` so the 100%-zoom browser reloads the new cascade immediately.
+- Wide-screen computed verification passed with the intended new asset loaded: title 105→76px, vocabulary heading 48→37.2px, term definition 14.5→20px, guidance 13.5→18px, lesson paragraph 17→21px, micro-case reasoning 13.5→18px, and quiz choice 13→18px; no horizontal overflow.
+- Long-form chapter verification passed: 64px main chapter title, 44px component titles, 21px textbook prose, 20px worked/case explanations, 18px model lists and review questions, and 14px source summaries, with no horizontal overflow.
+- Corrected the mobile vocabulary specificity defect by forcing all `terms-1` through `terms-3` variants and the default four-term grid to one column; bumped the asset revision to `20260901-course-reading-2` for clean revalidation.
+- Mobile recheck passed at 390×844: the vocabulary grid resolves to one 375px column, definition/guidance remain 20px/18px, section prose is 20px, and document width remains exactly 375px without overflow.
+- Constrained formula-heavy mobile worked-example lists with a zero-minimum grid track and `overflow-wrap:anywhere`; bumped the final QA asset revision to `20260901-course-reading-3`.
+- Final mobile long-form recheck passed: document and worked-item widths both equal 375px, with 20px prose/case/step copy and no horizontal overflow.
+- Full route sweep passed for all 21 lessons at 1378×736 and 390×844: zero overflowing routes; beginner lesson explanations consistently measure 21px desktop and 20px mobile.
+- Professional-mode spot check also passes without overflow at 18px terminology definitions, 16px guidance, and 19px lesson explanations; beginner mode was restored after the check.
+
 ### 2026-09-01 — Glossary reading typography
 
 - **Status:** complete and deployed.
