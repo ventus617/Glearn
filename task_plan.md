@@ -10,7 +10,7 @@ Replace the generic shared line-chart case plate with concept-specific teaching 
 
 ## Current Phase
 
-Phase 48 — in progress (concept-specific case diagrams)
+Phase 48 — complete (concept-specific case diagrams)
 
 ## Phases
 
@@ -368,9 +368,9 @@ Phase 48 — in progress (concept-specific case diagrams)
 - [x] Define a small diagram grammar that maps each of the 21 lesson concepts to an appropriate visual model
 - [x] Replace the shared line-only plot with concept-specific queue, ladder, nesting, risk, distribution, footprint, profile, and timeline renderers
 - [x] Preserve the readable `01 开始 → 02 关键变化 → 03 最后结果` explanation layer for every case
-- [x] Verify representative diagram families plus all 57 figures at desktop and 390px mobile widths
-- [ ] Push the revision and update the running service on `43.160.244.246`
-- **Status:** in_progress
+- [x] Verify representative diagram families plus all 57 figures at desktop width; retain responsive safety without treating mobile as a design target
+- [x] Push the revision and update the running service on `43.160.244.246`
+- **Status:** complete
 
 ## Key Questions
 

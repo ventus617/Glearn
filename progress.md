@@ -527,13 +527,16 @@
 
 ### 2026-09-01 — Concept-specific case diagrams
 
-- **Status:** in progress.
+- **Status:** complete.
 - The supplied execution screenshot confirms that adding start/middle/end markers did not solve the core semantic problem: queue and stop-slippage cases are still represented by unrelated generic price lines.
 - Target architecture: a bounded registry of reusable domain diagrams mapped across all 21 lessons, while preserving the existing three-stage prose and result-state treatment.
 - Existing interactive diagrams provide a semantic reference for 20 lesson families; implementation will reuse those concepts in static case-specific plates rather than duplicate their interactive behavior.
 - Replaced the generic case-pattern table with a 21-lesson concept registry and implemented 19 static mechanism renderers. The three-stage prose remains shared and outcome-aware.
 - Updated the figure stylesheet for directly labeled queues, depth ladders, risk bands, session blocks, exposure bars, structure levels, zones, footprint cells, profiles, and DOM snapshots; static asset revision bumped for reliable reload.
 - Desktop runtime sampling passes for `risk-r`, `footprint-reading`, `volume-profile`, and `dom-dynamics`: correct diagram-family classes, complete stage stories, and no overflow.
+- User clarified that mobile is not a target; desktop reading quality and semantic fidelity are the release criteria. Existing responsive behavior remains, but no content or typography is compressed to optimize for phones.
+- Pushed implementation commit `feb6794` to `origin/main`, fast-forwarded both `/root/Glearn` and the live `/opt/glearn` checkout, and restarted `glearn.service`.
+- Server-local release verification passes: service active/enabled under user `glearn`, both checkouts at `feb6794`, `http://127.0.0.1:4173/` returns HTTP 200, and the served bundle contains the `concept-diagrams-2` revision plus the new mechanism renderer and styles.
 - Visual QA passes for the Footprint family. Batched captures of the remaining families did not reach the casebook after late layout expansion, so focused delayed captures remain pending.
 - Visual QA passes for the DOM-event family. Risk-route scrolling remains under diagnosis; no repeated fixed-delay retry will be used.
 - Visual QA now passes for the risk/expectancy family after inspecting live geometry and capturing the settled viewport.

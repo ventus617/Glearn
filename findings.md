@@ -405,6 +405,8 @@
 - Those renderers now derive their mechanism variant from the case title/setup as well as the outcome class. Outcome classification also recognizes overfitting, false alarms, anchor bias, and coordinate invalidation, preventing misleading “条件成立” labels on those counterexamples.
 - Fresh `concept-diagrams-2` browser verification confirms the corrected branches: auction depth shows either `80 手 → 扫过三档` or `2,500 手 → 只下移一档`; liquidity distinguishes Sweep, Acceptance, and unresolved conflict; profiles distinguish genuine migration, transient POC, conflicting distributions, and rotation; anchor-bias/nesting counterexamples now show failed states.
 - Final desktop/mobile route sweep on the cache-busted bundle again passes all 21 lessons and 57 figures. Desktop stacks the prose for 42 narrow micro-case figures while wide textbook figures remain three-column; mobile stacks all 57. Both widths report zero missing stages, zero out-of-bounds SVG text, zero generic paths, and zero overflowing routes.
+- The release is now explicitly desktop-first per the user's clarification. Responsive rules are retained only as harmless fallback; future case-diagram decisions should optimize desktop legibility, direct labels, and explanatory density rather than phone compaction.
+- Deployment at `43.160.244.246` is verified from the server itself: both repositories are on `feb6794`, `glearn.service` is active/enabled as the non-root `glearn` user, and the loopback page returns HTTP 200 with the cache-busted mechanism-diagram assets.
 
 ### 2026-09-01 case screenshot — missing temporal reading order
 
