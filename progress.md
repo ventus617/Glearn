@@ -527,13 +527,15 @@
 
 ### 2026-09-01 — Glossary reading typography
 
-- **Status:** implementation verified; deployment pending.
+- **Status:** complete and deployed.
 - Increased normal glossary definitions and expanded explanations from 14px to 17px; beginner mode now uses 20px for the lead definition and 19px for expanded explanations.
 - Raised expanded field labels from 8px to 10.5px normally and 11px in beginner mode; summary headings now render at 13.5px normally and 14.5px in beginner mode.
 - Raised search input copy to 17px and result-count copy from 9px to 11px, while widening the text column and increasing reading line height.
 - Added the glossary's own `beginner-reading` class binding and versioned the static asset URLs so a refreshed page cannot retain the prior module bundle.
 - Automated verification: `npm run check` pass; `npm test` 3/3 pass; `git diff --check` pass.
 - Browser verification: 1440×900 and 390×844 both render the expanded `Dealing Range` explanation at the intended sizes, with no document-level horizontal overflow.
+- GitHub implementation revision `4b3c6b8` was fast-forwarded into both `/root/Glearn` and `/opt/glearn` on `43.160.244.246`; `glearn.service` was restarted and remains enabled and active under the non-root `glearn` account.
+- Server-local deployment verification: HTTP 200 on `127.0.0.1:4173`, 21 lessons, 62 glossary entries, 62 detailed explanations, 6 interactive cases, and 5 textbook chapters.
 
 ### 2026-09-01 — Detailed concepts and focused reading
 

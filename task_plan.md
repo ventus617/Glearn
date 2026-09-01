@@ -340,8 +340,8 @@ Phase 45 — in progress (glossary reading typography)
 - [x] Increase definition, expanded-detail, label, link, and result-count sizes with a clear hierarchy
 - [x] Give beginner mode an additional readable type step instead of reusing the compact glossary scale
 - [x] Verify desktop and 390px mobile layouts without horizontal overflow
-- [ ] Push the revision and update the running service on `43.160.244.246`
-- **Status:** in_progress
+- [x] Push the revision and update the running service on `43.160.244.246`
+- **Status:** complete
 
 ## Key Questions
 
