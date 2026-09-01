@@ -391,6 +391,7 @@
 - The wide textbook failed case preserves the three-column comparison at an 828px figure width, uses the same three graph nodes, and labels its terminal state `原判断失效`. This confirms the grammar does not imply that every path succeeds.
 - A complete route sweep covers all 21 lessons and 57 generated figures: 171/171 expected graph nodes are present, every figure has exactly three semantic stage rows, and no lesson overflows at either 1378×736 or 390×844.
 - Every mobile figure stacks the stage strip into one column; wide textbook figures retain the faster three-column comparison, while narrow two-up micro-cases stack based on their own container width rather than the browser width.
+- GitHub `main` and both server checkouts reached implementation commit `30404b3`. The restarted `glearn.service` is active and enabled as user `glearn`, listens on `0.0.0.0:4173`, returns HTTP 200 from the server loopback address, and serves the new case-stage asset revision.
 
 ### 2026-09-01 course screenshot at 100% zoom — reading hierarchy diagnosis
 

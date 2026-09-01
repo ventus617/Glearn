@@ -527,7 +527,7 @@
 
 ### 2026-09-01 — Three-stage case diagrams
 
-- **Status:** implementation and local visual QA complete; deployment pending.
+- **Status:** complete.
 - The supplied multi-timeframe screenshot confirms the shared case schematic presents too many encodings at once and lacks a clear reading order.
 - Target interaction model: every case figure must first expose three pedagogical checkpoints—开始条件、关键变化、最后结果—while the candles and full path remain supporting evidence.
 - The shared renderer now adds three numbered plot nodes, three readable Chinese explanations, and an outcome-specific final-state label to both micro-cases and textbook cases.
@@ -536,6 +536,7 @@
 - The first visual pass identified and corrected narrow-card stage compression with a container query; desktop focus mode now stacks stage rows cleanly inside each 448px case card.
 - The representative full-width textbook counterexample also passes: 3 nodes, 3 stage columns, a visible `原判断失效` result, and no overflow.
 - Full route sweep passes on all 21 lessons: 57 figures, 171 numbered graph nodes, 0 figures with missing stage explanations, and 0 overflowing routes at desktop or 390px mobile.
+- Pushed implementation commit `30404b3` to GitHub `main`, fast-forwarded both `/root/Glearn` and `/opt/glearn`, restarted `glearn.service`, and verified active/enabled state, non-root `glearn` ownership, port 4173 listening, loopback HTTP 200, and the new `case-stage-story` asset marker.
 
 ### 2026-09-01 — Course-first reading typography
 
@@ -626,6 +627,7 @@
 | 2026-09-01 | In-page route sweep could not assign the browser sandbox's read-only `location.hash` proxy | 1 | Switched the sweep to top-level tab navigation rather than mutating the page sandbox location |
 | 2026-09-01 | Browser evaluation did not expose `history.replaceState` or native element `.click()` as callable methods | 2 | Stopped trying alternate in-page mutations and resolved lesson ids from the bootstrap payload for explicit tab navigation |
 | 2026-09-01 | Deriving sweep routes from the currently collapsed sidebar returned only the active lesson link | 1 | Use all 21 lesson ids from `/api/bootstrap` instead of treating rendered navigation as the curriculum source of truth |
+| 2026-09-01 | The first remote bootstrap summary used an invalid jq expression that indexed an array as an object | 1 | Re-ran a focused remote verification with correctly parenthesized fields and confirmed 21 lessons plus a valid lesson-depth object |
 
 ## 5-Question Reboot Check
 

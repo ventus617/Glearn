@@ -359,8 +359,8 @@ Phase 45 — in progress (glossary reading typography)
 - [x] Give each node a numbered marker, Chinese action label, and concise observation while keeping the full path as secondary context
 - [x] Apply the system to every course micro-case and textbook case without duplicating renderers
 - [x] Verify representative constructive, conflict, and failed outcomes on desktop and 390px mobile
-- [ ] Push the revision and update the running service on `43.160.244.246`
-- **Status:** in_progress
+- [x] Push the revision and update the running service on `43.160.244.246`
+- **Status:** complete
 
 ## Key Questions
 
