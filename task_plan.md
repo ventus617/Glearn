@@ -6,11 +6,11 @@ Build a polished local web server whose HTML learning interface teaches SMC/ICT 
 
 ## Next Step
 
-Add a desktop-first cross-system association layer to every worked case using one semantic HTML structure and CSS-only layout adaptation, then verify and deploy it.
+No remaining implementation step for this request; the desktop causal-map release is committed, deployed, and verified on the server loopback service.
 
 ## Current Phase
 
-Phase 49 — in progress (desktop cross-system association maps)
+Phase 49 — complete (desktop cross-system association maps)
 
 ## Phases
 
@@ -379,8 +379,8 @@ Phase 49 — in progress (desktop cross-system association maps)
 - [x] Render each chain as semantic HTML shared by every case; use CSS alone for columns, wrapping, and sizing
 - [x] Preserve the concept-specific mechanism diagram as supporting evidence rather than the sole explanation
 - [x] Verify representative SMC, execution, Order Flow, and risk cases at the 1440px desktop baseline
-- [ ] Push the revision and update the running `glearn.service` on `43.160.244.246`
-- **Status:** in_progress
+- [x] Push the revision and update the running `glearn.service` on `43.160.244.246`
+- **Status:** complete
 
 ## Key Questions
 

@@ -424,6 +424,7 @@
 - One referenced improvement is still best expressed inside the Hybrid/Confluence evidence plate rather than only in the HTML chain: the same plate should juxtapose market structure, liquidity/POI, Footprint/Delta, and risk gate as linked panels. Other lessons should retain their focused local mechanism rather than receive irrelevant terminal panels.
 - The revised Hybrid/Confluence plate now contains four linked panels in one figure: HTF structure with a protected point, liquidity sweep/POI, Bid×Ask cells with price-response interpretation, and an Entry/SL/TP risk gate. Valid and conflict examples use different flow numbers, price conclusions, target space, and final actions.
 - Desktop visual QA confirms the combined plate reads as a causal terminal rather than four unrelated cards: arrows connect each panel and a single bottom statement summarizes `STRUCTURE 假设 → FLOW 验证 → RISK 许可`; the conflict case ends in waiting rather than execution.
+- Remote deployment is verified at `43.160.244.246`: both repositories are on `ec63f4a`, `glearn.service` is active/enabled under the non-root `glearn` user, and the server loopback page returns HTTP 200 with the `causal-bridges-3` bundle.
 
 ### 2026-09-01 case screenshot — missing temporal reading order
 

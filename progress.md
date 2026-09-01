@@ -549,6 +549,8 @@
 - `npm run check`, `npm test` (3/3), and `git diff --check` pass after the implementation pass.
 - Added a four-panel integrated evidence plate for the Hybrid and Confluence lessons: structure, liquidity/POI, Footprint/Delta, and Entry/SL/TP risk now coexist in the same linked chart, with valid and conflict variants.
 - Desktop browser QA at 1440×900 confirms the full-width 1160px case dossier, lesson-specific chain content, integrated cross-system plate, zero overflow, and a clean console.
+- Pushed implementation commit `ec63f4a` to GitHub, fast-forwarded both `/root/Glearn` and `/opt/glearn`, and restarted `glearn.service`.
+- Server-local release verification passes: both checkouts are at `ec63f4a`, service active/enabled under `glearn`, HTTP 200 on `127.0.0.1:4173`, and the served assets contain `causal-bridges-3`, the lesson association registry, integrated renderer, and CSS map styles.
 - Visual QA passes for the Footprint family. Batched captures of the remaining families did not reach the casebook after late layout expansion, so focused delayed captures remain pending.
 - Visual QA passes for the DOM-event family. Risk-route scrolling remains under diagnosis; no repeated fixed-delay retry will be used.
 - Visual QA now passes for the risk/expectancy family after inspecting live geometry and capturing the settled viewport.
