@@ -15,6 +15,13 @@
 - Installed the runtime checkout at `/opt/glearn`, created system user/group `glearn` (UID/GID 982), and made only `/opt/glearn/data/runtime` writable by that user.
 - First systemd launch exposed a real environment mismatch: `/usr/local/bin/node` is a symlink into root-only `/root/.hermes`, so the hardened non-root unit correctly refused it with `203/EXEC`. Stopped the restart loop and changed the unit to the system package path `/usr/bin/node`.
 - Firewalld has already accepted permanent TCP port 4173. A whole-host unit verification also surfaced an unrelated pre-existing quote error in `wg-performance.service`; it is outside this deployment and remains unchanged.
+- Installed CentOS AppStream Node.js 22.23.1, updated both remote checkouts to commit `2638421`, and restarted successfully. `glearn.service` is enabled and active as user/group `glearn`, consumes about 14 MB, and listens on `0.0.0.0:4173`.
+- Server-local HTTP checks pass for the page and bootstrap API (21 lessons, 6 dossiers, 28 sources); systemd security reports exposure level `4.3 OK` and confirms the dedicated non-root process.
+- External TCP reaches the public IP but HTTP does not complete, and the host cannot hairpin to its own public IP. Host firewalld and nftables both explicitly accept 4173/tcp, so packet-level inspection is required before declaring public reachability.
+- User clarified that external reachability is not part of the requested completion criterion, so packet capture was stopped and no cloud-network changes were attempted.
+- Verified through the same local `ssh root@43.160.244.246` connection that the host is `VM-0-2-centos`, its interface is `10.3.0.2`, and its outbound public IP is exactly `43.160.244.246`.
+- Final restart check passed after a bounded readiness wait: service remains enabled and active, PID 4150040 runs as `glearn`, `0.0.0.0:4173` is listening, the page returns HTTP 200, and bootstrap returns 21 lessons, 6 dossiers, and 28 sources.
+- Phase 44 is complete.
 
 ## Session: 2026-09-01 — Beginner terminology repair
 

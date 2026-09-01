@@ -236,6 +236,9 @@
 - The systemd unit can retain outbound IPv4/IPv6 access for scheduled source checks while dropping Linux capabilities and restricting persistent writes to the runtime JSON directory.
 - Public deployment does not add account isolation: progress and update state belong to one server instance. This needs to be stated explicitly rather than implied to be per-user.
 - Root's apparent `/usr/local/bin/node` is only a symlink to `/root/.hermes/node/bin/node`. That private runtime is deliberately inaccessible to the hardened `glearn` service; CentOS AppStream offers Node streams 18, 20, 22, and 24, so installing the Node 22 system package is the correct non-root runtime fix.
+- After installing system Node 22.23.1, Glearn is active on `0.0.0.0:4173`, responds on `127.0.0.1:4173`, and is accepted by both firewalld and the underlying nftables rules. A direct request to the public IP establishes a client-side TCP connection but receives no HTTP bytes, while public-IP loopback from the host times out; this points beyond the Node handler and requires packet-boundary or cloud-network verification.
+- Direct verification through the local SSH target shows the host's public egress address is exactly `43.160.244.246`, while `eth0` uses Tencent's private `10.3.0.2/22` address. This confirms the deployment occurred on the requested VM even though its public IP is NAT-mapped rather than assigned directly to the interface.
+- Per the user's clarified scope, external/cloud-path reachability is not a deployment acceptance requirement. The final acceptance boundary is systemd enablement, non-root process state, port listener, server-local HTTP 200, API content counts, and clean Git state after restart.
 
 | Decision | Rationale |
 |----------|-----------|

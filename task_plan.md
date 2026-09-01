@@ -6,11 +6,11 @@ Build a polished local web server whose HTML learning interface teaches SMC/ICT 
 
 ## Next Step
 
-Deploy the current `main` revision to `43.160.244.246:4173` as a restartable, non-root systemd service while preserving the local-only default listener.
+Deployment complete on `43.160.244.246`: preserve the non-root systemd service, the `/opt/glearn` runtime checkout, and the local-only default listener for ordinary development.
 
 ## Current Phase
 
-Phase 44 — in progress (public server deployment)
+Phase 44 — complete (server deployment)
 
 ## Phases
 
@@ -327,11 +327,12 @@ Phase 44 — in progress (public server deployment)
 ### Phase 44: Public server deployment
 
 - [x] Inspect the remote OS, repository state, Node runtime, firewall, service manager, and port 4173
-- [ ] Add an opt-in host binding and a hardened systemd unit without changing the local default
-- [ ] Push the deployment revision to GitHub and update the remote checkout
-- [ ] Install the application under `/opt/glearn` with a dedicated `glearn` system user
-- [ ] Open TCP 4173, start and enable the service, then verify local and external HTTP access
-- **Status:** in_progress
+- [x] Add an opt-in host binding and a hardened systemd unit without changing the local default
+- [x] Push the deployment revision to GitHub and update the remote checkout
+- [x] Install the application under `/opt/glearn` with a dedicated `glearn` system user
+- [x] Open TCP 4173, start and enable the service, then verify restart and server-local HTTP access
+- [x] Confirm through local SSH that the remote egress address is `43.160.244.246`
+- **Status:** complete
 
 ## Key Questions
 
@@ -376,6 +377,8 @@ Phase 44 — in progress (public server deployment)
 | Browser locator did not provide an `allInnerTexts()` convenience method | 1 | Read the representative term cards individually with `nth(i).innerText()` |
 | The first service launch returned `203/EXEC` for `/usr/local/bin/node` | 1 | The path was a symlink into root-only `/root/.hermes`; stop the restart loop, install the CentOS Node 22 system package, and use `/usr/bin/node` for the non-root service |
 | Whole-host `systemd-analyze verify` reported an unrelated malformed `wg-performance.service` | 1 | Leave the pre-existing unrelated service untouched and validate Glearn through its own status, journal, security report, listener, and HTTP responses |
+| Initial external HTTP checks connected but received no response, while the server's public-IP self-check timed out | 2 | Confirmed the application and host firewall locally; user then removed external reachability from scope, so cloud-path diagnosis was stopped without changing cloud networking |
+| First post-restart check reached `active` before the Node listener was ready | 1 | Use a bounded local HTTP readiness loop, then verify listener, page, API, process identity, and Git revision together |
 
 ## Notes
 
