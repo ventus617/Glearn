@@ -6,11 +6,11 @@ Build a polished local web server whose HTML learning interface teaches SMC/ICT 
 
 ## Next Step
 
-Deployment complete on `43.160.244.246`: preserve the non-root systemd service, the `/opt/glearn` runtime checkout, and the local-only default listener for ordinary development.
+Increase glossary reading typography across desktop and mobile, then deploy the verified stylesheet revision to the existing `glearn.service`.
 
 ## Current Phase
 
-Phase 44 — complete (server deployment)
+Phase 45 — in progress (glossary reading typography)
 
 ## Phases
 
@@ -334,6 +334,15 @@ Phase 44 — complete (server deployment)
 - [x] Confirm through local SSH that the remote egress address is `43.160.244.246`
 - **Status:** complete
 
+### Phase 45: Glossary reading typography
+
+- [x] Inspect the supplied high-resolution glossary screenshot and current CSS type scale
+- [x] Increase definition, expanded-detail, label, link, and result-count sizes with a clear hierarchy
+- [x] Give beginner mode an additional readable type step instead of reusing the compact glossary scale
+- [x] Verify desktop and 390px mobile layouts without horizontal overflow
+- [ ] Push the revision and update the running service on `43.160.244.246`
+- **Status:** in_progress
+
 ## Key Questions
 
 1. Which supplied pages are accessible and what concepts can be responsibly synthesized from them?
@@ -379,6 +388,8 @@ Phase 44 — complete (server deployment)
 | Whole-host `systemd-analyze verify` reported an unrelated malformed `wg-performance.service` | 1 | Leave the pre-existing unrelated service untouched and validate Glearn through its own status, journal, security report, listener, and HTTP responses |
 | Initial external HTTP checks connected but received no response, while the server's public-IP self-check timed out | 2 | Confirmed the application and host firewall locally; user then removed external reachability from scope, so cloud-path diagnosis was stopped without changing cloud networking |
 | First post-restart check reached `active` before the Node listener was ready | 1 | Use a bounded local HTTP readiness loop, then verify listener, page, API, process identity, and Git revision together |
+| The first glossary-mode class patch matched the homepage's identical `page-shell` line | 1 | Browser QA exposed the wrong class placement; retarget the patch with function-level context and verify the rendered glossary container |
+| The already-open browser document reused the previous module bundle after a hash-only navigation | 1 | Add explicit asset revision query strings and load a fresh document before measuring computed typography |
 
 ## Notes
 

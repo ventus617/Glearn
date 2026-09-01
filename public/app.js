@@ -1750,7 +1750,7 @@ function updateGlossaryResults() {
 function renderGlossary() {
   const terms = glossaryTerms();
   app.innerHTML = html`
-    <div class="page-shell">
+    <div class="page-shell glossary-page ${state.beginnerMode ? 'beginner-reading' : ''}">
       <header class="page-head"><div><p class="eyebrow">FIELD GLOSSARY / ${state.content.glossary.length} ENTRIES</p><h1>术语不是<br>护身符</h1></div><p class="head-copy">不同作者可能用不同名字描述相似事件，也可能用同一个名字指不同规则。先固定定义，再研究图表。</p></header>
       <div class="glossary-tools">
         <label class="search-box"><span class="skip-link">搜索术语</span><input id="term-search" type="search" inputmode="search" value="${escapeHtml(state.glossarySearch)}" placeholder="搜索 BOS、Delta、吸收…" autocomplete="off" spellcheck="false" aria-controls="glossary-list" aria-describedby="glossary-result-count"></label>

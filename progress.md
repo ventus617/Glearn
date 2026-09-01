@@ -1,5 +1,11 @@
 # Progress Log
 
+## Session: 2026-09-01 — Glossary readability after deployment
+
+- Inspected the user's 2770×1390 screenshot of the expanded `Dealing Range` glossary entry.
+- Confirmed the readability issue: glossary definitions and expanded detail bodies are fixed at 14px, detail labels at 8px, summary metadata and result count at 9px, and beginner mode has no glossary-specific type increase.
+- Chosen scope: preserve the editorial layout and enlarge the reading hierarchy rather than changing content or adding another UI control; deploy the verified CSS change to the existing server afterward.
+
 ## Session: 2026-09-01 — Deployment to 43.160.244.246:4173
 
 - Confirmed SSH access as root and performed read-only discovery before changing server state.
@@ -518,6 +524,16 @@
   - `test/source-checker.test.js`
 
 ## Test Results
+
+### 2026-09-01 — Glossary reading typography
+
+- **Status:** implementation verified; deployment pending.
+- Increased normal glossary definitions and expanded explanations from 14px to 17px; beginner mode now uses 20px for the lead definition and 19px for expanded explanations.
+- Raised expanded field labels from 8px to 10.5px normally and 11px in beginner mode; summary headings now render at 13.5px normally and 14.5px in beginner mode.
+- Raised search input copy to 17px and result-count copy from 9px to 11px, while widening the text column and increasing reading line height.
+- Added the glossary's own `beginner-reading` class binding and versioned the static asset URLs so a refreshed page cannot retain the prior module bundle.
+- Automated verification: `npm run check` pass; `npm test` 3/3 pass; `git diff --check` pass.
+- Browser verification: 1440×900 and 390×844 both render the expanded `Dealing Range` explanation at the intended sizes, with no document-level horizontal overflow.
 
 ### 2026-09-01 — Detailed concepts and focused reading
 

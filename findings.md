@@ -373,6 +373,17 @@
 
 ## Visual/Browser Findings
 
+### 2026-09-01 glossary screenshot — typography diagnosis
+
+- On the supplied 2770×1390 desktop screenshot, the `Dealing Range` title is readable, but the material users must actually study is visually subordinate: base and expanded paragraphs are 14px, expanded field labels are 8px, and the result count and summary metadata are 9px.
+- The open five-part detail card occupies a large physical area while retaining compact dashboard typography. This creates unused space around sentences instead of comfortable reading scale.
+- Beginner mode is visibly enabled in the screenshot, but current CSS has no `.beginner-reading` rules for glossary definitions or detail panels, so it does not improve the page that needs it.
+- The appropriate repair is a bounded type-scale change: raise normal glossary body copy to about 17px, beginner copy to about 19–20px, labels to at least 10–11px, and increase line height/padding while preserving the existing two-column information architecture.
+- Desktop browser measurement confirms the repaired beginner scale: 20px lead definition, 19px detail body, 14.5px detail heading, 11–11.5px metadata, 17px search input, and no horizontal overflow at 1440×900.
+- Mobile browser measurement preserves the same 20px/19px reading scale at 390×844. The detail grid stacks into one column and the document remains within its 375px content width without horizontal scrolling.
+- Applying beginner mode to the glossary required a route-specific container class. The initial broad `page-shell` edit landed on the homepage because both renderers shared identical markup; browser-computed styles caught this before delivery.
+- Static asset revision parameters are justified even on this local-first server: an already-open document reused the previous ES-module URL after hash navigation, while a revised asset URL loaded the correct glossary container and mode-scoped typography immediately.
+
 ### 2026-09-01 screenshot diagnosis — terminology comprehension
 
 - The screenshot is the two-card mechanism overview for `candle-language`; its typography and hierarchy are visually strong, but the copy is written as a recap for someone who already knows candle terminology.
