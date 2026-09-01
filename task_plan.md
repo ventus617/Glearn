@@ -352,6 +352,16 @@ Phase 45 — in progress (glossary reading typography)
 - [x] Push the revision and update the running service on `43.160.244.246`
 - **Status:** complete
 
+### Phase 47: Three-stage case diagrams
+
+- [x] Inspect the supplied multi-timeframe case screenshot and identify why the candle schematic is not self-explanatory
+- [x] Redesign the shared case-figure generator around three explicit nodes: 开始、关键变化、最后结果
+- [x] Give each node a numbered marker, Chinese action label, and concise observation while keeping the full path as secondary context
+- [x] Apply the system to every course micro-case and textbook case without duplicating renderers
+- [x] Verify representative constructive, conflict, and failed outcomes on desktop and 390px mobile
+- [ ] Push the revision and update the running service on `43.160.244.246`
+- **Status:** in_progress
+
 ## Key Questions
 
 1. Which supplied pages are accessible and what concepts can be responsibly synthesized from them?

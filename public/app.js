@@ -531,9 +531,30 @@ function caseVisualOutcome(caseItem, index, scope) {
   return 'valid';
 }
 
-function shortCaseLabel(value, max = 13) {
-  const text = String(value || '').replace(/[，。；：,.]/g, ' ').trim();
-  return text.length > max ? `${text.slice(0, max)}…` : text;
+function caseStageStory(caseItem, outcome) {
+  const compact = (value, max = 38) => {
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    return text.length > max ? `${text.slice(0, max)}…` : text;
+  };
+  const resultState = outcome === 'valid' ? '条件成立' : outcome === 'failed' ? '原判断失效' : '等待，不交易';
+  return [
+    {
+      number: '01',
+      title: '开始条件',
+      text: compact(caseItem.setup || caseItem.background || caseItem.facts?.[0] || caseItem.title)
+    },
+    {
+      number: '02',
+      title: '关键变化',
+      text: compact(caseItem.facts?.[1] || caseItem.reasoning?.[0] || caseItem.facts?.[0] || caseItem.invalidation)
+    },
+    {
+      number: '03',
+      title: '最后结果',
+      state: resultState,
+      text: compact(caseItem.decision || caseItem.review || caseItem.takeaway || caseItem.reasoning?.at(-1))
+    }
+  ];
 }
 
 function renderCaseFigure(lessonId, caseItem, index, scope = 'micro') {
@@ -567,32 +588,55 @@ function renderCaseFigure(lessonId, caseItem, index, scope = 'micro') {
     const y = delta >= 0 ? 270 - height : 270;
     return `<rect x="${xAt(itemIndex) - 6}" y="${y.toFixed(1)}" width="12" height="${height.toFixed(1)}" fill="${delta >= 0 ? '#d5f43c' : '#e04b32'}"></rect>`;
   }).join('');
-  const firstLabel = shortCaseLabel(caseItem.facts?.[0] || caseItem.setup || caseItem.background);
-  const secondLabel = shortCaseLabel(caseItem.reasoning?.at(-1) || caseItem.decision);
+  const stages = caseStageStory(caseItem, outcome);
+  const stageIndexes = [1, 6, 11];
+  const stageNodes = stages.map((stage, stageIndex) => {
+    const valueIndex = stageIndexes[stageIndex];
+    const x = xAt(valueIndex);
+    const y = yAt(values[valueIndex]);
+    return `<g class="case-stage-node stage-${stageIndex + 1}">
+      <line x1="${x}" y1="57" x2="${x}" y2="${Math.max(62, y - 16).toFixed(1)}"></line>
+      <circle cx="${x}" cy="${y.toFixed(1)}" r="15"></circle>
+      <text class="case-stage-number" x="${x}" y="${(y + 3).toFixed(1)}" text-anchor="middle">${stage.number}</text>
+    </g>`;
+  }).join('');
   const title = `${caseItem.title}：${profile.family} 教学结构示意`;
-  const caption = `图解目的：把“${caseItem.title}”的观察区、关键事件与结果顺序对应到一张图。`;
+  const caption = `图解目的：按“开始—变化—结果”读懂“${caseItem.title}”，价格路径只作为三阶段故事的辅助证据。`;
   return html`
     <figure class="case-instance-figure visual-${outcome}">
       <svg viewBox="0 0 720 300" role="img" aria-label="${escapeHtml(title)}">
         <title>${escapeHtml(title)}；结构示意，不是历史行情。</title>
+        <desc>${stages.map((stage) => `${stage.number} ${stage.title}：${stage.text}`).join('；')}</desc>
         <rect class="case-plot-bg" x="0" y="0" width="720" height="300"></rect>
+        <g class="case-stage-zones">
+          <rect x="36" y="38" width="224" height="180"></rect>
+          <rect x="260" y="38" width="224" height="180"></rect>
+          <rect x="484" y="38" width="200" height="180"></rect>
+        </g>
         <g class="case-plot-grid">
           <line x1="36" y1="62" x2="684" y2="62"></line><line x1="36" y1="108" x2="684" y2="108"></line><line x1="36" y1="154" x2="684" y2="154"></line><line x1="36" y1="200" x2="684" y2="200"></line>
-          <line x1="148" y1="34" x2="148" y2="218"></line><line x1="316" y1="34" x2="316" y2="218"></line><line x1="484" y1="34" x2="484" y2="218"></line><line x1="652" y1="34" x2="652" y2="218"></line>
+          <line x1="260" y1="38" x2="260" y2="218"></line><line x1="484" y1="38" x2="484" y2="218"></line>
         </g>
         <text class="case-plot-kicker" x="36" y="25">${escapeHtml(profile.family)}</text>
         <text class="case-plot-state" x="684" y="25" text-anchor="end">${outcome === 'valid' ? 'CONSTRUCTIVE' : outcome === 'failed' ? 'FAILED / COUNTER' : 'CONFLICT / WAIT'}</text>
+        <g class="case-stage-headings">
+          <text x="104" y="53" text-anchor="middle">01 · 开始</text>
+          <text x="384" y="53" text-anchor="middle">02 · 关键变化</text>
+          <text x="664" y="53" text-anchor="end">03 · 最后</text>
+        </g>
         <rect class="case-decision-band" x="36" y="102" width="648" height="44"></rect>
         <text class="case-band-label" x="48" y="119">${escapeHtml(profile.band)}</text>
         <line class="case-structure-line" x1="36" y1="124" x2="684" y2="124"></line>
         <g class="case-candles">${candles}</g>
         <polyline class="case-path-line" points="${points}" style="stroke:${accent}"></polyline>
-        <g class="case-event event-a"><circle cx="${xAt(3)}" cy="${yAt(values[3]).toFixed(1)}" r="6"></circle><line x1="${xAt(3)}" y1="${yAt(values[3]).toFixed(1)}" x2="${xAt(3)}" y2="45"></line><text x="${xAt(3) + 8}" y="45">${escapeHtml(firstLabel)}</text></g>
-        <g class="case-event event-b"><circle cx="${xAt(8)}" cy="${yAt(values[8]).toFixed(1)}" r="6"></circle><line x1="${xAt(8)}" y1="${yAt(values[8]).toFixed(1)}" x2="${xAt(8)}" y2="207"></line><text x="${xAt(8) + 8}" y="207">${escapeHtml(secondLabel)}</text></g>
+        <g class="case-stage-nodes">${stageNodes}</g>
         <line class="case-flow-baseline" x1="36" y1="270" x2="684" y2="270"></line>
         <text class="case-flow-label" x="36" y="292">${escapeHtml(profile.evidence)}</text>
         <g class="case-flow-bars">${flowBars}</g>
       </svg>
+      <ol class="case-stage-story" aria-label="案例三阶段阅读">
+        ${stages.map((stage, stageIndex) => `<li class="${stageIndex === 2 ? 'stage-result' : ''}"><small>${stage.number}</small><div><b>${stage.title}</b>${stage.state ? `<em>${escapeHtml(stage.state)}</em>` : ''}<p>${escapeHtml(stage.text)}</p></div></li>`).join('')}
+      </ol>
       <figcaption><b>${scope === 'textbook' ? 'CASE PLATE' : 'INSTANCE MAP'} · ${escapeHtml(profile.family)}</b><span>${escapeHtml(caption)}</span><small>能说明：本案例的路径、区域与证据先后。不能说明：真实市场曾出现、参与者身份或未来收益。</small></figcaption>
     </figure>`;
 }

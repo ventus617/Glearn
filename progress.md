@@ -525,6 +525,18 @@
 
 ## Test Results
 
+### 2026-09-01 — Three-stage case diagrams
+
+- **Status:** implementation and local visual QA complete; deployment pending.
+- The supplied multi-timeframe screenshot confirms the shared case schematic presents too many encodings at once and lacks a clear reading order.
+- Target interaction model: every case figure must first expose three pedagogical checkpoints—开始条件、关键变化、最后结果—while the candles and full path remain supporting evidence.
+- The shared renderer now adds three numbered plot nodes, three readable Chinese explanations, and an outcome-specific final-state label to both micro-cases and textbook cases.
+- Static validation passes: JavaScript syntax checks, all 3 existing tests, and whitespace validation.
+- Representative constructive and conflict micro-cases pass at 1378×736 and 390×844: three nodes, three stage rows, correct final-state labels, and zero horizontal overflow.
+- The first visual pass identified and corrected narrow-card stage compression with a container query; desktop focus mode now stacks stage rows cleanly inside each 448px case card.
+- The representative full-width textbook counterexample also passes: 3 nodes, 3 stage columns, a visible `原判断失效` result, and no overflow.
+- Full route sweep passes on all 21 lessons: 57 figures, 171 numbered graph nodes, 0 figures with missing stage explanations, and 0 overflowing routes at desktop or 390px mobile.
+
 ### 2026-09-01 — Course-first reading typography
 
 - **Status:** in progress.
@@ -608,6 +620,12 @@
 | 2026-09-01 | The first multi-file planning patch assumed the findings title was `# Findings` | 1 | Read the actual `# Findings & Decisions` heading and reapplied the plan, progress, and findings additions against exact context |
 | 2026-09-01 | The previously claimed in-app browser tab binding had expired before deep-course QA | 1 | Kept the existing browser binding, discarded only the stale tab, and reclaimed the current local tab from the browser's open-tab list |
 | 2026-09-01 | Hash navigation reused the already loaded frontend bundle, so the new homepage `42+6` case statistic initially still showed `6` | 1 | Explicitly reload the local document after the JavaScript edit, then recheck the rendered homepage statistic |
+| 2026-09-01 | The saved browser tab binding had expired before three-stage case QA | 1 | Opened a fresh local browser tab while preserving the existing browser session |
+| 2026-09-01 | A first attempt assigned the fresh tab to an undeclared persistent REPL binding | 1 | Declared `caseStageTab` with `let`, then reused that binding for the remaining checks |
+| 2026-09-01 | The first 1378px screenshot showed three stage columns squeezed inside each 450px micro-case card | 1 | Added a figure-level container query so narrow case figures stack their three stages even on a wide viewport |
+| 2026-09-01 | In-page route sweep could not assign the browser sandbox's read-only `location.hash` proxy | 1 | Switched the sweep to top-level tab navigation rather than mutating the page sandbox location |
+| 2026-09-01 | Browser evaluation did not expose `history.replaceState` or native element `.click()` as callable methods | 2 | Stopped trying alternate in-page mutations and resolved lesson ids from the bootstrap payload for explicit tab navigation |
+| 2026-09-01 | Deriving sweep routes from the currently collapsed sidebar returned only the active lesson link | 1 | Use all 21 lesson ids from `/api/bootstrap` instead of treating rendered navigation as the curriculum source of truth |
 
 ## 5-Question Reboot Check
 

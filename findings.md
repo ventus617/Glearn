@@ -373,6 +373,25 @@
 
 ## Visual/Browser Findings
 
+### 2026-09-01 case screenshot — missing temporal reading order
+
+- The two multi-timeframe charts contain a price path, candle bodies, a parent-structure region, event dots, annotations, and lower evidence bars, but none of those elements establishes a beginner-first reading sequence.
+- The learner must reverse-engineer which candle is the setup, which event changed the interpretation, and which final point justifies the conclusion. The existing event dots are visually equivalent and their labels are too small and case-specific to provide a stable method.
+- A reusable three-node grammar is more appropriate than adding more candle detail: `01 开始` states the initial condition, `02 关键变化` identifies the observation that changes or tests the hypothesis, and `03 最后` states what the path actually produced.
+- The full path should remain visible as secondary context, but the three checkpoints need dominant numbered markers, stable placement, and short Chinese observations. This teaches sequence before pattern names and also supports failed/no-trade cases.
+- Because all 42 micro-cases and 15 textbook cases already use one shared instance-figure generator, the repair should happen in that generator and its CSS rather than by editing 57 diagrams individually.
+- Code inspection confirms `renderCaseFigure()` already owns the full 57-figure surface and receives each case's background/setup, facts, reasoning, decision, and review. It currently hard-codes only two equal-looking event dots at path indexes 3 and 8, which explains why no stable beginning or ending checkpoint appears.
+- The most legible repair is two-layered: add three dominant numbered nodes directly on the path at early/middle/final indexes, then add a three-column semantic stage strip beneath the plot with `开始条件`, `关键变化`, and `最后结果`. The dense candle and flow marks can be reduced in contrast because they become supporting evidence rather than the reading spine.
+- One shared `caseStageStory()` pipeline now derives those three explanations from every case's existing setup, facts, and decision; no per-case diagram markup was duplicated.
+- The SVG now carries three large numbered path markers and subtle phase zones. Candle bodies and lower evidence bars have reduced contrast so the path checkpoints become the primary visual reading spine.
+- The semantic stage strip labels the final state as `条件成立`, `原判断失效`, or `等待，不交易`, making constructive, failed, and conflict cases use the same beginner-readable grammar.
+- The first desktop screenshot exposed a layout constraint that viewport media queries cannot see: focus mode leaves each two-column micro-case at about 450px wide, so a fixed three-column strip produced nearly vertical Chinese text. The stage strip therefore needs a container query and must stack whenever the individual figure is narrower than 720px, regardless of the window width.
+- After the container-query correction, each 448px desktop micro-case uses three full-width stage rows. The labels, sentence measures, and outcome pills are readable while the two cases remain comparable side by side.
+- At 390×844 the figure and all stage rows occupy 388px, retain exactly three graph nodes and three explanations per case, and introduce no horizontal overflow. The screenshot makes the intended hierarchy clear: numbered story first, small candle path second.
+- The wide textbook failed case preserves the three-column comparison at an 828px figure width, uses the same three graph nodes, and labels its terminal state `原判断失效`. This confirms the grammar does not imply that every path succeeds.
+- A complete route sweep covers all 21 lessons and 57 generated figures: 171/171 expected graph nodes are present, every figure has exactly three semantic stage rows, and no lesson overflows at either 1378×736 or 390×844.
+- Every mobile figure stacks the stage strip into one column; wide textbook figures retain the faster three-column comparison, while narrow two-up micro-cases stack based on their own container width rather than the browser width.
+
 ### 2026-09-01 course screenshot at 100% zoom — reading hierarchy diagnosis
 
 - The 2756×1472 screenshot shows browser zoom explicitly set to 100%, so the perceived smallness is not caused by accidental browser zoom.
