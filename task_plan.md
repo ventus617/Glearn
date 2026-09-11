@@ -6,11 +6,11 @@ Build a polished local web server whose HTML learning interface teaches SMC/ICT 
 
 ## Next Step
 
-No remaining implementation step for this request; the desktop causal-map release is committed, deployed, and verified on the server loopback service.
+Hypothesis verification complete at the conceptual and limited historical-example level. No claim of statistical A-share trading edge; any next implementation/backtest needs frozen timeframe, volume baselines, event segmentation and execution rules. Website and screener were not changed for this verification request.
 
 ## Current Phase
 
-Phase 49 — complete (desktop cross-system association maps)
+Phase 51 — complete (read-only conceptual and counterexample verification; not a full-market backtest)
 
 ## Phases
 
@@ -380,6 +380,25 @@ Phase 49 — complete (desktop cross-system association maps)
 - [x] Preserve the concept-specific mechanism diagram as supporting evidence rather than the sole explanation
 - [x] Verify representative SMC, execution, Order Flow, and risk cases at the 1440px desktop baseline
 - [x] Push the revision and update the running `glearn.service` on `43.160.244.246`
+- **Status:** complete
+
+### Phase 50: A-share curriculum and verifiable cases
+
+- [x] Verify current A-share rules, flow-data definitions, and candidate playbook formulas
+- [x] Edit repeated explanations while retaining distinct theory, examples, and limitations
+- [x] Acquire real historical OHLCV with source, units, dates, and independent checks
+- [x] Add A-share learning pages, timed playbooks, and a real-candle replay with analysis
+- [x] Remove misleading generic case graphics and repeated case headers; link relevant history
+- [x] Validate data arithmetic, desktop charts, source links, and existing content contracts
+- [x] Keep this delivery local; no new GitHub publication or remote deployment requested in the current turn
+- **Status:** complete
+
+### Phase 51: Verify volume-pullback-breakout hypothesis
+
+- [x] Establish read-only scope and define the hypothesis versus necessary/sufficient claims
+- [x] Check primary technical-analysis teaching sources
+- [x] Audit one or two real daily examples with explicit volume comparators
+- [x] Explain causal limits, time-window definitions, and a fair statistical validation design
 - **Status:** complete
 
 ## Key Questions

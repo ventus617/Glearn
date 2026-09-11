@@ -129,6 +129,15 @@ async function handleApi(request, response, url) {
     return sendJson(response, 200, await bootstrap());
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/ashare') {
+    const [curriculum, history] = await Promise.all([
+      readJson(path.join(dataDir, 'ashare-curriculum.json'), null),
+      readJson(path.join(dataDir, 'market/ashare-history.json'), null)
+    ]);
+    if (!curriculum || !history) throw new HttpError(503, 'A 股教材数据尚未就绪');
+    return sendJson(response, 200, { curriculum, history });
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/progress') {
     const body = await readBody(request);
     const progress = await readJson(paths.progress, { completedLessons: [], quizResults: {}, updatedAt: null });

@@ -1,5 +1,25 @@
 # Findings & Decisions
 
+## 2026-09-08 Volume-pullback-breakout hypothesis verification
+
+- Request is verification, not implementation. No app, curriculum, or trading rule changes authorized in this turn.
+- Fidelity stock-volume education describes contraction during flags/pennants and expansion at breakout as a pattern convention, not a universal A-share law: https://www.fidelity.com/viewpoints/active-investor/stock-volume . Schwab's own hypothetical bull-flag lesson similarly pairs high-volume advance, lower-volume consolidation and renewed volume, explicitly allowing pattern failure: https://www.schwab.com/learn/story/swing-trading-strategies .
+- Must distinguish the user's policy (I only consider this setup) from an empirical necessary condition (all rallies require it) and a sufficient condition (setup guarantees gains). Also distinguish setup-recognition probability from post-entry profitability.
+- Baseline must be explicit: previous bar, mean advance-leg volume, or same-clock historical normalized rate. Minute windows need seasonality adjustment and no future-labelled pullback lows.
+- Read-only counterexample audit: Ping An 601318 July 2024 daily bars. Jul 15 H42.98/C42.53/V35,484,792 shares; Jul16 C41.19/V93,998,504 (2.649x previous day; 2.387x prior five-session mean). Jul19 C43.03, only 0.116% above prior high, followed by Jul23 C42.79. Refutes only impossibility of retaking a high after expanded-volume decline, NOT whether the user's strong-continuation strategy should buy it. Never label this marginal breakout a durable/strong uptrend. Tencent July1–25 OHLC19 bars agree with archived Sina, volume rounding ≤47 shares. Window ends before Jul26 dividend.
+- Primary charting descriptions support the existence of the setup, not a verified mainland-China trading edge. A fair comparison needs all pre-specified impulse/pullback candidates, price-strength controls, time-of-day normalization, timeouts, next-executable fills/T+1, costs and a held-out period; a handful of selected examples cannot estimate advantage.
+- Research access errors: resolver script was not executable; used sh to run its read-only resolver. NBER page open returned 403; search abstract exists but no claim of full-paper review. Initial broad combined output was truncated; read remaining skill sections separately to EOF.
+
+## 2026-09-08 A-share expansion
+
+- User clarified primary goal is computable沪深 stock selection. UI therefore leads with universe/time/formulas/invalidations, not capital-identity narratives. The implemented simplified filter is separately labelled from the richer textbook playbooks.
+- Exchange rules have a 2026-07-06 effective revision; historical samples use historical rules. Vendor large-order classifications cannot establish trader identity.
+- Real日K cases use 111 OHLCV bars, with prices checked against two endpoints. These cannot establish 09:35 signals or sample-wide profitability. Corporate actions and T+1 execution matter.
+
+- User requests exchange-specific opening-auction and early-session observation playbooks, less repeated prose inside chapters, and actual historical charts rather than arbitrary paths.
+- Existing per-lesson figure renderers hard-code price paths and outcome-based numbers independently of case text. They cannot support claims of case-specific market evidence; move these out of the default case-reading flow and use verified historical OHLCV with explicit granularity.
+- One main agent owns UI/integration and shared planning. Research, prose editing, and historical-data acquisition run in assigned files in parallel.
+
 ## 2026-09-01 Worked-case diagram audit
 
 - The user quoted `WORKED CASES · 教学模拟`, which is the header rendered by `renderLessonDepth`; it covers exactly 42 micro-cases across all 21 lessons. The five textbook chapters contain 15 additional text-only cases under a separate three-way casebook.

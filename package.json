@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "check": "node --check server.js && node --check lib/storage.js && node --check lib/source-checker.js && node --check public/app.js",
+    "check": "node --check server.js && node --check lib/storage.js && node --check lib/source-checker.js && node --check public/app.js && node --check public/ashare.js && node --check public/selection-model.js",
     "test": "node --test"
   },
   "engines": {

@@ -1,3 +1,5 @@
+import { mountAShare } from './ashare.js?v=20260908-1';
+
 const app = document.querySelector('#app');
 const nav = document.querySelector('.main-nav');
 const menuToggle = document.querySelector('#menu-toggle');
@@ -298,6 +300,7 @@ function route() {
   menuToggle.setAttribute('aria-expanded', 'false');
   if (name === 'course') return renderCourse(findNextLesson()?.id);
   if (name === 'lesson') return renderCourse(id);
+  if (name === 'ashare') return mountAShare(app, id);
   if (name === 'cases') return renderCases();
   if (name === 'case') return renderCaseLab(id);
   if (name === 'glossary') return renderGlossary();
@@ -335,6 +338,7 @@ function renderHome() {
           <div class="hero-actions">
             <a class="primary-button" href="#lesson/${escapeHtml(nextLesson.id)}">${done ? '继续学习' : '开始第一课'} <span>→</span></a>
             <a class="secondary-button" href="#glossary">打开术语地图</a>
+            <a class="secondary-button" href="#ashare">沪深选股：规则与实盘 →</a>
           </div>
         </div>
         <div class="hero-board" aria-label="结构与成交示意图">
@@ -497,8 +501,9 @@ function renderCourse(lessonId) {
           <div class="outcome-strip"><b>学完你可以</b><span>${escapeHtml(lesson.outcome)}</span></div>
           ${state.beginnerMode ? renderBeginnerGuide(lesson) : ''}
           <div class="lesson-body">
+            <aside class="history-course-link"><b>从概念走到真实行情</b><p>新增沪深选股教材与双源核对的历史日 K。观察真实开高低收、成交量与逐日变化；文字算例仍是教学练习，不冒充实盘。</p><a href="#ashare/history">打开真实行情案例 →</a><a href="#ashare/screen">试算 9:35 选股条件 →</a></aside>
             ${renderTextbookChapter(lesson, textbook)}
-            ${renderLessonDepth(lesson, depth)}
+            ${textbook ? `<details class="course-reference"><summary>速查与补充练习 · 已读长篇正文可略过</summary>${renderLessonDepth(lesson, depth)}</details>` : renderLessonDepth(lesson, depth)}
             ${lesson.sections.map((section, index) => renderLessonSection(section, index)).join('')}
             ${renderQuiz(lesson.quiz)}
             <div class="lesson-actions">
@@ -953,34 +958,10 @@ function renderCaseAssociationMap(lessonId, outcome) {
     </section>`;
 }
 
-function renderCaseFigure(lessonId, caseItem, index, scope = 'micro') {
-  const profile = caseVisualProfiles[lessonId] || { family: 'DECISION FLOW', diagram: 'workflow' };
-  const outcome = caseVisualOutcome(caseItem, index, scope);
-  const accent = outcome === 'valid' ? '#d5f43c' : outcome === 'failed' ? '#e04b32' : '#73b9d0';
-  const stages = caseStageStory(caseItem, outcome);
-  const title = `${caseItem.title}：${profile.family} 机制关联图`;
-  const caption = `图解目的：用与“${caseItem.title}”直接相关的${profile.family}机制，连接开始条件、关键变化与最后结果。`;
-  return html`
-    <figure class="case-instance-figure visual-${outcome} diagram-${profile.diagram}" style="--case-accent:${accent}">
-      ${renderCaseAssociationMap(lessonId, outcome)}
-      <div class="case-mechanism-label"><small>02 · CONCEPT EVIDENCE PLATE</small><p>放大本案例最关键的局部机制；它为上面的因果链提供证据，不单独构成交易指令。</p></div>
-      <svg class="case-concept-svg" viewBox="0 0 720 360" role="img" aria-label="${escapeHtml(title)}">
-        <title>${escapeHtml(title)}；教学机制图，不是历史行情。</title>
-        <desc>${stages.map((stage) => `${stage.number} ${stage.title}：${stage.text}`).join('；')}</desc>
-        ${renderCaseConceptSvg(profile, lessonId, caseItem, outcome)}
-      </svg>
-      <ol class="case-stage-story" aria-label="案例三阶段阅读">
-        ${stages.map((stage, stageIndex) => `<li class="${stageIndex === 2 ? 'stage-result' : ''}"><small>${stage.number}</small><div><b>${stage.title}</b>${stage.state ? `<em>${escapeHtml(stage.state)}</em>` : ''}<p>${escapeHtml(stage.text)}</p></div></li>`).join('')}
-      </ol>
-      <figcaption><b>${scope === 'textbook' ? 'CASE PLATE' : 'MECHANISM MAP'} · ${escapeHtml(profile.family)}</b><span>${escapeHtml(caption)}</span><small>能说明：本案例中变量如何关联、证据如何改变判断。不能说明：真实市场曾出现、参与者身份或未来收益。</small></figcaption>
-    </figure>`;
-}
-
 function renderTextbookCase(caseItem, index, lessonId) {
   return html`
     <article class="textbook-case case-${index + 1}">
       <header><span>CASE ${String(index + 1).padStart(2, '0')}</span><b>${escapeHtml(caseItem.type)}</b><h4>${escapeHtml(caseItem.title)}</h4><p>${escapeHtml(caseItem.background)}</p></header>
-      ${renderCaseFigure(lessonId, caseItem, index, 'textbook')}
       <div class="textbook-case-grid">
         <section><small>可观察事实</small><ul>${caseItem.facts.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>
         <section><small>逐步推理</small><ol>${caseItem.reasoning.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol></section>
@@ -1115,7 +1096,6 @@ function renderLessonMicrocase(caseItem, index, lessonId) {
   return html`
     <article class="microcase-card">
       <header><span>CASE ${String(index + 1).padStart(2, '0')}</span><b>${escapeHtml(caseItem.type)}</b><h3>${escapeHtml(caseItem.title)}</h3><p>${escapeHtml(caseItem.setup)}</p></header>
-      ${renderCaseFigure(lessonId, caseItem, index, 'micro')}
       <div class="case-reasoning">
         <section><small>01 · 可观察事实</small><ul>${caseItem.facts.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>
         <section><small>02 · 推理链</small><ol>${caseItem.reasoning.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol></section>
@@ -1779,6 +1759,7 @@ function renderCases() {
         <div><p class="eyebrow">${escapeHtml(meta.englishTitle)} / ${cases.length} DOSSIERS</p><h1>结构<br>案例室</h1></div>
         <div class="cases-head-copy"><p>${escapeHtml(meta.subtitle)}</p><small>${escapeHtml(meta.disclaimer)}</small></div>
       </header>
+      <aside class="history-course-link"><b>真实行情 · 沪深 A 股</b><p>东方财富、中信证券、中国平安：逐日揭示真实 OHLCV，查看来源和原始数值。下方保留的案例是可交互的教学模拟。</p><a href="#ashare/history">进入历史行情回放 →</a></aside>
       <section class="case-method" aria-label="案例分析方法">
         ${meta.method.map((item, index) => {
           const [title, description] = item.split('：');

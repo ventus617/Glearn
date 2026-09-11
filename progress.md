@@ -1,5 +1,21 @@
 # Progress Log
 
+## 2026-09-08 Hypothesis verification (no application changes)
+
+- Checking user's proposed three-stage pattern using primary teaching sources and the already archived real A-share OHLCV. Parallel read-only agent audits counterexamples; main defines observable conditions and validation limits. Website and runtime configuration remain unchanged.
+- Completed a narrow, double-source daily counterexample audit and preserved its limitation: marginal break of prior high after high-volume decline subsequently fell back, so it is neither proof of a good trade nor proof against the user's stricter strategy. No full-market backtest was run.
+
+## 2026-09-08 A-share learning and chart fidelity
+
+- Added five sourced chapters, four timed screening playbooks, and a local 09:35 snapshot filter with editable thresholds, explicit rejection/unknown states, and provenance-preserving export. No live feed or validated predictive claim.
+- Archived and cross-checked 111 real daily OHLCV bars (three symbols, 2024-09-02–10-31) from Tencent/Sina; added daily replay, actual candles/volume, CSV and source links. Ex-dividend caveat retained.
+- Edited 21 overviews/42 mechanics and five long chapters; removed 57 auto-inserted case figures and placed long-chapter quick-reference repetition behind a disclosure.
+- Syntax checks and all six tests pass. Browser at desktop 1440px confirmed 20px prose, no document overflow, real candle readouts and threshold changes (1/6 to 0/6).
+- Full沪深 board option yields 2/6 versus main-board 1/6 in the synthetic fixture; all 19 playbook field headings render in Chinese. Existing liquidity lesson has zero auto case SVGs, a real-history link, and its quick-reference layer collapsed by default. Local server is listening on 127.0.0.1:4173 (PID 21353); remote service and GitHub were not changed.
+- Corrected imported invalid-date normalization (February 30) and distinguished unknown data from ordinary rejection. A too-early browser locator after reload missed the async page; refreshed the DOM before continuing.
+
+- Started current-rule verification, lesson prose editing, and historical OHLCV acquisition in parallel. Main agent owns the desktop reader, historical chart interaction, and local integration; remote deployment is unchanged in this turn.
+
 ## Session: 2026-09-01 — Glossary readability after deployment
 
 - Inspected the user's 2770×1390 screenshot of the expanded `Dealing Range` glossary entry.
